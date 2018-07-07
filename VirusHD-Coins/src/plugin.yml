@@ -1,0 +1,8 @@
+name: VirusHD-Coins
+author: VirusHD
+main: net.virushd.coins.main.CoinsMain
+version: 1.0
+loadbefore: [CoinsAPI]
+commands:
+  coins:
+    description: Hier findest du alles, was mit Coins zu tun hat.

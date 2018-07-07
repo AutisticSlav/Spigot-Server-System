@@ -1,0 +1,4 @@
+name: VirusHD-Title
+author: VirusHD / Jan Holger
+main: net.virushd.title.main.TitleMain
+version: 1.0

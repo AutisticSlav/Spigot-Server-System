@@ -1,0 +1,8 @@
+name: VirusHD-CityBuild
+author: VirusHD
+main: net.virushd.citybuild.main.CityBuildMain
+version: 1.0
+depend: [WorldEdit, WorldGuard]
+commands:
+  citybuild:
+    description: Der Command zum CityBuild Spielmodus.

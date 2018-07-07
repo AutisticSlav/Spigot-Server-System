@@ -1,0 +1,7 @@
+name: VirusHD-Creative
+author: VirusHD
+main: net.virushd.creative.main.CreativeMain
+version: 1.0
+commands:
+  creative:
+    description: Der Command zum Creative Spielmodus.

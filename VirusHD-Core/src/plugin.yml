@@ -1,0 +1,10 @@
+name: VirusHD-Core
+author: VirusHD
+main: net.virushd.core.main.CoreMain
+version: 1.0
+loadbefore: [VirusHD-Coins, VirusHD-Pets, VirusHD-Troll, VirusHD-CityBuild, VirusHD-Creative]
+commands:
+  lobby:
+    description: return to lobby.
+  admin:
+    description: activate the admin mode.

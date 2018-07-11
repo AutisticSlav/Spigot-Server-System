@@ -26,4 +26,5 @@ hs_err_pid*
 .idea/
 .libraries/
 bin/
+out/
 *.iml

@@ -8,7 +8,7 @@ import net.virushd.inventory.main.InventoryAPI;
 
 public class Troll {
 
-	// TODO (Troll) inventar machen (hauptteil dieses plugins)
+	// TODO inventar machen (hauptteil dieses plugins)
 	
 	public static void open(Player p) {
 		Inventory inv = InventoryAPI.createInventory("", InventoryType.CHEST);

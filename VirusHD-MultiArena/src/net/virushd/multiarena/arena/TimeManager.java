@@ -1,9 +1,20 @@
 package net.virushd.multiarena.arena;
 
+import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.main.Utils;
 import net.virushd.multiarena.main.FileManager;
 import net.virushd.multiarena.main.MultiArenaMain;
+import net.virushd.title.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 class TimeManager {
 
@@ -30,10 +41,10 @@ class TimeManager {
 		this.arena = arena;
 		setup();
 	}
-	
+
 	public void start() {
 		if (arena.isComplete()) {
-			LobbyID = schedule(Lobby, 1, LobbyID);
+			LobbyID = schedule(Lobby, 0,5L, LobbyID);
 			StartingCountdown = FileManager.config.getInt("Countdown.Starting");
 			LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
 			RestartingCountdown = FileManager.config.getInt("Countdown.Restarting");
@@ -41,9 +52,22 @@ class TimeManager {
 	}
 
 	private void setup() {
+
+		String LobbyCountdownMessage = FileManager.messages.getString("Countdown.Lobby.Message");
+		String StartingCountdownTitle = FileManager.messages.getString("Countdown.Starting.Title");
+		String StartingCountdownMessage = FileManager.messages.getString("Countdown.Starting.Message");
+		String StartingCountdownFinal = FileManager.messages.getString("Countdown.Starting.Final");
+		String RestartingCountdownMessage = FileManager.messages.getString("Countdown.Restarting.Message");
+
 		Lobby = () -> {
-			if (arena.players.size() >= MinPlayers) {
-				PrestartingID = schedule(Prestarting, 20, PrestartingID);
+			for (Player p : arena.getPlayers()) {
+				if (p.getGameMode() != GameMode.ADVENTURE) {
+					p.setGameMode(GameMode.ADVENTURE);
+				}
+			}
+			arena.setGameState(GameState.LOBBY);
+			if (arena.getPlayers().size() >= MinPlayers) {
+				PrestartingID = schedule(Prestarting, 20L,20L, PrestartingID);
 			} else {
 				unSchedule(PrestartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
@@ -54,47 +78,72 @@ class TimeManager {
 			if (LobbyCountdown == 0) {
 				unSchedule(LobbyID);
 				unSchedule(PrestartingID);
-				StartingID = schedule(Starting, 20, StartingID);
+				TeleportPlayers();
+				StartingID = schedule(Starting, 20L,20L, StartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
 			} else {
-				// noch n sekunden
+				for (Player p : arena.getPlayers()) {
+					p.sendMessage(PlaceHolder.WithPlayer(LobbyCountdownMessage, p).replace("{Time}", "" + LobbyCountdown));
+				}
 				LobbyCountdown--;
 			}
 		};
 
 		Starting = () -> {
+			arena.setGameState(GameState.STARTING);
 			if (StartingCountdown == 0) {
 				unSchedule(StartingID);
-				GameID = schedule(Game, 0, GameID);
+				GameID = schedule(Game, 0, 0, GameID);
 				StartingCountdown = FileManager.config.getInt("Countdown.Starting");
+				for (Player p : arena.getPlayers()) {
+					p.sendMessage(PlaceHolder.WithPlayer(StartingCountdownFinal, p));
+				}
 			} else {
-				// noch n sekunden
+				for (Player p : arena.getPlayers()) {
+					p.sendMessage(PlaceHolder.WithPlayer(StartingCountdownMessage, p).replace("{Time}", "" + StartingCountdown));
+					if (StartingCountdown <= 3) {
+						Title.sendTitle(p, 0,20,0, PlaceHolder.WithPlayer(StartingCountdownTitle, p).replace("{Time}", "" + StartingCountdown), "");
+					}
+				}
 				StartingCountdown--;
 			}
 		};
 
 		Game = () -> {
-			if (arena.players.size() == 0) {
+			arena.setGameState(GameState.GAME);
+			if (arena.getPlayers().size() == 0) {
 				unSchedule(GameID);
-				RestartingID = schedule(Restarting, 20, RestartingID);
+				RestartingID = schedule(Restarting, 0, 20L, RestartingID);
 			}
 		};
 
 		Restarting = () -> {
+			arena.setGameState(GameState.RESTARTING);
 			if (RestartingCountdown == 0) {
 				unSchedule(RestartingID);
 				RestartingCountdown = FileManager.config.getInt("Countdown.Starting");
+				arena.kickPlayers();
 				arena.start();
 			} else {
-				// noch n sekunden
+				for (Player p : arena.getPlayers()) {
+					p.sendMessage(PlaceHolder.WithPlayer(RestartingCountdownMessage, p).replace("{Time}", "" + RestartingCountdown));
+				}
 				RestartingCountdown--;
 			}
 		};
 	}
 
-	private String schedule(Runnable task, long update, String ID) {
+	private void TeleportPlayers() {
+		ArrayList<Location> spawnsLeft = new ArrayList<>(arena.getSpawns());
+		for (Player p : arena.getPlayers()) {
+			Utils.SmoothTeleport(p, spawnsLeft.remove(new Random().nextInt(spawnsLeft.size())));
+			p.setGameMode(GameMode.ADVENTURE);
+		}
+	}
+
+	private String schedule(Runnable task, long start, long update, String ID) {
 		if (ID.equals("")) {
-			return "" + scheduler.scheduleSyncRepeatingTask(MultiArenaMain.main, task, update, 0);
+			return "" + scheduler.scheduleSyncRepeatingTask(MultiArenaMain.main, task, start, update);
 		}
 		return ID;
 	}

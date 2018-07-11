@@ -8,9 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
- * (c) by Jan Holger (https://www.youtube.com/watch?v=OyXsNOhsusQ, https://www.youtube.com/user/janplaysmc)
- *
- * @author Jan Holger
+ * copied from: Jan Holger (https://www.youtube.com/user/janplaysmc)
  */
 public class Title {
 	public static String getVersion() {

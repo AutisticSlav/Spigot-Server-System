@@ -24,7 +24,7 @@ public class Admin {
 		inv.setSlot(0, InventoryAPI.createItem("&cSpawn", Arrays.asList("&7Change the spawn location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.Spawn.Item")), null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
-				SaveUtils.SaveLocationToFile(FileManager.configF, FileManager.config, "Spawns.Lobby", p.getLocation().add(-0.5, 0, -0.5));
+				SaveUtils.SaveLocationToFile(FileManager.configF, FileManager.config, "Spawns.Lobby", p.getLocation());
 			}
 		});
 		
@@ -41,7 +41,7 @@ public class Admin {
 			locations.setSlot(i, InventoryAPI.createItem("&cCityBuild", Arrays.asList("&7Change the CityBuild-location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.CityBuild.Item")), null, 1), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "CityBuild", p.getLocation().add(-0.5, 0, -0.5));
+					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "CityBuild", p.getLocation());
 				}
 			});
 			i++;
@@ -51,7 +51,7 @@ public class Admin {
 			locations.setSlot(i, InventoryAPI.createItem("&cCreative", Arrays.asList("&7Change the Creative-location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.Creative.Item")), null, 1), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "Creative", p.getLocation().add(-0.5, 0, -0.5));
+					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "Creative", p.getLocation());
 				}
 			});
 			i++;

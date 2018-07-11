@@ -1,7 +1,7 @@
 package net.virushd.multiarena.main;
 
+import net.virushd.core.main.Utils;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import net.virushd.core.main.CoreMain;
@@ -23,10 +23,8 @@ public class SetMultiArena {
 		String JoinMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Message"), p);
 
 		if (theArena != null && theArena.isComplete()) {
-			Location Lobby = theArena.getLobby();
-
-			if (!theArena.players.contains(p)) {
-				theArena.players.add(p);
+			if (!theArena.getPlayers().contains(p)) {
+				theArena.addPlayer(p);
 			}
 
 			// debug
@@ -34,7 +32,7 @@ public class SetMultiArena {
 				MultiArenaMain.main.getLogger().info("DEBUG: " + p.getName() + " joined the arena " + theArena.getName());
 			}
 
-			p.teleport(Lobby);
+			Utils.SmoothTeleport(p, theArena.getLobby());
 			p.setGameMode(GameMode.ADVENTURE);
 
 			// Title
@@ -48,7 +46,7 @@ public class SetMultiArena {
 
 			p.sendMessage(MultiArenaMessage);
 
-			for (Player players : theArena.players) {
+			for (Player players : theArena.getPlayers()) {
 				if (!players.equals(p)) {
 					players.sendMessage(JoinMessage);
 				}

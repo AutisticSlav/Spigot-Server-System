@@ -13,13 +13,9 @@ public class Updater {
 	
 	public static void ScoreboardUpdater () {
 		
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, new Runnable() {
-			
-			@Override
-			public void run() {
-				for (Player players : CoreMain.players) {
-					Lobby.SetScoreboard(players);
-				}
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
+			for (Player players : CoreMain.players) {
+				Lobby.SetScoreboard(players);
 			}
 		}, 60L, 60L);
 	}

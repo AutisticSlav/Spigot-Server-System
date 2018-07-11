@@ -6,6 +6,7 @@ import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -79,7 +80,7 @@ public class Utils {
 	}
 	
 	/**
-	 * code copied from: https://bukkit.org/threads/spawn-firework.118019/
+	 * copied from: https://bukkit.org/threads/spawn-firework.118019/
 	 */
 	public static void SpawnFirework (Location location, Color color, Type type, int power) {
 
@@ -122,5 +123,24 @@ public class Utils {
 		double x = (pos2.getX() - pos1.getX());
 		double z = (pos2.getZ() - pos1.getZ());
 		return Math.abs(x * z);
+	}
+
+	public static void SmoothTeleport(Player p, Location l) {
+		p.teleport(LocationToSpawn(l));
+	}
+
+	private static Location LocationToSpawn(Location l) {
+		return new Location(
+			l.getWorld(),
+			(double) ((int) l.getX()) + 0.5,
+			(double) ((int) l.getY()) + 0.3,
+			(double) ((int) l.getZ()) + 0.5,
+			RoundDegreesToQuarter(l.getYaw()),
+			RoundDegreesToQuarter(l.getPitch())
+		);
+	}
+
+	private static int RoundDegreesToQuarter(float d) {
+		return (int) (((float) Math.round(d / 360 * 4)) / 4 * 360);
 	}
 }

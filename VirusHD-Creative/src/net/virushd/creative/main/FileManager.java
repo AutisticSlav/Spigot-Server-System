@@ -58,11 +58,7 @@ public class FileManager {
 											+ "\n&c - &7Bei Fragen sich an den Support wenden."
 											+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
 		messages.options().copyDefaults(true);
-		try {
-			messages.save(messagesF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(messagesF, messages);
 		
 		// config
 		configF = new File("plugins/VirusHD-Creative", "config.yml");
@@ -76,16 +72,12 @@ public class FileManager {
 		config.addDefault("Sign.Lines.3", "&0[&r{GameState}&0]");
 		config.addDefault("Sign.Lines.4", "&c{Players} &7/ &c{MaxPlayers}");
 		config.options().copyDefaults(true);
-		try {
-			config.save(configF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(configF, config);
 		
 		// sco_creative
 		sco_creativeF = new File("plugins/VirusHD-Creative/scoreboards", "creative.yml");
 		sco_creative = new YamlConfiguration().loadConfiguration(sco_creativeF);
-		SaveUtils.DefaultScoreboardToFile(sco_creative, "Creative", "&4VirusHD.net &7- &6Creative", Arrays.asList("", "&cBauideen:", "&7{Ideas}", " ", "&cRang:", "&7{Rank}", "  ", "&cCoins:", "&7{Coins}"));
+		SaveUtils.DefaultScoreboardToFile(sco_creative, "Creative", "&4VirusHD.net &7- &6Creative", Arrays.asList("{Space}", "&cBauideen:", "&7{Ideas}", "{Space}", "&cRang:", "&7{Rank}", "{Space}", "&cCoins:", "&7{Coins}"));
 		sco_creative.addDefault("#the idead: https://minecraftbuildinginc.com/minecraft-building-ideas-100/", "");
 		sco_creative.addDefault("Ideas", Arrays.asList("Zoo", "School", "Farm", "Space Station", "Dump Truck",
 				"Highway", "House", "Police Station", "Theme Park", "College Campus", "Gas Station", "Castle", "Mine",
@@ -104,10 +96,6 @@ public class FileManager {
 				"Cairo Citadel", "Ely Cathedral", "Panama Canal", "Grand Canyon", "CN Tower", "Ryugyong Hotel",
 				"Mario Level", "Helicopter"));
 		sco_creative.options().copyDefaults(true);
-		try {
-			sco_creative.save(sco_creativeF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(sco_creativeF, sco_creative);
 	}
 }

@@ -46,11 +46,7 @@ public class FileManager {
 		messages.addDefault("Messages.NotEnoughCoins", "{LotteryPrefix}Du hast zu wenig Coins.");
 		messages.addDefault("Messages.Wait", "{LotteryPrefix}Du kannst nur alle &c{WaitTime} &7Minuten ein Los kaufen.");
 		messages.options().copyDefaults(true);
-		try {
-			messages.save(messagesF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(messagesF, messages);
 		
 		// inv_lottery
 		inv_lotteryF = new File("plugins/VirusHD-Coins/inventories", "lottery.yml");
@@ -63,10 +59,6 @@ public class FileManager {
 		inv_lottery.addDefault("HighChancePrice", 300);
 		inv_lottery.addDefault("WaitTime", 10);
 		inv_lottery.options().copyDefaults(true);
-		try {
-			inv_lottery.save(inv_lotteryF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(inv_lotteryF, inv_lottery);
 	}
 }

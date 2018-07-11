@@ -79,15 +79,12 @@ public class FileManager {
 		messages.addDefault("PetNames.Zombie", "Zombie");						// 24
 		messages.addDefault("PetNames.ZombieVillager", "Dorfbewohnerzombie");	// 25
 		messages.options().copyDefaults(true);
-		try {
-			messages.save(messagesF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(messagesF, messages);
 		
 		// pets
 		petsF = new File("plugins/VirusHD-Pets", "pets.yml");
 		pets = new YamlConfiguration().loadConfiguration(petsF);
+		SaveUtils.SaveFile(petsF, pets);
 		
 		// inv_pets
 		inv_petsF = new File("plugins/VirusHD-Pets/inventories", "pets.yml");
@@ -99,11 +96,7 @@ public class FileManager {
 		SaveUtils.DefaultItemToFile(inv_pets, "Items.Hide", InventoryAPI.createItem("&cVerstecken", Arrays.asList("&7Verstecke dein Pet."), Material.ENDER_PEARL, null, 1));
 		SaveUtils.DefaultItemToFile(inv_pets, "Items.Show", InventoryAPI.createItem("&cZeigen", Arrays.asList("&7Zeige dein Pet."), Material.ENDER_PEARL, null, 1));
 		inv_pets.options().copyDefaults(true);
-		try {
-			inv_pets.save(inv_petsF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(inv_petsF, inv_pets);
 		
 		// options
 		optionsF = new File("plugins/VirusHD-Pets", "options.yml");
@@ -143,24 +136,11 @@ public class FileManager {
 		options.addDefault("Names.Color.GREEN", "&2Grün");
 		options.addDefault("Names.Color.RED", "&4Rot");
 		options.addDefault("Names.Color.BLACK", "&0Schwarz");
-//		options.addDefault("Names.HorseColor.", ""); // TODO (Pets) HorseColor
-//		options.addDefault("Names.HorseStyle.", ""); // TODO (Pets) HorseStyle
+//		options.addDefault("Names.HorseColor.", ""); // TODO HorseColor
+//		options.addDefault("Names.HorseStyle.", ""); // TODO HorseStyle
 		options.addDefault("True", "&aAn");
 		options.addDefault("False", "&4Aus");
 		options.options().copyDefaults(true);
-		
-		try {
-			options.save(optionsF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void savePetsFile () {
-		try {
-			pets.save(petsF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(optionsF, options);
 	}
 }

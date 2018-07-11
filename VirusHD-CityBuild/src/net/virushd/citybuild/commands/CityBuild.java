@@ -1,5 +1,6 @@
 package net.virushd.citybuild.commands;
 
+import net.virushd.core.main.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -85,17 +86,17 @@ public class CityBuild implements CommandExecutor {
 								if (args[0].equalsIgnoreCase("tp")) {
 									if (args[1].equalsIgnoreCase("farmwelt") || args[1].equalsIgnoreCase("farmworld")) {
 										
-										p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.Farmworld"));
+										Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.Farmworld"));
 										p.setGameMode(GameMode.SURVIVAL);
 										break;
 									} else if (args[1].equalsIgnoreCase("nether")) {
 										
-										p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.Nether"));
+										Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.Nether"));
 										p.setGameMode(GameMode.SURVIVAL);
 										break;
 									} else if (args[1].equalsIgnoreCase("citybuild")) {
 										
-										p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.CityBuild"));
+										Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.CityBuild"));
 										p.setGameMode(GameMode.SURVIVAL);
 										break;
 									} else {

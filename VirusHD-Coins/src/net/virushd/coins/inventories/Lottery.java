@@ -28,10 +28,7 @@ public class Lottery {
 		
 		Inventory inv_lottery = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.CHEST);
 		
-		inv_lottery.setSlot(0, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.Info"), new ItemListener() {
-			@Override
-			public void onItemClick(Player p) {}
-		});
+		inv_lottery.setSlot(0, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.Info"), null);
 		
 		inv_lottery.setSlot(1, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.NormalTicket"), new ItemListener() {
 			@Override

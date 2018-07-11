@@ -1,5 +1,6 @@
 package net.virushd.citybuild.main;
 
+import net.virushd.core.main.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -27,8 +28,8 @@ public class SetCityBuild {
 		if (CoreMain.debug()) {
 			CityBuildMain.main.getLogger().info("DEBUG: " + p.getName() + " joined CityBuild.");
 		}
-		
-		p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.CityBuild"));
+
+		Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.CityBuild"));
 		p.setGameMode(GameMode.SURVIVAL);
 		
 		// Title

@@ -1,5 +1,7 @@
 package net.virushd.pets.commands;
 
+import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.main.SaveUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Effect;
@@ -14,7 +16,6 @@ import CoinsAPI.Coins;
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.Utils;
 import net.virushd.pets.main.FileManager;
-import net.virushd.pets.main.PlaceHolder;
 import net.virushd.pets.pet.Pet;
 import net.virushd.pets.pet.PetManager;
 import net.virushd.pets.pet.PetUtils;
@@ -79,7 +80,7 @@ public class Pets implements CommandExecutor{
 											PetUtils.despawnPet(p, p.getWorld());
 											p.sendMessage(Hide);
 											p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
-											FileManager.savePetsFile();
+											SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 										} else {
 											p.sendMessage(AlreadyHide);
 										}
@@ -90,7 +91,7 @@ public class Pets implements CommandExecutor{
 										PetUtils.despawnPet(p, p.getWorld());
 										p.sendMessage(Hide);
 										p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
-										FileManager.savePetsFile();
+										SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 									}
 								} else {
 									p.sendMessage(NoPet);
@@ -104,7 +105,7 @@ public class Pets implements CommandExecutor{
 											p.sendMessage(Show);
 											p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
 											p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
-											FileManager.savePetsFile();
+											SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 										} else {
 											p.sendMessage(AlreadyShown);
 										}
@@ -114,7 +115,7 @@ public class Pets implements CommandExecutor{
 										p.sendMessage(Show);
 										p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
 										p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
-										FileManager.savePetsFile();
+										SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 									}
 								} else {
 									p.sendMessage(NoPet);
@@ -139,7 +140,7 @@ public class Pets implements CommandExecutor{
 										}
 									}
 									p.sendMessage(Name);
-									FileManager.savePetsFile();
+									SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 								} else {
 									p.sendMessage(NoPet);
 								}

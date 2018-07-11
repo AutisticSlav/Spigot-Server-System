@@ -2,6 +2,10 @@ package net.virushd.core.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import net.virushd.citybuild.main.CityBuildMain;
+import net.virushd.creative.main.CreativeMain;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -69,36 +73,25 @@ public class CoreMain extends JavaPlugin {
 		getLogger().info("Plugin enabled!");
 	}
 
-//	public void onDisable() {
-//		
-//		for (World worlds : Bukkit.getWorlds()) {
-//			for (Entity entitys : worlds.getEntities()) {
-//				if (entitys instanceof Animals) {
-//					entitys.remove();
-//				} else if (entitys instanceof Monster) {
-//					entitys.remove();
-//				} else {
-//
-//				}
-//			}
-//		}
-//	}
+	public void onDisable() {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.kickPlayer("Server Stopped");
+		}
+	}
 
 	public static boolean debug() {
 		return FileManager.config.getBoolean("DebugMode");
 	}
 	
 	public static void setNormal(Player p) {
-		if (mode.containsKey(p)) mode.remove(p);
+		mode.remove(p);
 		SetLobby.setLobby(p);
 	}
 
 	public static void setAdmin(Player p) {
-		if (mode.containsKey(p)) mode.remove(p);
+		mode.remove(p);
 		mode.put(p, Mode.ADMIN);
-		if (CoreMain.players.contains(p)) {
-			CoreMain.players.remove(p);
-		}
+		CoreMain.players.remove(p);
 		p.getInventory().clear();
 		p.setGameMode(GameMode.CREATIVE);
 		Title.sendTabTitle(p, null, null);
@@ -107,11 +100,9 @@ public class CoreMain extends JavaPlugin {
 	}
 
 	public static void setTroll(Player p) {
-		if (mode.containsKey(p)) mode.remove(p);
+		mode.remove(p);
 		mode.put(p, Mode.TROLL);
-		if (CoreMain.players.contains(p)) {
-			CoreMain.players.remove(p);
-		}
+		CoreMain.players.remove(p);
 		p.getInventory().clear();
 		p.setGameMode(GameMode.CREATIVE);
 		Title.sendTabTitle(p, null, null);
@@ -120,20 +111,19 @@ public class CoreMain extends JavaPlugin {
 	}
 
 	public static boolean isNormal(Player p) {
-		if (!mode.containsKey(p)) return true;
-		return false;
+		return !mode.containsKey(p);
 	}
 
 	public static boolean isAdmin(Player p) {
 		if (mode.containsKey(p)) {
-			if (mode.get(p).equals(Mode.ADMIN)) return true;
+			return mode.get(p).equals(Mode.ADMIN);
 		}
 		return false;
 	}
 
 	public static boolean isTroll(Player p) {
 		if (mode.containsKey(p)) {
-			if (mode.get(p).equals(Mode.TROLL)) return true;
+			return mode.get(p).equals(Mode.TROLL);
 		}
 		return false;
 	}

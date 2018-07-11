@@ -1,5 +1,6 @@
 package net.virushd.pets.main;
 
+import net.virushd.core.main.SaveUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,7 +25,7 @@ public class PetsMain extends JavaPlugin{
 		
 		//files
 		FileManager.Manager();
-		FileManager.savePetsFile();
+		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 		
 		//Pets
 		PetManager.registerPets();

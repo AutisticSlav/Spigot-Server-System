@@ -13,6 +13,8 @@ import net.virushd.core.main.PlaceHolder;
 import net.virushd.core.main.SetLobby;
 import net.virushd.creative.main.CreativeMain;
 
+import java.util.Set;
+
 public class Lobby implements CommandExecutor {
 
 	@Override
@@ -63,34 +65,33 @@ public class Lobby implements CommandExecutor {
 							}
 						} else {
 							SetLobby.setLobby(p);
-							
 							if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
 								if (CityBuildMain.players.contains(p)) {
 									CityBuildMain.players.remove(p);
-									
+
 									String QuitMessage = PlaceHolder.WithPlayer(net.virushd.citybuild.main.FileManager.messages.getString("Quit.Message"), p);
-									
+
 									for (Player players : CityBuildMain.players) {
 										players.sendMessage(QuitMessage);
 									}
-									
+
 									// debug
 									if (CoreMain.debug()) {
 										CityBuildMain.main.getLogger().info("DEBUG: " + p.getName() + " left CityBuild.");
 									}
 								}
 							}
-							
+
 							if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
 								if (CreativeMain.players.contains(p)) {
 									CreativeMain.players.remove(p);
-									
+
 									String QuitMessage = PlaceHolder.WithPlayer(net.virushd.creative.main.FileManager.messages.getString("Quit.Message"), p);
-									
+
 									for (Player players : CreativeMain.players) {
 										players.sendMessage(QuitMessage);
 									}
-									
+
 									// debug
 									if (CoreMain.debug()) {
 										CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left Creative.");

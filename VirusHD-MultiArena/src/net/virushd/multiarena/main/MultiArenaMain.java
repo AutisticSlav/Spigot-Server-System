@@ -1,12 +1,12 @@
 package net.virushd.multiarena.main;
 
 import net.virushd.multiarena.arena.Arena;
+import net.virushd.multiarena.events.*;
 import org.bukkit.block.Sign;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.virushd.multiarena.arena.ArenaManager;
 import net.virushd.multiarena.commands.MultiArena;
-import net.virushd.multiarena.events.SignEvent;
 
 import net.virushd.core.main.PlaceHolder;
 
@@ -18,25 +18,32 @@ public class MultiArenaMain extends JavaPlugin {
 		
 		// instance
 		main = this;
-		
+
+		// files
+		FileManager.Manager();
+
 		// load arenas
 		ArenaManager.loadArenas();
 		for(Arena arena : ArenaManager.getCompletedArenas()) {
 			arena.start();
 		}
 		
-		// files
-		FileManager.Manager();
-		
 		// commands
-		getCommand("mutliarena").setExecutor(new MultiArena());
+		getCommand("multiarena").setExecutor(new MultiArena());
 
 		// events
 		getServer().getPluginManager().registerEvents(new SignEvent(), this);
+		getServer().getPluginManager().registerEvents(new ChatEvent(), this);
+		getServer().getPluginManager().registerEvents(new CommandEvent(), this);
+		getServer().getPluginManager().registerEvents(new PlayerDeathEvent(), this);
+		getServer().getPluginManager().registerEvents(new PlayerMoveEvent(), this);
+		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
 		
 		// updater
 		Updater.SignUpdater();
-		
+		Updater.ScoreboardUpdater();
+		Updater.PlayerVisibility();
+
 		// load message
 		getLogger().info("Plugin enabled!");
 	}
@@ -44,10 +51,14 @@ public class MultiArenaMain extends JavaPlugin {
 	public void onDisable() {
 
 		// anti sign bug
-		for (Sign sign : Updater.UpdateSigns) {
+		for (Sign sign : Updater.UpdateSigns.keySet()) {
 			for (int i = 0; i < 4; i++) {
-				sign.setLine(i, PlaceHolder.MultiarenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0), ArenaManager.getArenaBySign(sign).getID()));
-				sign.update();
+				try {
+					sign.setLine(i, PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0), Updater.UpdateSigns.get(sign)));
+					sign.update();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}

@@ -1,6 +1,8 @@
 package net.virushd.citybuild.events;
 
 import java.util.HashMap;
+
+import net.virushd.core.main.PlaceHolder;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -14,7 +16,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 
 import net.virushd.citybuild.main.CityBuildMain;
 import net.virushd.citybuild.main.FileManager;
-import net.virushd.citybuild.main.PlaceHolder;
 import net.virushd.core.main.SaveUtils;
 import net.virushd.core.main.Utils;
 

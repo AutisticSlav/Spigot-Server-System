@@ -28,7 +28,7 @@ public class WalkEvent implements Listener {
 					} catch (Exception ex) {
 						PetUtils.spawnPet(p, p.getWorld());
 						FileManager.pets.set(p.getUniqueId().toString() + ".Hide", false);
-						FileManager.savePetsFile();
+						SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 					}
 				}
 			}

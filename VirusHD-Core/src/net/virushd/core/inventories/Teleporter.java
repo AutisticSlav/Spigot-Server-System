@@ -1,5 +1,6 @@
 package net.virushd.core.inventories;
 
+import net.virushd.core.main.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -8,10 +9,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.virushd.core.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.SaveUtils;
-import net.virushd.core.main.SetLobby;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
@@ -56,7 +53,7 @@ public class Teleporter {
 			inv.setSlot(CityBuildSlot - 1, CityBuildItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.locations, "CityBuild"));
+					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "CityBuild"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
@@ -67,7 +64,7 @@ public class Teleporter {
 			inv.setSlot(CreativeSlot - 1, CreativeItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.locations, "Creative"));
+					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "Creative"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});

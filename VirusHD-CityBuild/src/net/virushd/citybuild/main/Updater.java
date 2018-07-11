@@ -33,15 +33,11 @@ public class Updater {
 	public static ArrayList<Sign> UpdateSigns = new ArrayList<>();
 	public static void SignUpdater () {
 		
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, new Runnable() {
-			
-			@Override
-			public void run() {
-				for (Sign signs:UpdateSigns) {
-					for (int i = 0; i < 4; i++) {
-						signs.setLine(i, PlaceHolder.CityBuildSign(FileManager.config.getString("Sign.Lines." + (i + 1))));
-						signs.update();
-					}
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
+			for (Sign signs : UpdateSigns) {
+				for (int i = 0; i < 4; i++) {
+					signs.setLine(i, PlaceHolder.CityBuildSign(FileManager.config.getString("Sign.Lines." + (i + 1))));
+					signs.update();
 				}
 			}
 		}, 5L, 5L);
@@ -52,17 +48,13 @@ public class Updater {
 	 */
 	public static void PlayerVisibility () {
 		
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, new Runnable() {
-			
-			@Override
-			public void run() {
-				for (Player players : CityBuildMain.players) {
-					for (Player AllPlayers : Bukkit.getOnlinePlayers()) {
-						if (CityBuildMain.players.contains(AllPlayers)) {
-							if (!players.canSee(AllPlayers)) players.showPlayer(AllPlayers);
-						} else {
-							if (players.canSee(AllPlayers)) players.hidePlayer(AllPlayers);
-						}
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
+			for (Player players : CityBuildMain.players) {
+				for (Player AllPlayers : Bukkit.getOnlinePlayers()) {
+					if (CityBuildMain.players.contains(AllPlayers)) {
+						if (!players.canSee(AllPlayers)) players.showPlayer(AllPlayers);
+					} else {
+						if (players.canSee(AllPlayers)) players.hidePlayer(AllPlayers);
 					}
 				}
 			}

@@ -1,5 +1,6 @@
 package net.virushd.pets.inventories;
 
+import net.virushd.core.inventories.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Effect;
@@ -19,7 +20,7 @@ import net.virushd.core.main.PlaceHolder;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
-import net.virushd.pets.inventories.AnvilGUI.AnvilClickEvent;
+import net.virushd.core.inventories.AnvilGUI.AnvilClickEvent;
 import net.virushd.pets.main.FileManager;
 import net.virushd.pets.pet.Option;
 import net.virushd.pets.pet.Pet;
@@ -68,26 +69,23 @@ public class Pets {
 				public void onItemClick(Player p) {
 					
 					// name
-					AnvilGUI name = new AnvilGUI(p, new AnvilGUI.AnvilClickEventHandler() {
-						@Override
-						public void onAnvilClick(AnvilClickEvent e) {
-							if (e.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
-								e.setWillClose(true);
-								e.setWillDestroy(true);
-								FileManager.pets.set(p.getUniqueId().toString() + ".Name", e.getName());
-								if (isHide == false) {
-									if (p.hasPermission("virushd.pets.color") || p.hasPermission("*")) {
-										PetUtils.getPet(p).setCustomName(ChatColor.translateAlternateColorCodes('&', e.getName()));
-									} else {
-										PetUtils.getPet(p).setCustomName(e.getName());
-									}
+					AnvilGUI name = new AnvilGUI(p, e -> {
+						if (e.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
+							e.setWillClose(true);
+							e.setWillDestroy(true);
+							FileManager.pets.set(p.getUniqueId().toString() + ".Name", e.getName());
+							if (!isHide) {
+								if (p.hasPermission("virushd.pets.color") || p.hasPermission("*")) {
+									PetUtils.getPet(p).setCustomName(ChatColor.translateAlternateColorCodes('&', e.getName()));
+								} else {
+									PetUtils.getPet(p).setCustomName(e.getName());
 								}
-								p.sendMessage(Name);
-								FileManager.savePetsFile();
-							} else {
-								e.setWillClose(false);
-								e.setWillDestroy(false);
 							}
+							p.sendMessage(Name);
+							SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
+						} else {
+							e.setWillClose(false);
+							e.setWillDestroy(false);
 						}
 					});
 					
@@ -112,14 +110,14 @@ public class Pets {
 							p.sendMessage(Show);
 							p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
 							p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
-							FileManager.savePetsFile();
+							SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 						} catch (Exception e) {
 							FileManager.pets.set(p.getUniqueId().toString() + ".Hide", false);
 							PetUtils.spawnPet(p, p.getWorld());
 							p.sendMessage(Show);
 							p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
 							p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
-							FileManager.savePetsFile();
+							SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 						}
 					}
 				});
@@ -136,7 +134,7 @@ public class Pets {
 							PetUtils.despawnPet(p, p.getWorld());
 							p.sendMessage(Hide);
 							p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
-							FileManager.savePetsFile();
+							SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 						} catch (Exception ex) {
 							PetUtils.spawnPet(p, p.getWorld());
 							FileManager.pets.set(p.getUniqueId().toString() + ".Hide", true);
@@ -144,7 +142,7 @@ public class Pets {
 							PetUtils.despawnPet(p, p.getWorld());
 							p.sendMessage(Hide);
 							p.playSound(p.getLocation(), Sound.FIZZ, 1, 1);
-							FileManager.savePetsFile();
+							SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 						}
 					}
 				});
@@ -256,7 +254,7 @@ public class Pets {
 			
 			noPet_1.setSlot(25, SaveUtils.GetItemFromFile(net.virushd.core.main.FileManager.itm_inventory, "Backward"), new ItemListener() {
 				@Override
-				public void onItemClick(Player player) {}
+				public void onItemClick(Player player) {} //TODO Fix that
 			});
 			
 			noPet_1.setSlot(26, SaveUtils.GetItemFromFile(net.virushd.core.main.FileManager.itm_inventory, "Forward"), new ItemListener() {
@@ -283,7 +281,7 @@ public class Pets {
 			
 			noPet_2.setSlot(26, SaveUtils.GetItemFromFile(net.virushd.core.main.FileManager.itm_inventory, "Forward"), new ItemListener() {
 				@Override
-				public void onItemClick(Player player) {}
+				public void onItemClick(Player player) {} // TODO Fix that
 			});
 			
 			noPet_1.open(p);

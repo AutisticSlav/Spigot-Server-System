@@ -25,7 +25,7 @@ public class Troll implements CommandExecutor {
 				if (p.hasPermission("virushd.troll.command.troll") || p.hasPermission("*")) {
 					if (CoreMain.isNormal(p) || CoreMain.isAdmin(p)) {
 						CoreMain.setTroll(p);
-						// TODO (Troll) Troll mode message
+						// TODO Troll mode message
 						
 						// debug
 						if (CoreMain.debug()) {
@@ -43,10 +43,10 @@ public class Troll implements CommandExecutor {
 							}
 							
 							break;
-						case 1: // TODO (Troll) Troll-Menu einführen
+						case 1: // TODO Troll-Menu einführen
 		
 							break;
-						default: // TODO (Troll) Usage
+						default: // TODO Usage
 							
 							break;
 						}

@@ -3,6 +3,7 @@ package net.virushd.pets.pet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import net.virushd.core.main.SaveUtils;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -32,7 +33,7 @@ public class Option {
 	
 	public void save(Player p) {
 		FileManager.pets.set(p.getUniqueId().toString() + ".Options." + name, set);
-		FileManager.savePetsFile();
+		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 	}
 
 	public void run(Player p, Entity ent) {

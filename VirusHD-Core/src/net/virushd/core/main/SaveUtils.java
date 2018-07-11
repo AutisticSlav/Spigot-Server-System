@@ -1,6 +1,7 @@
 package net.virushd.core.main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import org.bukkit.Bukkit;
@@ -25,26 +26,11 @@ public class SaveUtils {
 		try {
 			Location l = new Location(
 				Bukkit.getWorld(file.getString(path + ".World")), 
-				file.getInt(path + ".X"), 
-				file.getInt(path + ".Y"), 
-				file.getInt(path + ".Z"),
-				file.getInt(path + ".Yaw"),
-				file.getInt(path + ".Pitch"));
-			return l;
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public static Location GetSpawnLocationFromFile(FileConfiguration file, String path) {
-		try {
-			Location l = new Location(
-				Bukkit.getWorld(file.getString(path + ".World")), 
-				file.getInt(path + ".X") + 0.5, 
-				file.getInt(path + ".Y") + 0.3, 
-				file.getInt(path + ".Z") + 0.5,
-				file.getInt(path + ".Yaw"),
-				file.getInt(path + ".Pitch"));
+				file.getDouble(path + ".X"),
+				file.getDouble(path + ".Y"),
+				file.getDouble(path + ".Z"),
+				(float) file.getDouble(path + ".Yaw"),
+				(float) file.getDouble(path + ".Pitch"));
 			return l;
 		} catch (Exception e) {
 			return null;
@@ -53,26 +39,21 @@ public class SaveUtils {
 	
 	public static void SaveLocationToFile(File fileF, FileConfiguration file, String path, Location l) {
 		file.set(path + ".World", l.getWorld().getName());
-		file.set(path + ".X", (int) l.getX());
-		file.set(path + ".Y", (int) l.getY());
-		file.set(path + ".Z", (int) l.getZ());
-		file.set(path + ".Yaw", (int) l.getYaw());
-		file.set(path + ".Pitch", (int) l.getPitch());
-		
-		try {
-			file.save(fileF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		file.set(path + ".X", l.getX());
+		file.set(path + ".Y", l.getY());
+		file.set(path + ".Z", l.getZ());
+		file.set(path + ".Yaw", (double) l.getYaw());
+		file.set(path + ".Pitch", (double) l.getPitch());
+		SaveFile(fileF, file);
 	}
 	
 	public static void DefaultLocationToFile(FileConfiguration file, String path, Location l) {
 		file.addDefault(path + ".World", l.getWorld().getName());
-		file.addDefault(path + ".X", (int) l.getX());
-		file.addDefault(path + ".Y", (int) l.getY());
-		file.addDefault(path + ".Z", (int) l.getZ());
-		file.addDefault(path + ".Yaw", (int) l.getYaw());
-		file.addDefault(path + ".Pitch", (int) l.getPitch());
+		file.addDefault(path + ".X", l.getX());
+		file.addDefault(path + ".Y", l.getY());
+		file.addDefault(path + ".Z", l.getZ());
+		file.addDefault(path + ".Yaw", (double) l.getYaw());
+		file.addDefault(path + ".Pitch", (double) l.getPitch());
 	}
 
 	/*
@@ -96,12 +77,7 @@ public class SaveUtils {
 		file.set(path + ".Item", item.getType().toString());
 		file.set(path + ".DisplayName", item.getItemMeta().getDisplayName());
 		file.set(path + ".Description", item.getItemMeta().getLore().get(0));
-		
-		try {
-			file.save(fileF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveFile(fileF, file);
 	}
 	
 	public static void DefaultItemToFile(FileConfiguration file, String path, ItemStack item) {
@@ -120,7 +96,16 @@ public class SaveUtils {
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
 		List<String> lines = file.getStringList(path + ".Lines");
-		
+
+		// fix a scoreboard space bug
+		String spaces = "";
+		for (int i = 0; i < lines.size(); i++) {
+			if (lines.get(i).equals("{Space}")) {
+				lines.set(i, spaces);
+				spaces += " ";
+			}
+		}
+
 		for (int i = 0; i < lines.size(); i++) {
 			Score sc = o.getScore(PlaceHolder.WithPlayer(lines.get(i), p));
 			sc.setScore(lines.size() - i);
@@ -132,6 +117,17 @@ public class SaveUtils {
 	public static void DefaultScoreboardToFile(FileConfiguration file, String path, String DisplayName, List<String> lines) {
 		file.addDefault(path + ".DisplayName", DisplayName);
 		file.addDefault(path + ".Lines", lines);
+	}
+
+	/*
+	 * Save a file
+	 */
+	public static void SaveFile(File file, FileConfiguration conf) {
+		try {
+			conf.save(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

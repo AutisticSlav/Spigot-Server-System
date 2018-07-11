@@ -12,7 +12,7 @@ public class SetLobby {
 		String TabTitleHeader = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Header"), p);
 		String TabTitleFooter = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
 
-		p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.Lobby"));
+		Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.Lobby"));
 		p.getInventory().clear();
 		p.setGameMode(GameMode.ADVENTURE);
 

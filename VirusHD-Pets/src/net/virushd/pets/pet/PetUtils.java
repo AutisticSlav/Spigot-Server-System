@@ -2,6 +2,7 @@ package net.virushd.pets.pet;
 
 import java.util.UUID;
 
+import net.virushd.core.main.SaveUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,7 +21,7 @@ public class PetUtils {
 		FileManager.pets.set(owner.getUniqueId().toString() + ".ID", pet.getId());
 		FileManager.pets.set(owner.getUniqueId().toString() + ".Name", petName);
 		FileManager.pets.set(owner.getUniqueId().toString() + ".Hide", false);
-		FileManager.savePetsFile();
+		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 		if (pet.getOptions().size() != 0) {
 			for (Option option : pet.getOptions()) {
 				option.save(owner);
@@ -35,7 +36,7 @@ public class PetUtils {
 		despawnPet(owner, owner.getWorld());
 
 		FileManager.pets.set(owner.getUniqueId().toString(), null);
-		FileManager.savePetsFile();
+		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 	}
 
 	// spawnPet
@@ -118,7 +119,7 @@ public class PetUtils {
 			ent.setCustomNameVisible(true);
 
 			FileManager.pets.set(owner.getUniqueId().toString() + ".PetUUID", "" + ent.getUniqueId());
-			FileManager.savePetsFile();
+			SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
 		}
 	}
 

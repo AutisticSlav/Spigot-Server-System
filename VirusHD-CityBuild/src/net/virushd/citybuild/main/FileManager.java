@@ -81,18 +81,14 @@ public class FileManager {
 											+ "\n&c - &7Bei Fragen sich an den Support wenden."
 											+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
 		messages.options().copyDefaults(true);
-		try {
-			messages.save(messagesF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(messagesF, messages);
 
 		// config
 		configF = new File("plugins/VirusHD-CityBuild", "config.yml");
 		config = new YamlConfiguration().loadConfiguration(configF);
-		SaveUtils.SaveLocationToFile(configF, config, "Spawns.CityBuild", Bukkit.getWorld("CityBuild").getSpawnLocation());
-		SaveUtils.SaveLocationToFile(configF, config, "Spawns.Farmworld", Bukkit.getWorld("Farmwelt").getSpawnLocation());
-		SaveUtils.SaveLocationToFile(configF, config, "Spawns.Nether", Bukkit.getWorld("world_nether").getSpawnLocation());
+		SaveUtils.DefaultLocationToFile(config, "Spawns.CityBuild", Bukkit.getWorld("CityBuild").getSpawnLocation());
+		SaveUtils.DefaultLocationToFile(config, "Spawns.Farmworld", Bukkit.getWorld("Farmwelt").getSpawnLocation());
+		SaveUtils.DefaultLocationToFile(config, "Spawns.Nether", Bukkit.getWorld("world_nether").getSpawnLocation());
 		config.addDefault("GameStates.Lobby", "&aLobby");
 		config.addDefault("GameStates.LobbyFull", "&eLobby");
 		config.addDefault("MaxPlayers", 10);
@@ -102,11 +98,7 @@ public class FileManager {
 		config.addDefault("Sign.Lines.4", "&c{Players} &7/ &c{MaxPlayers}");
 		config.addDefault("MaxPlotSize", 250);
 		config.options().copyDefaults(true);
-		try {
-			config.save(configF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(configF, config);
 
 		// inv_plot
 		inv_plotF = new File("plugins/VirusHD-CityBuild/inventories", "plot.yml");
@@ -117,21 +109,13 @@ public class FileManager {
 		SaveUtils.DefaultItemToFile(inv_plot, "Items.Delete", InventoryAPI.createItem("&cLöschen", Arrays.asList("&7Lösche den Plot."), Material.TNT, null, 1));
 		SaveUtils.DefaultItemToFile(inv_plot, "Items.Create", InventoryAPI.createItem("&cErstellen", Arrays.asList("&7Erstelle den Plot."), Material.WORKBENCH, null, 1));
 		inv_plot.options().copyDefaults(true);
-		try {
-			inv_plot.save(inv_plotF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(inv_plotF, inv_plot);
 
 		// sco_citybuild
 		sco_citybuildF = new File("plugins/VirusHD-CityBuild/scoreboards", "citybuild.yml");
 		sco_citybuild = new YamlConfiguration().loadConfiguration(sco_citybuildF);
-		SaveUtils.DefaultScoreboardToFile(sco_citybuild, "CityBuild", "&4VirusHD.net &7- &6CityBuild", Arrays.asList("", "&cRang:", "&7{Rank}", " ", "&cCoins:", "&7{Coins}", "  ", "&cWelt:", "&7{World}"));
+		SaveUtils.DefaultScoreboardToFile(sco_citybuild, "CityBuild", "&4VirusHD.net &7- &6CityBuild", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "&cCoins:", "&7{Coins}", "{Space}", "&cWelt:", "&7{World}"));
 		sco_citybuild.options().copyDefaults(true);
-		try {
-			sco_citybuild.save(sco_citybuildF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(sco_citybuildF, sco_citybuild);
 	}
 }

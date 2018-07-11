@@ -1,5 +1,6 @@
 package net.virushd.multiarena.events;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,8 +21,10 @@ import net.virushd.multiarena.main.MultiArenaMain;
 import net.virushd.multiarena.main.SetMultiArena;
 import net.virushd.multiarena.main.Updater;
 
+import java.util.ArrayList;
+
 public class SignEvent implements Listener {
-	
+
 	@EventHandler
 	public void onSignClick (PlayerInteractEvent e) {
 		
@@ -43,9 +46,9 @@ public class SignEvent implements Listener {
 				// wenn der spieler auch wirklich in der Lobby ist
 				if (CoreMain.players.contains(p)) {
 
-					Arena theArena = ArenaManager.getArenaBySign(sign);
+					Arena arena = getArenaBySign(sign);
 
-					if (theArena == null || !theArena.isComplete()) {
+					if (arena == null || !arena.isComplete()) {
 						Updater.UpdateSigns.remove(sign);
 						return;
 					}
@@ -54,26 +57,20 @@ public class SignEvent implements Listener {
 					if (p.hasPermission("virushd.multiarena.sign.click") || p.hasPermission("*")) {
 						
 						// wenn das spiel nicht schon begonnen hat
-						if (theArena.GameState.equals(GameState.LOBBY)) {
+						if (arena.getGameState().equals(GameState.LOBBY)) {
 						
 							// wenn es noch platz hat
-							if (theArena.players.size() < MaxPlayers) {
-								Bukkit.getServer().getScheduler().runTaskLater(MultiArenaMain.main, new Runnable() {
-	
-									// so jetzt kann der spieler endlich joinen
-									@Override
-									public void run() {
-										
-										SetMultiArena.setMultiArena(p, theArena.getID());
-										for (int i = 0; i < 4; i++) {
-											sign.setLine(i, PlaceHolder.MultiarenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), theArena.getID()));
-										}
-										
-										// das schild updaten
-										if (!Updater.UpdateSigns.contains(sign)) {
-											Updater.UpdateSigns.add(sign);
-										}
+							if (arena.getPlayers().size() < MaxPlayers) {
+								// so jetzt kann der spieler endlich joinen
+								Bukkit.getServer().getScheduler().runTaskLater(MultiArenaMain.main, () -> {
+
+									SetMultiArena.setMultiArena(p, arena.getID());
+									for (int i = 0; i < 4; i++) {
+										sign.setLine(i, PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()));
 									}
+
+									// das schild updaten
+									Updater.UpdateSigns.put(sign, arena.getID());
 								}, 5L);
 							} else {
 								p.sendMessage(Full);
@@ -109,14 +106,35 @@ public class SignEvent implements Listener {
 						for (int i = 0; i < 4; i++) {
 							
 							// das schild richtig machen
-							sign.setLine(i, PlaceHolder.MultiarenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()));
+							sign.setLine(i, PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()));
 							
 							// das schild updaten
-							Updater.UpdateSigns.add(sign);
+							Updater.UpdateSigns.put(sign, arena.getID());
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private static Arena getArenaBySign(Sign sign) {
+		for (Arena arena : ArenaManager.getArenas()) {
+			ArrayList<Boolean> LinesCorrect = new ArrayList<>();
+			for (int i = 0; i < 4; i++) {
+				/*System.out.println("");
+				System.out.println("----------------------------");
+				System.out.println("i: " + i);
+				System.out.println("Real Line: " + ChatColor.stripColor(sign.getLine(i)));
+				System.out.println("Othe Line: " + ChatColor.stripColor(PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID())));
+				System.out.println("Equal: " + (ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID())))));
+				System.out.println("----------------------------");
+				System.out.println("");*/
+				LinesCorrect.add(ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()))));
+			}
+			if (LinesCorrect.get(0) && LinesCorrect.get(1) && LinesCorrect.get(2) && LinesCorrect.get(3)) {
+				return arena;
+			}
+		}
+		return null;
 	}
 }

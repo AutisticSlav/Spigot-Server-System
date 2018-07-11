@@ -1,16 +1,7 @@
-package net.virushd.pets.inventories;
+package net.virushd.core.inventories;
 
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.ChatMessage;
-import net.minecraft.server.v1_8_R3.ContainerAnvil;
-import net.minecraft.server.v1_8_R3.EntityHuman;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutOpenWindow;
-import net.virushd.pets.main.PetsMain;
-
-import java.util.HashMap;
-
+import net.minecraft.server.v1_8_R3.*;
+import net.virushd.core.main.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -24,10 +15,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-/**
- * Created by chasechocolate.
- */
+import java.util.HashMap;
 
+/**
+ * copied from: chasechocolate (https://www.spigotmc.org/members/chasechocolate.889/).
+ */
 @SuppressWarnings("unused")
 public class AnvilGUI {
 	private class AnvilContainer extends ContainerAnvil {
@@ -180,7 +172,7 @@ public class AnvilGUI {
 			}
 		};
 
-		Bukkit.getPluginManager().registerEvents(listener, PetsMain.main); // Replace with instance of main class
+		Bukkit.getPluginManager().registerEvents(listener, CoreMain.main); // Replace with instance of main class
 	}
 
 	public Player getPlayer() {

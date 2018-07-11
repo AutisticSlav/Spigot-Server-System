@@ -1,5 +1,6 @@
 package net.virushd.creative.main;
 
+import net.virushd.core.main.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -28,7 +29,7 @@ public static void setCreative (Player p) {
 			CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " joined Creative.");
 		}
 		
-		p.teleport(SaveUtils.GetSpawnLocationFromFile(FileManager.config, "Spawns.Creative"));
+		Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.Creative"));
 		p.setGameMode(GameMode.CREATIVE);
 		
 		// Title

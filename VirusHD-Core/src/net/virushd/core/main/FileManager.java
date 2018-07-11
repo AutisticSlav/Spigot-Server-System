@@ -1,6 +1,7 @@
 package net.virushd.core.main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -83,22 +84,14 @@ public class FileManager {
 		messages.addDefault("TabTitle.Header", "&4VirusHD.net &7- &cLobby\n&7-----------------------------------");
 		messages.addDefault("TabTitle.Footer", "&7-----------------------------------\n&cViel Spass!");
 		messages.options().copyDefaults(true);
-		try {
-			messages.save(messagesF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(messagesF, messages);
 		
 		// itm_cosmetics
 		itm_cosmeticsF = new File("plugins/VirusHD-Core/items", "cosmetics.yml");
 		itm_cosmetics = new YamlConfiguration().loadConfiguration(itm_cosmeticsF);
 		SaveUtils.DefaultItemToFile(itm_cosmetics, "Cosmetics", InventoryAPI.createItem("&cCosmetics", Arrays.asList("&7Hüte, Pets, Lotto..."), Material.CHEST, null, 1));
 		itm_cosmetics.options().copyDefaults(true);
-		try {
-			itm_cosmetics.save(itm_cosmeticsF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(itm_cosmeticsF, itm_cosmetics);
 		
 		// itm_hide
 		itm_hideF = new File("plugins/VirusHD-Core/items", "hide.yml");
@@ -107,22 +100,14 @@ public class FileManager {
 		itm_hide.addDefault("HideMode.off", "&aSichtbar");
 		itm_hide.addDefault("HideMode.on", "&4Unsichtbar");
 		itm_hide.options().copyDefaults(true);
-		try {
-			itm_hide.save(itm_hideF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(itm_hideF, itm_hide);
 		
 		// itm_teleporter
 		itm_teleporterF = new File("plugins/VirusHD-Core/items", "teleporter.yml");
 		itm_teleporter = new YamlConfiguration().loadConfiguration(itm_teleporterF);
 		SaveUtils.DefaultItemToFile(itm_teleporter, "Teleporter", InventoryAPI.createItem("&cTeleporter", Arrays.asList("&7Dieses Ding beamt dich weg &cxD&7."), Material.COMPASS, null, 1));
 		itm_teleporter.options().copyDefaults(true);
-		try {
-			itm_teleporter.save(itm_teleporterF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(itm_teleporterF, itm_teleporter);
 		
 		// inv_teleporter
 		inv_teleporterF = new File("plugins/VirusHD-Core/inventories", "teleporter.yml");
@@ -162,51 +147,33 @@ public class FileManager {
 		inv_teleporter.addDefault("Background.26", 14);
 		inv_teleporter.addDefault("Background.27", 15);
 		inv_teleporter.options().copyDefaults(true);
-		try {
-			inv_teleporter.save(inv_teleporterF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(inv_teleporterF, inv_teleporter);
 		
 		// inv_cosmetics
 		inv_cosmeticsF = new File("plugins/VirusHD-Core/inventories", "cosmetics.yml");
 		inv_cosmetics = new YamlConfiguration().loadConfiguration(inv_cosmeticsF);
 		inv_cosmetics.addDefault("Inventory.DisplayName", "&cCosmetics");
-//		SaveUtils.DefaultItemToFile(inv_cosmetics, "Items.Pets", new SpawnEgg(EntityType.PIG).toItemStack());
 		SaveUtils.DefaultItemToFile(inv_cosmetics, "Items.Pets", InventoryAPI.createItem("&cPets", Arrays.asList("&7Pets sind cute."), Material.MONSTER_EGG, null, 1));
 		SaveUtils.DefaultItemToFile(inv_cosmetics, "Items.Hats", InventoryAPI.createItem("&cHüte", Arrays.asList("&7Kaufe dir Hüte."), Material.SKULL_ITEM, null, 1));
 		SaveUtils.DefaultItemToFile(inv_cosmetics, "Items.Lottery", InventoryAPI.createItem("&cLotto", Arrays.asList("&7Es gibt viele Preis zu gewinnen."), Material.PAPER, null, 1));
 		inv_cosmetics.options().copyDefaults(true);
-		try {
-			inv_cosmetics.save(inv_cosmeticsF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(inv_cosmeticsF, inv_cosmetics);
 		
 		// locations
 		locationsF = new File("plugins/VirusHD-Core", "locations.yml");
 		locations = new YamlConfiguration().loadConfiguration(locationsF);
-		SaveUtils.DefaultLocationToFile(locations, "CityBuild", new Location(Bukkit.getWorld("world"), 1891, 88, 1644, 180, 0));
-		SaveUtils.DefaultLocationToFile(locations, "Creative", new Location(Bukkit.getWorld("world"), 1891, 88, 1684, 0, 0));
+		SaveUtils.DefaultLocationToFile(locations, "CityBuild", Bukkit.getWorld("world").getSpawnLocation());
+		SaveUtils.DefaultLocationToFile(locations, "Creative", Bukkit.getWorld("world").getSpawnLocation());
 		locations.options().copyDefaults(true);
-		try {
-			locations.save(locationsF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(locationsF, locations);
 		
 		// config 
 		configF = new File("plugins/VirusHD-Core", "config.yml");
 		config = new YamlConfiguration().loadConfiguration(configF);
-		SaveUtils.SaveLocationToFile(configF, config, "Spawns.Lobby", Bukkit.getWorld("world").getSpawnLocation());
-//		config.addDefault("Plugins.CityBuild", false);
-//		config.addDefault("Plugins.Creative", false);
-//		config.addDefault("Plugins.Lottery", false);
-//		config.addDefault("Plugins.Pets", false);
-//		config.addDefault("Plugins.Hats", false);
+		SaveUtils.DefaultLocationToFile(config, "Spawns.Lobby", Bukkit.getWorld("world").getSpawnLocation());
 		config.addDefault("DebugMode", false);
 		config.options().copyDefaults(true);
-		SaveConfigFile();
+		SaveUtils.SaveFile(configF, config);
 		
 		// ranks
 		ranksF = new File("plugins/VirusHD-Core", "ranks.yml");
@@ -214,22 +181,14 @@ public class FileManager {
 		ranks.addDefault("Ranks.DisplayNames", Arrays.asList("&eMember", "&fYou&4Tuber", "&4V&9I&aP", "&aSupporter", "&4Admin"));
 		ranks.addDefault("Ranks.Permissions", Arrays.asList("virushd.rank.member", "virushd.rank.youtuber",  "virushd.rank.vip", "virushd.rank.supporter", "*"));
 		ranks.options().copyDefaults(true);
-		try {
-			ranks.save(ranksF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(ranksF, ranks);
 		
 		// sco_lobby
 		sco_lobbyF = new File("plugins/VirusHD-Core/scoreboards", "lobby.yml");
 		sco_lobby = new YamlConfiguration().loadConfiguration(sco_lobbyF);
-		SaveUtils.DefaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &cLobby", Arrays.asList("", "&cSpieler Online:", "&7{OnlinePlayers} &c/ &7{MaxOnlinePlayers}", " ", "&cRang:", "&7{Rank}", "  ", "&cCoins:", "&7{Coins}"));                  
+		SaveUtils.DefaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &cLobby", Arrays.asList("{Space}", "&cSpieler Online:", "&7{OnlinePlayers} &c/ &7{MaxOnlinePlayers}", "{Space}", "&cRang:", "&7{Rank}", "{Space}", "&cCoins:", "&7{Coins}"));
 		sco_lobby.options().copyDefaults(true);
-		try {
-			sco_lobby.save(sco_lobbyF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(sco_lobbyF, sco_lobby);
 		
 		// itm_inventory
 		itm_inventoryF = new File("plugins/VirusHD-Core/items", "inventory.yml");
@@ -238,18 +197,6 @@ public class FileManager {
 		SaveUtils.DefaultItemToFile(itm_inventory, "Backward", InventoryAPI.createItem("&cZurück", Arrays.asList("&7Gehe zurück."), Material.SIGN, null, 1));
 		SaveUtils.DefaultItemToFile(itm_inventory, "Leave", InventoryAPI.createItem("&cMenu verlassen", Arrays.asList("&7Verlasse das Menu."), Material.IRON_DOOR, null, 1));
 		itm_inventory.options().copyDefaults(true);
-		try {
-			itm_inventory.save(itm_inventoryF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void SaveConfigFile() {
-		try {
-			config.save(configF);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		SaveUtils.SaveFile(itm_inventoryF, itm_inventory);
 	}
 }

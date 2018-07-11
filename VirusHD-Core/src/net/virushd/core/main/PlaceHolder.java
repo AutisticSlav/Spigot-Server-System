@@ -23,7 +23,7 @@ public class PlaceHolder {
 		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) s = Creative(s);
 		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Coins") != null) s = Coins(s);
 		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Pets") != null) s = Pets(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Multiarena") != null) s = Multiarena(s);
+		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-MultiArena") != null) s = MultiArena(s);
 		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Troll") != null) s = Troll(s);
 		s = ChatColor.translateAlternateColorCodes('&', s);
 		return s;
@@ -101,12 +101,12 @@ public class PlaceHolder {
 		return s;
 	}
 	
-	private static String Multiarena(String s) {
+	private static String MultiArena(String s) {
 		s = s.replace("{MultiArenaPrefix}", net.virushd.multiarena.main.FileManager.messages.getString("MultiArenaPrefix"));
 		return s;
 	}
 	
-	public static String MultiarenaSign(String s, int id) {
+	public static String MultiArenaSign(String s, int id) {
 		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-MultiArena") != null) {
 			Arena arena = ArenaManager.getArenaByID(id);
 			if (arena != null && arena.isComplete()) {
@@ -115,11 +115,11 @@ public class PlaceHolder {
 				String LobbyFull = net.virushd.multiarena.main.FileManager.config.getString("GameStates.LobbyFull");
 				String Ingame = net.virushd.multiarena.main.FileManager.config.getString("GameStates.Ingame");
 				s = s.replace("{Name}", arena.getName());
-				if (arena.GameState == GameState.LOBBY && arena.players.size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
-				if (arena.GameState == GameState.LOBBY && arena.players.size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
-				if (arena.GameState == GameState.STARTING || arena.GameState == GameState.GAME || arena.GameState == GameState.RESTARTING) s = s.replace("{GameState}", Ingame);
+				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
+				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
+				if (arena.getGameState() == GameState.STARTING || arena.getGameState() == GameState.GAME || arena.getGameState() == GameState.RESTARTING) s = s.replace("{GameState}", Ingame);
 				s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-				s = s.replace("{Players}", "" + arena.players.size());
+				s = s.replace("{Players}", "" + arena.getPlayers().size());
 				s = Normal(s);
 			}
 		}
@@ -127,7 +127,7 @@ public class PlaceHolder {
 	}
 	
 	private static String Troll(String s) {
-		// TODO (Core) Troll
+		// TODO Troll
 		return s;
 	}
 }

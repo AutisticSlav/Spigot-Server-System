@@ -15,10 +15,10 @@ public class TrollMain extends JavaPlugin {
 		FileManager.Manager();
 
 		// events
-		// TODO (Troll) register events
+		// TODO register events
 
 		// commands
-		// TODO (Troll) register commands (also in plugin.yml)
+		// TODO register commands (also in plugin.yml)
 		
 		// load message
 		getLogger().info("Plugin enabled!");

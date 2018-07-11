@@ -67,7 +67,7 @@ public class CityBuildMain extends JavaPlugin {
 		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 
 		// WorldGuard may not be loaded
-		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+		if (!(plugin instanceof WorldGuardPlugin)) {
 			System.out.println(PlaceHolder.Normal("{CityBuildPrefix}&4Please install WorldGuard!"));
 			return null; // Maybe you want throw an exception instead
 		}
@@ -75,15 +75,15 @@ public class CityBuildMain extends JavaPlugin {
 		return (WorldGuardPlugin) plugin;
 	}
 
-	public static WorldEditPlugin getWorldEdit() {
+/*	public static WorldEditPlugin getWorldEdit() {
 		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 
 		// WorldEdit may not be loaded
-		if (plugin == null || !(plugin instanceof WorldEditPlugin)) {
+		if (!(plugin instanceof WorldEditPlugin)) {
 			System.out.println(PlaceHolder.Normal("{CityBuildPrefix}&4Please install WorldEdit!"));
 			return null; // Maybe you want throw an exception instead
 		}
 
 		return (WorldEditPlugin) plugin;
-	}
+	}*/
 }

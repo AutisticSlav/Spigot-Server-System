@@ -1,7 +1,6 @@
-package net.virushd.multiarena.main;
+package net.virushd.ttt.main;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 import net.virushd.core.main.SaveUtils;
@@ -25,31 +24,31 @@ public class FileManager {
 	public static void Manager() {
 		
 		// messages
-		messagesF = new File("plugins/VirusHD-MultiArena", "messages.yml");
+		messagesF = new File("plugins/VirusHD-TTT", "messages.yml");
 		messages = new YamlConfiguration().loadConfiguration(messagesF);
-		messages.addDefault("MultiArenaPrefix", "&0[&4MultiArena&0] &7");
+		messages.addDefault("TTTPrefix", "&0[&4TTT&0] &7");
 		messages.addDefault("ChatFormat", "&0[&3Chat&0] &c{PlayerName}&0:&7 {Message}");
-		messages.addDefault("Messages.MultiArena", "{MultiArenaPrefix}Tippe &c/MultiArena&7.");
-		messages.addDefault("Messages.NoJoinPerm", "{Prefix}&4Du hast keine Rechte &4MultiArena &7zu betreten.");
-		messages.addDefault("Messages.Full", "{Prefix}&4MultiArena &7ist voll. Versuche es später noch einmal.");
-		messages.addDefault("Messages.AlreadyStarted", "{MultiArenaPrefix}Das Spiel hat leider schon begonnen :/");
-		messages.addDefault("Countdown.Lobby.Message", "{MultiArenaPrefix}Die Runde beginnt in &c{Time} &7Sekunden!");
+		messages.addDefault("Messages.TTT", "{TTTPrefix}Tippe &c/TTT&7.");
+		messages.addDefault("Messages.NoJoinPerm", "{Prefix}&4Du hast keine Rechte &4TTT &7zu betreten.");
+		messages.addDefault("Messages.Full", "{Prefix}&4TTT &7ist voll. Versuche es später noch einmal.");
+		messages.addDefault("Messages.AlreadyStarted", "{TTTPrefix}Das Spiel hat leider schon begonnen :/");
+		messages.addDefault("Countdown.Lobby.Message", "{TTTPrefix}Die Runde beginnt in &c{Time} &7Sekunden!");
 		messages.addDefault("Countdown.Starting.Title", "{Time}");
-		messages.addDefault("Countdown.Starting.Message", "{MultiArenaPrefix}MultiArena beginnt in &c{Time} &7Sekunden!");
-		messages.addDefault("Countdown.Starting.Final", "{MultiArenaPrefix}MultiArena hat begonnen. Viel Glück!");
-		messages.addDefault("Countdown.Restarting.Message", "{MultiArenaPrefix}Das Spiel startet in &c{Time} &7Sekunden neu!");
-		messages.addDefault("Join.Message", "{MultiArenaPrefix}&c{PlayerName}&7 hat das Spiel betreten.");
+		messages.addDefault("Countdown.Starting.Message", "{TTTPrefix}TTT beginnt in &c{Time} &7Sekunden!");
+		messages.addDefault("Countdown.Starting.Final", "{TTTPrefix}TTT hat begonnen. Viel Glück!");
+		messages.addDefault("Countdown.Restarting.Message", "{TTTPrefix}Das Spiel startet in &c{Time} &7Sekunden neu!");
+		messages.addDefault("Join.Message", "{TTTPrefix}&c{PlayerName}&7 hat das Spiel betreten.");
 		messages.addDefault("Join.Title", "&4Wilkommen");
-		messages.addDefault("Join.SubTitle", "&c{PlayerName} &7in &4MultiArena");
-		messages.addDefault("TabTitle.Header", "&4VirusHD.net &7- &4MultiArena\n&7-----------------------------------");
+		messages.addDefault("Join.SubTitle", "&c{PlayerName} &7in &4TTT");
+		messages.addDefault("TabTitle.Header", "&4VirusHD.net &7- &4TTT\n&7-----------------------------------");
 		messages.addDefault("TabTitle.Footer", "&7-----------------------------------\n&cViel Spass!");
-		messages.addDefault("Quit.Message", "{MultiArenaPrefix}&c{PlayerName}&7 hat das Spiel verlassen.");
+		messages.addDefault("Quit.Message", "{TTTPrefix}&c{PlayerName}&7 hat das Spiel verlassen.");
 		
 		// das wurde noch nicht benuzt
 		messages.addDefault("Messages.Usage","&7»->--------------<-« &cUsage &7»->--------------<-«"
-											+ "\n&c - /multiarena hilfe &7Die Hilfe zum Spielmodus."
-											+ "\n&c - /multiarena commands &7Eine Liste der wichtigsten Commands."
-											+ "\n&c - /multiarena regeln &7Die Regeln.");
+											+ "\n&c - /ttt hilfe &7Die Hilfe zum Spielmodus."
+											+ "\n&c - /ttt commands &7Eine Liste der wichtigsten Commands."
+											+ "\n&c - /ttt regeln &7Die Regeln.");
 		messages.addDefault("Messages.Help", "&7»->--------------<-« &cDie Hilfe &7»->--------------<-«"
 											+ "\n&c - &7Spiel Einfach!");
 		messages.addDefault("Messages.Commands", "&7»->--------------<-« &cDie Commands &7»->--------------<-«"
@@ -66,7 +65,7 @@ public class FileManager {
 		SaveUtils.SaveFile(messagesF, messages);
 		
 		// config
-		configF = new File("plugins/VirusHD-MultiArena", "config.yml");
+		configF = new File("plugins/VirusHD-TTT", "config.yml");
 		config = new YamlConfiguration().loadConfiguration(configF);
 		config.addDefault("MaxPlayers", 10);
 		config.addDefault("MinPlayers", 2);
@@ -76,7 +75,7 @@ public class FileManager {
 		config.addDefault("GameStates.Lobby", "&aLobby");
 		config.addDefault("GameStates.LobbyFull", "&eLobby");
 		config.addDefault("GameStates.Ingame", "&4Ingame");
-		config.addDefault("Sign.Lines.1", "&7- &0[&4MultiArena&0] &7-");
+		config.addDefault("Sign.Lines.1", "&7- &0[&4TTT&0] &7-");
 		config.addDefault("Sign.Lines.2", "&c{Name}");
 		config.addDefault("Sign.Lines.3", "&0[&r{GameState}&0]");
 		config.addDefault("Sign.Lines.4", "&c{Players} &7/ &c{MaxPlayers}");
@@ -84,22 +83,22 @@ public class FileManager {
 		SaveUtils.SaveFile(configF, config);
 		
 		// arenas
-		arenasF = new File("plugins/VirusHD-MultiArena", "arenas.yml");
+		arenasF = new File("plugins/VirusHD-TTT", "arenas.yml");
 		arenas = new YamlConfiguration().loadConfiguration(arenasF);
 
 		// TODO Scoreboard Lobby
 		// sco_lobby
-		sco_lobbyF = new File("plugins/VirusHD-MultiArena/scoreboards", "lobby.yml");
+		sco_lobbyF = new File("plugins/VirusHD-TTT/scoreboards", "lobby.yml");
 		sco_lobby = new YamlConfiguration().loadConfiguration(sco_lobbyF);
-		SaveUtils.DefaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &4MultiArena", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Lobby"));
+		SaveUtils.DefaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Lobby"));
 		sco_lobby.options().copyDefaults(true);
 		SaveUtils.SaveFile(sco_lobbyF, sco_lobby);
 
 		// TODO Scoreboard Ingame
 		// sco_ingame
-		sco_ingameF = new File("plugins/VirusHD-MultiArena/scoreboards", "ingame.yml");
+		sco_ingameF = new File("plugins/VirusHD-TTT/scoreboards", "ingame.yml");
 		sco_ingame = new YamlConfiguration().loadConfiguration(sco_ingameF);
-		SaveUtils.DefaultScoreboardToFile(sco_ingame, "Ingame", "&4VirusHD.net &7- &4MultiArena", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Ingame"));
+		SaveUtils.DefaultScoreboardToFile(sco_ingame, "Ingame", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Ingame"));
 		sco_ingame.options().copyDefaults(true);
 		SaveUtils.SaveFile(sco_ingameF, sco_ingame);
 	}

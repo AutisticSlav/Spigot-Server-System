@@ -2,7 +2,7 @@ name: VirusHD-Core
 author: VirusHD
 main: net.virushd.core.main.CoreMain
 version: 1.0
-loadbefore: [VirusHD-Coins, VirusHD-Pets, VirusHD-Troll, VirusHD-CityBuild, VirusHD-Creative]
+loadbefore: [VirusHD-Coins, VirusHD-Pets, VirusHD-Troll, VirusHD-CityBuild, VirusHD-Creative, VirusHD-TTT]
 commands:
   lobby:
     description: return to lobby.

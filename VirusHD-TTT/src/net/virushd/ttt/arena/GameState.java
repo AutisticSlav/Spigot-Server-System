@@ -1,4 +1,4 @@
-package net.virushd.multiarena.arena;
+package net.virushd.ttt.arena;
 
 public enum GameState {
 	LOBBY, STARTING, GAME, RESTARTING;

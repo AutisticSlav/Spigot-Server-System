@@ -1,7 +1,0 @@
-name: VirusHD-MultiArena
-author: VirusHD
-main: net.virushd.multiarena.main.MultiArenaMain
-version: 1.0
-commands:
-  multiarena:
-    description: Der Command zum MultiArena Spielmodus.

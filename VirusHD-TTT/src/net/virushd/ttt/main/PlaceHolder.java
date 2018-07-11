@@ -1,16 +1,10 @@
-package net.virushd.multiarena.main;
-
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.arena.GameState;
+package net.virushd.ttt.main;
 
 @Deprecated
 public class PlaceHolder {
 	
 /*	public static String Normal (String s) {
-		s = s.replace("{MultiArenaPrefix}", FileManager.messages.getString("MultiArenaPrefix"));
+		s = s.replace("{TTTPrefix}", FileManager.messages.getString("TTTPrefix"));
 		s = net.virushd.core.main.PlaceHolder.Normal(s);
 		return s;
 	}

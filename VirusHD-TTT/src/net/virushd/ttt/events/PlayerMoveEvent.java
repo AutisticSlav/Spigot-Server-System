@@ -1,8 +1,8 @@
-package net.virushd.multiarena.events;
+package net.virushd.ttt.events;
 
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.arena.GameState;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
+import net.virushd.ttt.arena.GameState;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

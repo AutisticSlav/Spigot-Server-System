@@ -116,9 +116,12 @@ public class FileManager {
 		SaveUtils.DefaultItemToFile(inv_teleporter, "Items.Spawn", InventoryAPI.createItem("&cSpawn", Arrays.asList("&7Zurück zum Spawn."), Material.ENDER_PEARL, null, 1));
 		SaveUtils.DefaultItemToFile(inv_teleporter, "Items.CityBuild", InventoryAPI.createItem("&6CityBuild", Arrays.asList("&7CityBuild, wer kennts nicht?"), Material.BRICK, null, 1));
 		SaveUtils.DefaultItemToFile(inv_teleporter, "Items.Creative", InventoryAPI.createItem("&6Creative", Arrays.asList("&7Unentlich Ressourcen &c:O&7!"), Material.DIAMOND_BLOCK, null, 1));
+		SaveUtils.DefaultItemToFile(inv_teleporter, "Items.TTT", InventoryAPI.createItem("&4TTT", Arrays.asList("&7Finde den Mörder und töte ihn!"), Material.STICK, null, 1));
+		// Mit 0 starten!!!
 		inv_teleporter.addDefault("Items.Spawn.Slot", 14);
 		inv_teleporter.addDefault("Items.CityBuild.Slot", 23);
 		inv_teleporter.addDefault("Items.Creative.Slot", 5);
+		inv_teleporter.addDefault("Items.TTT.Slot", 15);
 		inv_teleporter.addDefault("Background.1", 15);
 		inv_teleporter.addDefault("Background.2", 14);
 		inv_teleporter.addDefault("Background.3", 15);
@@ -164,6 +167,7 @@ public class FileManager {
 		locations = new YamlConfiguration().loadConfiguration(locationsF);
 		SaveUtils.DefaultLocationToFile(locations, "CityBuild", Bukkit.getWorld("world").getSpawnLocation());
 		SaveUtils.DefaultLocationToFile(locations, "Creative", Bukkit.getWorld("world").getSpawnLocation());
+		SaveUtils.DefaultLocationToFile(locations, "TTT", Bukkit.getWorld("world").getSpawnLocation());
 		locations.options().copyDefaults(true);
 		SaveUtils.SaveFile(locationsF, locations);
 		

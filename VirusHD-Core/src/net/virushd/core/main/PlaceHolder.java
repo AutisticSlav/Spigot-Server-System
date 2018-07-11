@@ -3,15 +3,14 @@ package net.virushd.core.main;
 import java.util.List;
 import java.util.Random;
 
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.arena.GameState;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
+import net.virushd.ttt.arena.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import CoinsAPI.Coins;
-import net.virushd.core.main.FileManager;
 import net.virushd.creative.main.CreativeMain;
 import net.virushd.citybuild.main.CityBuildMain;
 
@@ -19,12 +18,11 @@ public class PlaceHolder {
 
 	public static String Normal (String s) {
 		s = s.replace("{Prefix}", FileManager.messages.getString("Prefix"));
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) s = CityBuild(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) s = Creative(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Coins") != null) s = Coins(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Pets") != null) s = Pets(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-MultiArena") != null) s = MultiArena(s);
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Troll") != null) s = Troll(s);
+		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) s = CityBuild(s);
+		if (CoreMain.pluginAvailable("VirusHD-Creative")) s = Creative(s);
+		if (CoreMain.pluginAvailable("VirusHD-Coins")) s = Coins(s);
+		if (CoreMain.pluginAvailable("VirusHD-Pets")) s = Pets(s);
+		if (CoreMain.pluginAvailable("VirusHD-TTT")) s = TTT(s);
 		s = ChatColor.translateAlternateColorCodes('&', s);
 		return s;
 	}
@@ -48,7 +46,7 @@ public class PlaceHolder {
 	}
 	
 	public static String CityBuildSign(String s) {
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
 			int MaxPlayers = net.virushd.citybuild.main.FileManager.config.getInt("MaxPlayers");
 			String Lobby = net.virushd.citybuild.main.FileManager.config.getString("GameStates.Lobby");
 			String LobbyFull = net.virushd.citybuild.main.FileManager.config.getString("GameStates.LobbyFull");
@@ -72,7 +70,7 @@ public class PlaceHolder {
 	}
 	
 	public static String CreativeSign(String s) {
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
 			int MaxPlayers = net.virushd.creative.main.FileManager.config.getInt("MaxPlayers");
 			String Lobby = net.virushd.creative.main.FileManager.config.getString("GameStates.Lobby");
 			String LobbyFull = net.virushd.creative.main.FileManager.config.getString("GameStates.LobbyFull");
@@ -101,19 +99,19 @@ public class PlaceHolder {
 		return s;
 	}
 	
-	private static String MultiArena(String s) {
-		s = s.replace("{MultiArenaPrefix}", net.virushd.multiarena.main.FileManager.messages.getString("MultiArenaPrefix"));
+	private static String TTT(String s) {
+		s = s.replace("{TTTPrefix}", net.virushd.ttt.main.FileManager.messages.getString("TTTPrefix"));
 		return s;
 	}
 	
-	public static String MultiArenaSign(String s, int id) {
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-MultiArena") != null) {
+	public static String TTTSign(String s, int id) {
+		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
 			Arena arena = ArenaManager.getArenaByID(id);
 			if (arena != null && arena.isComplete()) {
-				int MaxPlayers = net.virushd.multiarena.main.FileManager.config.getInt("MaxPlayers");
-				String Lobby = net.virushd.multiarena.main.FileManager.config.getString("GameStates.Lobby");
-				String LobbyFull = net.virushd.multiarena.main.FileManager.config.getString("GameStates.LobbyFull");
-				String Ingame = net.virushd.multiarena.main.FileManager.config.getString("GameStates.Ingame");
+				int MaxPlayers = net.virushd.ttt.main.FileManager.config.getInt("MaxPlayers");
+				String Lobby = net.virushd.ttt.main.FileManager.config.getString("GameStates.Lobby");
+				String LobbyFull = net.virushd.ttt.main.FileManager.config.getString("GameStates.LobbyFull");
+				String Ingame = net.virushd.ttt.main.FileManager.config.getString("GameStates.Ingame");
 				s = s.replace("{Name}", arena.getName());
 				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
 				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
@@ -123,11 +121,6 @@ public class PlaceHolder {
 				s = Normal(s);
 			}
 		}
-		return s;
-	}
-	
-	private static String Troll(String s) {
-		// TODO Troll
 		return s;
 	}
 }

@@ -1,19 +1,15 @@
-package net.virushd.multiarena.commands;
+package net.virushd.ttt.commands;
 
-import net.virushd.multiarena.inventories.Admin;
-import org.bukkit.Location;
+import net.virushd.ttt.inventories.Admin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.SaveUtils;
 import net.virushd.core.main.PlaceHolder;
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.main.FileManager;
 
-public class MultiArena implements CommandExecutor {
+public class TTT implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -24,14 +20,14 @@ public class MultiArena implements CommandExecutor {
 			String NotInMode = PlaceHolder.WithPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NotInMode"), p);
 			String NoPerm = PlaceHolder.WithPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NoPerm"), p);
 	
-			if (cmd.getName().equalsIgnoreCase("multiarena")) {
+			if (cmd.getName().equalsIgnoreCase("ttt")) {
 				if (CoreMain.isNormal(p)){
 					
 					/*
 					 * Normal
 					 */
-					if ((p.hasPermission("virushd.multiarena.command.multiarena") || p.hasPermission("*"))) {
-						// TODO Normal multiarena command
+					if ((p.hasPermission("virushd.ttt.command.ttt") || p.hasPermission("*"))) {
+						// TODO Normal ttt command
 					} else {
 						p.sendMessage(NoPerm);
 					}
@@ -40,7 +36,7 @@ public class MultiArena implements CommandExecutor {
 					/*
 					 * Admin
 					 */
-					if (p.hasPermission("virushd.multiarena.command.multiarena") || p.hasPermission("*")) {
+					if (p.hasPermission("virushd.ttt.command.ttt") || p.hasPermission("*")) {
 						Admin.open(p);
 					} else {
 						p.sendMessage(NoPerm);

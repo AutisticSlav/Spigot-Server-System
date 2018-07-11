@@ -1,9 +1,9 @@
-package net.virushd.multiarena.arena;
+package net.virushd.ttt.arena;
 
 import java.util.ArrayList;
 
 import net.virushd.core.main.SetLobby;
-import net.virushd.multiarena.main.FileManager;
+import net.virushd.ttt.main.FileManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

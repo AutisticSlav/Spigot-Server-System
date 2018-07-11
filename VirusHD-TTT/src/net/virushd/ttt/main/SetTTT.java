@@ -1,4 +1,4 @@
-package net.virushd.multiarena.main;
+package net.virushd.ttt.main;
 
 import net.virushd.core.main.Utils;
 import org.bukkit.GameMode;
@@ -6,16 +6,16 @@ import org.bukkit.entity.Player;
 
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.PlaceHolder;
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.title.title.Title;
 
-public class SetMultiArena {
+public class SetTTT {
 
-	public static void setMultiArena(Player p, int id) {
+	public static void setTTT(Player p, int id) {
 
 		Arena theArena = ArenaManager.getArenaByID(id);
-		String MultiArenaMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.MultiArena"), p);
+		String TTTMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.TTT"), p);
 		String JoinTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Title"), p);
 		String JoinSubTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.SubTitle"), p);
 		String TabTitleHeader = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Header"), p);
@@ -29,7 +29,7 @@ public class SetMultiArena {
 
 			// debug
 			if (CoreMain.debug()) {
-				MultiArenaMain.main.getLogger().info("DEBUG: " + p.getName() + " joined the arena " + theArena.getName());
+				TTTMain.main.getLogger().info("DEBUG: " + p.getName() + " joined the arena " + theArena.getName());
 			}
 
 			Utils.SmoothTeleport(p, theArena.getLobby());
@@ -44,7 +44,7 @@ public class SetMultiArena {
 			// Scoreboard
 			net.virushd.core.scoreboards.Lobby.SetScoreboard(p);
 
-			p.sendMessage(MultiArenaMessage);
+			p.sendMessage(TTTMessage);
 
 			for (Player players : theArena.getPlayers()) {
 				if (!players.equals(p)) {

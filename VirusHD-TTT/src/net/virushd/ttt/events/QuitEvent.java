@@ -1,11 +1,11 @@
-package net.virushd.multiarena.events;
+package net.virushd.ttt.events;
 
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.PlaceHolder;
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.main.FileManager;
-import net.virushd.multiarena.main.MultiArenaMain;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
+import net.virushd.ttt.main.FileManager;
+import net.virushd.ttt.main.TTTMain;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,7 +26,7 @@ public class QuitEvent implements Listener {
 
 				// debug
 				if (CoreMain.debug()) {
-					MultiArenaMain.main.getLogger().info("DEBUG: " + p.getName() + " left CityBuild.");
+					TTTMain.main.getLogger().info("DEBUG: " + p.getName() + " left TTT.");
 				}
 
 				a.getPlayers().remove(p);

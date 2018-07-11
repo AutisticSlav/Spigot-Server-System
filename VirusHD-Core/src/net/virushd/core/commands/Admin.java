@@ -1,5 +1,7 @@
 package net.virushd.core.commands;
 
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,7 +33,7 @@ public class Admin implements CommandExecutor{
 						CoreMain.setAdmin(p);
 						p.sendMessage(AdminMode);
 						
-						if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
+						if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
 							if (CityBuildMain.players.contains(p)) {
 								CityBuildMain.players.remove(p);
 								
@@ -48,7 +50,7 @@ public class Admin implements CommandExecutor{
 							}
 						}
 						
-						if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
+						if (CoreMain.pluginAvailable("VirusHD-Creative")) {
 							if (CreativeMain.players.contains(p)) {
 								CreativeMain.players.remove(p);
 								
@@ -61,6 +63,25 @@ public class Admin implements CommandExecutor{
 								// debug
 								if (CoreMain.debug()) {
 									CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left CityBuild.");
+								}
+							}
+						}
+
+						if (CoreMain.pluginAvailable("VirusHD-TTT")) {
+							for (Arena a : ArenaManager.getArenas()) {
+								if (a.getPlayers().contains(p)) {
+									a.getPlayers().remove(p);
+
+									String QuitMessage = PlaceHolder.WithPlayer(net.virushd.ttt.main.FileManager.messages.getString("Quit.Message"), p);
+
+									for (Player players : a.getPlayers()) {
+										players.sendMessage(QuitMessage);
+									}
+
+									// debug
+									if (CoreMain.debug()) {
+										CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left TTT.");
+									}
 								}
 							}
 						}

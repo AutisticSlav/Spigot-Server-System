@@ -1,18 +1,18 @@
-package net.virushd.multiarena.main;
+package net.virushd.ttt.main;
 
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.events.*;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.commands.TTT;
+import net.virushd.ttt.events.*;
 import org.bukkit.block.Sign;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.commands.MultiArena;
+import net.virushd.ttt.arena.ArenaManager;
 
 import net.virushd.core.main.PlaceHolder;
 
-public class MultiArenaMain extends JavaPlugin {
+public class TTTMain extends JavaPlugin {
 	
-	public static MultiArenaMain main;
+	public static TTTMain main;
 	
 	public void onEnable() {
 		
@@ -29,7 +29,7 @@ public class MultiArenaMain extends JavaPlugin {
 		}
 		
 		// commands
-		getCommand("multiarena").setExecutor(new MultiArena());
+		getCommand("ttt").setExecutor(new TTT());
 
 		// events
 		getServer().getPluginManager().registerEvents(new SignEvent(), this);
@@ -54,7 +54,7 @@ public class MultiArenaMain extends JavaPlugin {
 		for (Sign sign : Updater.UpdateSigns.keySet()) {
 			for (int i = 0; i < 4; i++) {
 				try {
-					sign.setLine(i, PlaceHolder.MultiArenaSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0), Updater.UpdateSigns.get(sign)));
+					sign.setLine(i, PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0), Updater.UpdateSigns.get(sign)));
 					sign.update();
 				} catch (Exception ex) {
 					ex.printStackTrace();

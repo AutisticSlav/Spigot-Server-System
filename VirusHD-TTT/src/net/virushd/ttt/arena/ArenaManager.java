@@ -1,15 +1,10 @@
-package net.virushd.multiarena.arena;
+package net.virushd.ttt.arena;
 
 import java.util.ArrayList;
 
-import net.virushd.core.main.PlaceHolder;
 import net.virushd.core.main.SaveUtils;
-import net.virushd.core.main.SetLobby;
-import net.virushd.multiarena.main.FileManager;
-import org.bukkit.ChatColor;
+import net.virushd.ttt.main.FileManager;
 import org.bukkit.Location;
-import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
 
 public class ArenaManager {
 	

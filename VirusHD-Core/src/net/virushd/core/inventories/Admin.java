@@ -2,6 +2,7 @@ package net.virushd.core.inventories;
 
 import java.util.Arrays;
 
+import net.virushd.core.main.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,8 +38,8 @@ public class Admin {
 		
 		// locations
 		int i = 0;
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
-			locations.setSlot(i, InventoryAPI.createItem("&cCityBuild", Arrays.asList("&7Change the CityBuild-location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.CityBuild.Item")), null, 1), new ItemListener() {
+		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
+			locations.setSlot(i, InventoryAPI.createItem("&cCityBuild", Arrays.asList("&7Change the CityBuild location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.CityBuild.Item")), null, 1), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
 					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "CityBuild", p.getLocation());
@@ -47,14 +48,23 @@ public class Admin {
 			i++;
 		}
 		
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
-			locations.setSlot(i, InventoryAPI.createItem("&cCreative", Arrays.asList("&7Change the Creative-location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.Creative.Item")), null, 1), new ItemListener() {
+		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
+			locations.setSlot(i, InventoryAPI.createItem("&cCreative", Arrays.asList("&7Change the Creative location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.Creative.Item")), null, 1), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
 					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "Creative", p.getLocation());
 				}
 			});
 			i++;
+		}
+
+		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
+			locations.setSlot(i, InventoryAPI.createItem("&cTTT", Arrays.asList("&7Change the TTT location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.TTT.Item")), null, 1), new ItemListener() {
+				@Override
+				public void onItemClick(Player p) {
+					SaveUtils.SaveLocationToFile(FileManager.locationsF, FileManager.locations, "TTT", p.getLocation());
+				}
+			});
 		}
 		
 		locations.setSlot(18, SaveUtils.GetItemFromFile(FileManager.itm_inventory, "Leave"), new ItemListener() {

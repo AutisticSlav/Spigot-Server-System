@@ -16,15 +16,17 @@ import net.virushd.inventory.main.InventoryAPI;
 public class Teleporter {
 	
 	public static void open(Player p) {
-		
+
 		String InventoryDisplayName = PlaceHolder.Normal(FileManager.inv_teleporter.getString("Inventory.DisplayName"));
 		ItemStack SpawnItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.Spawn");
 		ItemStack CityBuildItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.CityBuild");
 		ItemStack CreativeItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.Creative");
+		ItemStack TTTItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.TTT");
+		int SpawnSlot = FileManager.inv_teleporter.getInt("Items.Spawn.Slot");
 		int CityBuildSlot = FileManager.inv_teleporter.getInt("Items.CityBuild.Slot");
 		int CreativeSlot = FileManager.inv_teleporter.getInt("Items.Creative.Slot");
-		int SpawnSlot = FileManager.inv_teleporter.getInt("Items.Spawn.Slot");
-		
+		int TTTSlot = FileManager.inv_teleporter.getInt("Items.Creative.TTT");
+
 		Inventory inv = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.CHEST);
 		
 		// background items
@@ -49,7 +51,7 @@ public class Teleporter {
 		});
 		
 		// CityBuild Item
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
 			inv.setSlot(CityBuildSlot - 1, CityBuildItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
@@ -60,11 +62,22 @@ public class Teleporter {
 		}
 
 		// Creative Item
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
 			inv.setSlot(CreativeSlot - 1, CreativeItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
 					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "Creative"));
+					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
+				}
+			});
+		}
+
+		// TTT Item
+		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
+			inv.setSlot(TTTSlot - 1, TTTItem, new ItemListener() {
+				@Override
+				public void onItemClick(Player p) {
+					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "TTT"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});

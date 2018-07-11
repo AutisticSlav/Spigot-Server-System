@@ -1,5 +1,6 @@
 package net.virushd.core.inventories;
 
+import net.virushd.core.main.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -23,7 +24,7 @@ public class Cosmetics {
 		
 		// inv
 		int i = 0;
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Pets") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-Pets")) {
 			inv.setSlot(i, SaveUtils.GetItemFromFile(FileManager.inv_cosmetics, "Items.Pets"), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
@@ -33,7 +34,7 @@ public class Cosmetics {
 			i++;
 		}
 		
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Hats") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-Hats")) {
 			inv.setSlot(i, SaveUtils.GetItemFromFile(FileManager.inv_cosmetics, "Items.Hats"), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
@@ -43,7 +44,7 @@ public class Cosmetics {
 			});
 			i++;
 		}
-		if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Coins") != null) {
+		if (CoreMain.pluginAvailable("VirusHD-Coins")) {
 			inv.setSlot(i, SaveUtils.GetItemFromFile(FileManager.inv_cosmetics, "Items.Lottery"), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {

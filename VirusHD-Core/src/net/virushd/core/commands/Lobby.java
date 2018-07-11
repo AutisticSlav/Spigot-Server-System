@@ -1,6 +1,7 @@
 package net.virushd.core.commands;
 
-import org.bukkit.Bukkit;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,6 @@ import net.virushd.core.main.FileManager;
 import net.virushd.core.main.PlaceHolder;
 import net.virushd.core.main.SetLobby;
 import net.virushd.creative.main.CreativeMain;
-
-import java.util.Set;
 
 public class Lobby implements CommandExecutor {
 
@@ -65,7 +64,7 @@ public class Lobby implements CommandExecutor {
 							}
 						} else {
 							SetLobby.setLobby(p);
-							if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-CityBuild") != null) {
+							if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
 								if (CityBuildMain.players.contains(p)) {
 									CityBuildMain.players.remove(p);
 
@@ -82,7 +81,7 @@ public class Lobby implements CommandExecutor {
 								}
 							}
 
-							if (Bukkit.getServer().getPluginManager().getPlugin("VirusHD-Creative") != null) {
+							if (CoreMain.pluginAvailable("VirusHD-Creative")) {
 								if (CreativeMain.players.contains(p)) {
 									CreativeMain.players.remove(p);
 
@@ -95,6 +94,25 @@ public class Lobby implements CommandExecutor {
 									// debug
 									if (CoreMain.debug()) {
 										CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left Creative.");
+									}
+								}
+							}
+
+							if (CoreMain.pluginAvailable("VirusHD-TTT")) {
+								for (Arena a : ArenaManager.getArenas()) {
+									if (a.getPlayers().contains(p)) {
+										a.getPlayers().remove(p);
+
+										String QuitMessage = PlaceHolder.WithPlayer(net.virushd.ttt.main.FileManager.messages.getString("Quit.Message"), p);
+
+										for (Player players : a.getPlayers()) {
+											players.sendMessage(QuitMessage);
+										}
+
+										// debug
+										if (CoreMain.debug()) {
+											CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left TTT.");
+										}
 									}
 								}
 							}

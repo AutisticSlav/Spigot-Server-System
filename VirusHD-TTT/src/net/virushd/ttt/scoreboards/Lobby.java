@@ -1,7 +1,7 @@
-package net.virushd.multiarena.scoreboards;
+package net.virushd.ttt.scoreboards;
 
 import net.virushd.core.main.SaveUtils;
-import net.virushd.multiarena.main.FileManager;
+import net.virushd.ttt.main.FileManager;
 import org.bukkit.entity.Player;
 
 public class Lobby {

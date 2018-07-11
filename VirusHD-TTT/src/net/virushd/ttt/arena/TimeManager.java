@@ -1,16 +1,14 @@
-package net.virushd.multiarena.arena;
+package net.virushd.ttt.arena;
 
 import net.virushd.core.main.PlaceHolder;
 import net.virushd.core.main.Utils;
-import net.virushd.multiarena.main.FileManager;
-import net.virushd.multiarena.main.MultiArenaMain;
+import net.virushd.ttt.main.FileManager;
+import net.virushd.ttt.main.TTTMain;
 import net.virushd.title.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.ArrayList;
@@ -143,7 +141,7 @@ class TimeManager {
 
 	private String schedule(Runnable task, long start, long update, String ID) {
 		if (ID.equals("")) {
-			return "" + scheduler.scheduleSyncRepeatingTask(MultiArenaMain.main, task, start, update);
+			return "" + scheduler.scheduleSyncRepeatingTask(TTTMain.main, task, start, update);
 		}
 		return ID;
 	}

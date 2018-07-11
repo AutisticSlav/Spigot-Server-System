@@ -3,8 +3,6 @@ package net.virushd.core.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.virushd.citybuild.main.CityBuildMain;
-import net.virushd.creative.main.CreativeMain;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -126,5 +124,9 @@ public class CoreMain extends JavaPlugin {
 			return mode.get(p).equals(Mode.TROLL);
 		}
 		return false;
+	}
+
+	public static boolean pluginAvailable(String pl) {
+		return Bukkit.getServer().getPluginManager().getPlugin(pl) != null;
 	}
 }

@@ -1,4 +1,4 @@
-package net.virushd.multiarena.inventories;
+package net.virushd.ttt.inventories;
 
 import net.virushd.core.inventories.AnvilGUI;
 import net.virushd.core.main.FileManager;
@@ -6,9 +6,8 @@ import net.virushd.core.main.SaveUtils;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
-import org.bukkit.DyeColor;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -48,15 +47,9 @@ public class Admin {
 		});
 		inv.setSlot(18, InventoryAPI.createItem("&cInfo", Arrays.asList("&4Red &7means the arena is not complete (missing spawns).", "&2Green &7means the arena is complete."), Material.TORCH, null, 1), null);
 
-/*		for (int i = 0; i < 17; i++) {
-			ItemStack item = InventoryAPI.createItem("" + i, null, Material.WOOL, null, 1);
-			item.setDurability((short) i);
-			inv.setSlot(i, item, null);
-		}*/
-
 		int i = 0;
 		for (Arena a : ArenaManager.getArenas()) {
-			ItemStack item = InventoryAPI.createItem("&c" + a.getName(), Arrays.asList("&7Edit the arena with the ID " + a.getID() + "."), Material.WOOL, null, 1);
+			ItemStack item = InventoryAPI.createItem("&c" + a.getName() + " (" + a.getID() + ")", Arrays.asList("&7Edit the arena with the ID " + a.getName() + " (" + a.getID() + ")."), Material.WOOL, null, 1);
 			if (a.isComplete()) item.setDurability((short) 13);
 			else item.setDurability((short) 14);
 			inv.setSlot(i, item, new ItemListener() {
@@ -77,6 +70,7 @@ public class Admin {
 			@Override
 			public void onItemClick(Player p) {
 				ArenaManager.deleteArena(a.getID());
+				p.closeInventory();
 			}
 		});
 

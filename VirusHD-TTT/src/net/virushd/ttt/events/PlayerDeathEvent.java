@@ -1,9 +1,9 @@
-package net.virushd.multiarena.events;
+package net.virushd.ttt.events;
 
 import net.virushd.core.main.CoreMain;
-import net.virushd.multiarena.arena.Arena;
-import net.virushd.multiarena.arena.ArenaManager;
-import net.virushd.multiarena.main.MultiArenaMain;
+import net.virushd.ttt.arena.Arena;
+import net.virushd.ttt.arena.ArenaManager;
+import net.virushd.ttt.main.TTTMain;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +20,7 @@ public class PlayerDeathEvent implements Listener {
 			if (a.getPlayers().contains(p)) {
 				p.spigot().respawn();
 				if (CoreMain.debug()) {
-					MultiArenaMain.main.getLogger().info("DEBUG: " + p.getName() + " died.");
+					TTTMain.main.getLogger().info("DEBUG: " + p.getName() + " died.");
 				}
 
 				//a.addSpectator(p);

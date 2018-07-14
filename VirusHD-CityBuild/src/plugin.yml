@@ -5,4 +5,4 @@ version: 1.0
 depend: [WorldEdit, WorldGuard]
 commands:
   citybuild:
-    description: Der Command zum CityBuild Spielmodus.
+    description: CityBuild command

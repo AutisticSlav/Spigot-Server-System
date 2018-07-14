@@ -21,8 +21,8 @@ public class FileManager {
 	public static FileConfiguration sco_ingame;
 
 	@SuppressWarnings("static-access")
-	public static void Manager() {
-		
+	public static void manager() {
+
 		// messages
 		messagesF = new File("plugins/VirusHD-TTT", "messages.yml");
 		messages = new YamlConfiguration().loadConfiguration(messagesF);
@@ -43,27 +43,27 @@ public class FileManager {
 		messages.addDefault("TabTitle.Header", "&4VirusHD.net &7- &4TTT\n&7-----------------------------------");
 		messages.addDefault("TabTitle.Footer", "&7-----------------------------------\n&cViel Spass!");
 		messages.addDefault("Quit.Message", "{TTTPrefix}&c{PlayerName}&7 hat das Spiel verlassen.");
-		
+
 		// das wurde noch nicht benuzt
-		messages.addDefault("Messages.Usage","&7»->--------------<-« &cUsage &7»->--------------<-«"
-											+ "\n&c - /ttt hilfe &7Die Hilfe zum Spielmodus."
-											+ "\n&c - /ttt commands &7Eine Liste der wichtigsten Commands."
-											+ "\n&c - /ttt regeln &7Die Regeln.");
+		messages.addDefault("Messages.Usage", "&7»->--------------<-« &cUsage &7»->--------------<-«"
+				+ "\n&c - /ttt hilfe &7Die Hilfe zum Spielmodus."
+				+ "\n&c - /ttt commands &7Eine Liste der wichtigsten Commands."
+				+ "\n&c - /ttt regeln &7Die Regeln.");
 		messages.addDefault("Messages.Help", "&7»->--------------<-« &cDie Hilfe &7»->--------------<-«"
-											+ "\n&c - &7Spiel Einfach!");
+				+ "\n&c - &7Spiel Einfach!");
 		messages.addDefault("Messages.Commands", "&7»->--------------<-« &cDie Commands &7»->--------------<-«"
-											+ "\n&c - /msg: &7Mit einem Spieler chatten."
-											+ "\n&c - /coins: &7Der Coins command."
-											+ "\n&c - /lobby: &7Kehre zur Lobby zurück.");
+				+ "\n&c - /msg: &7Mit einem Spieler chatten."
+				+ "\n&c - /coins: &7Der Coins command."
+				+ "\n&c - /lobby: &7Kehre zur Lobby zurück.");
 		messages.addDefault("Messages.Rules", "&7»->--------------<-« &cDie Regeln &7»->--------------<-«"
-											+ "\n&c - &7Fair spielen."
-											+ "\n&c - &7Spam ist untersagt."
-											+ "\n&c - &7Nicht Hacken."
-											+ "\n&c - &7Bei Fragen sich an den Support wenden."
-											+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
+				+ "\n&c - &7Fair spielen."
+				+ "\n&c - &7Spam ist untersagt."
+				+ "\n&c - &7Nicht Hacken."
+				+ "\n&c - &7Bei Fragen sich an den Support wenden."
+				+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
 		messages.options().copyDefaults(true);
-		SaveUtils.SaveFile(messagesF, messages);
-		
+		SaveUtils.saveFile(messagesF, messages);
+
 		// config
 		configF = new File("plugins/VirusHD-TTT", "config.yml");
 		config = new YamlConfiguration().loadConfiguration(configF);
@@ -75,13 +75,13 @@ public class FileManager {
 		config.addDefault("GameStates.Lobby", "&aLobby");
 		config.addDefault("GameStates.LobbyFull", "&eLobby");
 		config.addDefault("GameStates.Ingame", "&4Ingame");
-		config.addDefault("Sign.Lines.1", "&7- &0[&4TTT&0] &7-");
-		config.addDefault("Sign.Lines.2", "&c{Name}");
-		config.addDefault("Sign.Lines.3", "&0[&r{GameState}&0]");
-		config.addDefault("Sign.Lines.4", "&c{Players} &7/ &c{MaxPlayers}");
+		config.addDefault("Sign.Lines.0", "&7- &0[&4TTT&0] &7-");
+		config.addDefault("Sign.Lines.1", "&c{Name}");
+		config.addDefault("Sign.Lines.2", "&0[&r{GameState}&0]");
+		config.addDefault("Sign.Lines.3", "&c{Players} &7/ &c{MaxPlayers}");
 		config.options().copyDefaults(true);
-		SaveUtils.SaveFile(configF, config);
-		
+		SaveUtils.saveFile(configF, config);
+
 		// arenas
 		arenasF = new File("plugins/VirusHD-TTT", "arenas.yml");
 		arenas = new YamlConfiguration().loadConfiguration(arenasF);
@@ -90,16 +90,16 @@ public class FileManager {
 		// sco_lobby
 		sco_lobbyF = new File("plugins/VirusHD-TTT/scoreboards", "lobby.yml");
 		sco_lobby = new YamlConfiguration().loadConfiguration(sco_lobbyF);
-		SaveUtils.DefaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Lobby"));
+		SaveUtils.defaultScoreboardToFile(sco_lobby, "Lobby", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Lobby"));
 		sco_lobby.options().copyDefaults(true);
-		SaveUtils.SaveFile(sco_lobbyF, sco_lobby);
+		SaveUtils.saveFile(sco_lobbyF, sco_lobby);
 
 		// TODO Scoreboard Ingame
 		// sco_ingame
 		sco_ingameF = new File("plugins/VirusHD-TTT/scoreboards", "ingame.yml");
 		sco_ingame = new YamlConfiguration().loadConfiguration(sco_ingameF);
-		SaveUtils.DefaultScoreboardToFile(sco_ingame, "Ingame", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Ingame"));
+		SaveUtils.defaultScoreboardToFile(sco_ingame, "Ingame", "&4VirusHD.net &7- &4TTT", Arrays.asList("{Space}", "&cRang:", "&7{Rank}", "{Space}", "Ingame"));
 		sco_ingame.options().copyDefaults(true);
-		SaveUtils.SaveFile(sco_ingameF, sco_ingame);
+		SaveUtils.saveFile(sco_ingameF, sco_ingame);
 	}
 }

@@ -1,7 +1,5 @@
 package net.virushd.creative.events;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,56 +20,50 @@ import net.virushd.creative.main.SetCreative;
 import net.virushd.creative.main.Updater;
 
 public class SignEvent implements Listener {
-	
-	public static ArrayList<Sign> signs = new ArrayList<Sign>();
-	
-	@EventHandler
-	public void onSignClick (PlayerInteractEvent e) {
-		
-		Player p = e.getPlayer();
-		
-		int MaxPlayers = FileManager.config.getInt("MaxPlayers");
-		String NoJoinPerm = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.NoJoinPerm"), p);
-		String Full = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Full"), p);
 
-		// wenn der Spieler rechtsklickt
+	@EventHandler
+	public void onSignClick(PlayerInteractEvent e) {
+
+		Player p = e.getPlayer();
+
+		int MaxPlayers = FileManager.config.getInt("MaxPlayers");
+		String NoJoinPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoJoinPerm"), p);
+		String Full = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Full"), p);
+
+		// if the player makes a right click
 		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block block = e.getClickedBlock();
-			
-			// wenn der block ein schild ist
+
+			// if the block is a sign
 			if (block.getType() == Material.WALL_SIGN || block.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) block.getState();
 
-				// wenn der spieler auch wirklich in der Lobby ist
-				if (CoreMain.players.contains(p)) {
-					
-					// wenn es auch wirlich des richtige schild ist
+				// if the player is in the lobby
+				if (CoreMain.getPlayers().contains(p)) {
+
+					// if it's the correct sign
 					for (int i = 0; i < 4; i++) {
-						if (!ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.CreativeSign(FileManager.config.getString("Sign.Lines." + (i + 1)))))) {
+						if (!ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.creativeSign(FileManager.config.getString("Sign.Lines." + (i)))))) {
 							return;
 						}
 					}
-					
-					// das schild updaten
-					sign.update(true);
-					
-					// wenn der spieler die permission hat
-					if (p.hasPermission("virushd.creative.sign.click") || p.hasPermission("*")) {
-						
-						// wenn es noch platz hat
-						if (CreativeMain.players.size() < MaxPlayers) {
-							Bukkit.getServer().getScheduler().runTaskLater(CreativeMain.main, new Runnable() {
 
-								// so jetzt kann der spieler endlich joinen
-								@Override
-								public void run() {
-									SetCreative.setCreative(p);
-									for (int i = 0; i < 4; i++) {
-										sign.setLine(i, PlaceHolder.CreativeSign(FileManager.config.getString("Sign.Lines." + (i + 1))));
-									}
-									if (!Updater.UpdateSigns.contains(sign)) {
-										Updater.UpdateSigns.add(sign);
-									}
+					// if the player has permissions
+					if (p.hasPermission("virushd.creative.sign.click") || p.hasPermission("*")) {
+
+						// if the game isn't full
+						if (CreativeMain.getPlayers().size() < MaxPlayers) {
+
+							// now the player can finally join
+							Bukkit.getServer().getScheduler().runTaskLater(CreativeMain.main, () -> {
+								SetCreative.setCreative(p);
+								for (int i = 0; i < 4; i++) {
+									sign.setLine(i, PlaceHolder.creativeSign(FileManager.config.getString("Sign.Lines." + (i))));
+								}
+
+								// update the sign
+								if (!Updater.updateSigns.contains(sign)) {
+									Updater.updateSigns.add(sign);
 								}
 							}, 5L);
 						} else {
@@ -84,30 +76,30 @@ public class SignEvent implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onSignChange(SignChangeEvent e) {
-		
+
 		Player p = e.getPlayer();
-		
+
 		Block block = e.getBlock();
 		Sign sign = (Sign) block.getState();
-		
-		// wenn man [Creative] geschrieben hat
+
+		// if the player wrote [Creative]
 		if (e.getLine(0).equals("[Creative]")) {
-			
-			// wenn der Spieler im Admin modus ist
+
+			// if the player is admin mode
 			if (CoreMain.isAdmin(p)) {
-				
-				// wenn er auch noch das recht dazu hat
+
+				// if the player has permissions
 				if (p.hasPermission("virushd.creative.sign.create") || p.hasPermission("*")) {
 					for (int i = 0; i < 4; i++) {
-						
-						// das schild richtig machen
-						sign.setLine(i, PlaceHolder.CreativeSign(FileManager.config.getString("Sign.Lines." + (i + 1))));
-						
-						// das schild updaten
-						Updater.UpdateSigns.add(sign);
+
+						// make the sign correct
+						sign.setLine(i, PlaceHolder.creativeSign(FileManager.config.getString("Sign.Lines." + (i))));
+
+						// update the sign
+						Updater.updateSigns.add(sign);
 					}
 				}
 			}

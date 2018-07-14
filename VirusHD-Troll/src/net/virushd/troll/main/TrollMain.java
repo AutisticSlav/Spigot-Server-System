@@ -12,7 +12,7 @@ public class TrollMain extends JavaPlugin {
 		main = this;
 
 		// files
-		FileManager.Manager();
+		FileManager.manager();
 
 		// events
 		// TODO register events

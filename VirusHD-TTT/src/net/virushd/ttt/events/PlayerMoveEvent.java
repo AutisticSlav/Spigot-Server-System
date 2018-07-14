@@ -17,6 +17,7 @@ public class PlayerMoveEvent implements Listener {
 		Location from = e.getFrom();
 		Location to = e.getTo();
 
+		// cancel player movement smoothly
 		for (Arena a : ArenaManager.getCompletedArenas()) {
 			if (a.getPlayers().contains(p) && a.getGameState().equals(GameState.STARTING)) {
 				if (from.getX() != to.getX() || from.getZ() != to.getZ()) {

@@ -16,7 +16,9 @@ public class QuitEvent implements Listener {
 
 		if (PetUtils.hasPet(p)) {
 			boolean isHide = FileManager.pets.getBoolean(p.getUniqueId().toString() + ".Hide");
-			if (isHide == false) {
+
+			// despawn the pet if it's not hidden
+			if (!isHide) {
 				PetUtils.despawnPet(p, p.getWorld());
 			}
 		}

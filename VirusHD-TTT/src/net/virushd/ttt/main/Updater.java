@@ -15,35 +15,32 @@ import org.bukkit.entity.Player;
 
 public class Updater {
 
-	/*
-	 * ScoreboardUpdater
-	 */
-	public static void ScoreboardUpdater () {
+	// update all the ttt scoreboards
+	public static void scoreboardUpdater() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(TTTMain.main, () -> {
 			for (Arena a : ArenaManager.getCompletedArenas()) {
 				for (Player p : a.getPlayers()) {
 					if (a.getGameState().equals(GameState.LOBBY)) {
-						Lobby.SetScoreboard(p);
+						Lobby.setScoreboard(p);
 					} else {
-						Ingame.SetScoreboard(p);
+						Ingame.setScoreboard(p);
 					}
 				}
 			}
 		}, 60L, 60L);
 	}
 
-	/*
-	 * SignUpdater
-	 */
-	public static HashMap<Sign, Integer> UpdateSigns = new HashMap<>();
-	public static void SignUpdater () {
-		
+	public static HashMap<Sign, Integer> updateSigns = new HashMap<>();
+
+	// update the ttt signs
+	public static void signUpdater() {
+
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(TTTMain.main, () -> {
-			for (Sign sign : UpdateSigns.keySet()) {
+			for (Sign sign : updateSigns.keySet()) {
 				for (int i = 0; i < 4; i++) {
 					try {
-						sign.setLine(i, PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), UpdateSigns.get(sign)));
+						sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + (i)), updateSigns.get(sign)));
 						sign.update();
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -53,10 +50,8 @@ public class Updater {
 		}, 5L, 5L);
 	}
 
-	/*
-	 * PlayerVisibility
-	 */
-	public static void PlayerVisibility () {
+	// update the player visibility
+	public static void playerVisibility() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(TTTMain.main, () -> {
 			for (Arena arena : ArenaManager.getCompletedArenas()) {

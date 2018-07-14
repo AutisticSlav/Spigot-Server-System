@@ -11,44 +11,48 @@ import net.virushd.core.main.PlaceHolder;
 import net.virushd.troll.main.TrollMain;
 
 public class Troll implements CommandExecutor {
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (sender instanceof Player) {
-			
+
 			Player p = (Player) sender;
-				
-			String NoPerm = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
-			
+
+			String NoPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
+
 			if (cmd.getName().equalsIgnoreCase("troll")) {
 				if (p.hasPermission("virushd.troll.command.troll") || p.hasPermission("*")) {
 					if (CoreMain.isNormal(p) || CoreMain.isAdmin(p)) {
+
+						// set to troll when the player isn't in troll mode yet
 						CoreMain.setTroll(p);
 						// TODO Troll mode message
-						
+
 						// debug
 						if (CoreMain.debug()) {
 							TrollMain.main.getLogger().info("DEBUG: " + p.getName() + " entered troll mode.");
 						}
-						
+
 					} else if (CoreMain.isTroll(p)) {
 						switch (args.length) {
-						case 0:
-							CoreMain.setNormal(p);
-							
-							// debug
-							if (CoreMain.debug()) {
-								TrollMain.main.getLogger().info("DEBUG: " + p.getName() + " left troll mode.");
-							}
-							
-							break;
-						case 1: // TODO Troll-Menu einführen
-		
-							break;
-						default: // TODO Usage
-							
-							break;
+							case 0:
+
+								// set back to normal
+								CoreMain.setNormal(p);
+
+								// debug
+								if (CoreMain.debug()) {
+									TrollMain.main.getLogger().info("DEBUG: " + p.getName() + " left troll mode.");
+								}
+
+								break;
+							case 1: // TODO Troll-Menu einführen
+
+								break;
+							default: // TODO Usage
+
+								break;
 						}
 					}
 				} else {

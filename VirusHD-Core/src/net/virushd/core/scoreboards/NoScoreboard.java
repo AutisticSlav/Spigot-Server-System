@@ -7,6 +7,8 @@ import org.bukkit.scoreboard.Scoreboard;
 public class NoScoreboard {
 
 	public static void SetScoreboard(Player p) {
+
+		// create a new empty scoreboard
 		Scoreboard NoScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		p.setScoreboard(NoScoreboard);
 	}

@@ -19,7 +19,7 @@ public class Option {
 
 	private String name;
 	private ArrayList<Object> cases;
-	private int set;
+	private int set; // the option case that is currently set
 	private Action action;
 	private Material material;
 
@@ -30,17 +30,20 @@ public class Option {
 		this.action = action;
 		this.material = material;
 	}
-	
+
+	// save the option to the pets file
 	public void save(Player p) {
 		FileManager.pets.set(p.getUniqueId().toString() + ".Options." + name, set);
-		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
+		SaveUtils.saveFile(FileManager.petsF, FileManager.pets);
 	}
 
+	// apply the option
 	public void run(Player p, Entity ent) {
 		set = FileManager.pets.getInt(p.getUniqueId().toString() + ".Options." + name);
 		action.run(p, cases.get(set), ent);
 	}
 
+	// set the option
 	public void set(Player p, Entity ent, Object obj) {
 		for (int i = 0; i < cases.size(); i++) {
 			if (cases.get(i).equals(obj)) {
@@ -50,7 +53,8 @@ public class Option {
 			}
 		}
 	}
-	
+
+	// set the option to the next case
 	public void nextSet(Player p, Entity ent) {
 		if (this.set == cases.size() - 1) {
 			this.set = 0;
@@ -61,6 +65,7 @@ public class Option {
 		run(p, ent);
 	}
 
+	// get the item of the option
 	public ItemStack getItem() {
 		String d = cases.get(set).toString();
 		String name = FileManager.options.getString("Options." + this.name);
@@ -69,13 +74,20 @@ public class Option {
 		d = d.replace("small", FileManager.options.getString("Size.Small"));
 		d = d.replace("medium", FileManager.options.getString("Size.Medium"));
 		d = d.replace("big", FileManager.options.getString("Size.Big"));
-		for (Variant variant : Variant.values()) { d = d.replace(variant.toString(), FileManager.options.getString("HorseType." + variant.toString())); }
-		for (Type type : Type.values()) { d = d.replace(type.toString(), FileManager.options.getString("CatType." + type.toString())); }
-		for (DyeColor color : DyeColor.values()) { d = d.replace(color.toString(), FileManager.options.getString("Color." + color.toString())); }
-		
+		for (Variant variant : Variant.values()) {
+			d = d.replace(variant.toString(), FileManager.options.getString("HorseType." + variant.toString()));
+		}
+		for (Type type : Type.values()) {
+			d = d.replace(type.toString(), FileManager.options.getString("CatType." + type.toString()));
+		}
+		for (DyeColor color : DyeColor.values()) {
+			d = d.replace(color.toString(), FileManager.options.getString("Color." + color.toString()));
+		}
+
 		return InventoryAPI.createItem(name, Arrays.asList(d), material, null, 1);
 	}
 
+	// action class
 	public static abstract class Action {
 		public abstract void run(Player p, Object theCase, Entity ent);
 	}

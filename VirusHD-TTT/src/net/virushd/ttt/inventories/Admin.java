@@ -21,11 +21,25 @@ public class Admin {
 	public static void open(Player p) {
 		Inventory inv = InventoryAPI.createInventory("&cAdmin Menu", InventoryType.CHEST);
 
+		// display all the arenas
+		int i = 0;
+		for (Arena a : ArenaManager.getArenas()) {
+			ItemStack item = InventoryAPI.createItem("&c" + a.getName() + " (" + a.getID() + ")", Arrays.asList("&7Edit the arena with the ID " + a.getName() + " (" + a.getID() + ")."), Material.WOOL, null, 1);
+			if (a.isComplete()) item.setDurability((short) 13);
+			else item.setDurability((short) 14);
+			inv.setSlot(i, item, new ItemListener() {
+				@Override
+				public void onItemClick(Player p) {
+					openArenaInventory(p, a);
+				}
+			});
+		}
+
 		inv.setSlot(26, InventoryAPI.createItem("&cCreate Arena", Arrays.asList("&7Create an arena"), Material.WORKBENCH, null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 
-				// create
+				// create an arena
 				AnvilGUI create = new AnvilGUI(p, e -> {
 					if (e.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
 						e.setWillClose(true);
@@ -45,27 +59,19 @@ public class Admin {
 				create.open();
 			}
 		});
+
+		// a small info
 		inv.setSlot(18, InventoryAPI.createItem("&cInfo", Arrays.asList("&4Red &7means the arena is not complete (missing spawns).", "&2Green &7means the arena is complete."), Material.TORCH, null, 1), null);
 
-		int i = 0;
-		for (Arena a : ArenaManager.getArenas()) {
-			ItemStack item = InventoryAPI.createItem("&c" + a.getName() + " (" + a.getID() + ")", Arrays.asList("&7Edit the arena with the ID " + a.getName() + " (" + a.getID() + ")."), Material.WOOL, null, 1);
-			if (a.isComplete()) item.setDurability((short) 13);
-			else item.setDurability((short) 14);
-			inv.setSlot(i, item, new ItemListener() {
-				@Override
-				public void onItemClick(Player p) {
-					openArenaInventory(p, a);
-				}
-			});
-		}
 		inv.open(p);
 	}
 
 	private static void openArenaInventory(Player p, Arena a) {
 
+		// the arena menu
 		Inventory arena = InventoryAPI.createInventory("&cArena: &7" + a.getName(), InventoryType.HOPPER);
 
+		// delete the arena
 		arena.setSlot(0, InventoryAPI.createItem("&cDelete Arena", Arrays.asList("&7Delete the arena (&4CANNOT BE UNDONE!&7)."), Material.BARRIER, null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -74,6 +80,7 @@ public class Admin {
 			}
 		});
 
+		// add a spawn
 		arena.setSlot(1, InventoryAPI.createItem("&cAdd Spawn", Arrays.asList("&7Add a spawn."), Material.valueOf(net.virushd.core.main.FileManager.inv_teleporter.getString("Items.Spawn.Item")), null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -82,6 +89,7 @@ public class Admin {
 			}
 		});
 
+		// set the lobby
 		arena.setSlot(2, InventoryAPI.createItem("&cSet Lobby", Arrays.asList("&7Set the lobby."), Material.COMPASS, null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -90,6 +98,7 @@ public class Admin {
 			}
 		});
 
+		// delete all the spawns
 		arena.setSlot(3, InventoryAPI.createItem("&cDelete Spawns", Arrays.asList("&7Delete all spawns of this arena (&4CANNOT BE UNDONE!&7)."), Material.BARRIER, null, 1), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -97,7 +106,9 @@ public class Admin {
 				ArenaManager.saveArena(a.getID());
 			}
 		});
-		arena.setSlot(4, SaveUtils.GetItemFromFile(FileManager.itm_inventory, "Leave"), new ItemListener() {
+
+		// leave the menu
+		arena.setSlot(4, SaveUtils.getItemFromFile(FileManager.itm_inventory, "Leave"), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 				open(p);

@@ -7,13 +7,15 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import net.virushd.core.main.CoreMain;
 
-public class DamageEvent implements Listener{
+@Deprecated
+public class DamageEvent implements Listener {
 
+	// some wierd stuff, I dont know why I have created this event
 	@EventHandler
-	public void onDamage (EntityDamageEvent e) {
+	public void onDamage(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if (CoreMain.players.contains(p)) {
+			if (CoreMain.getPlayers().contains(p)) {
 				e.setCancelled(true);
 			}
 		}

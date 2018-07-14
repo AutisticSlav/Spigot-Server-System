@@ -5,6 +5,6 @@ version: 1.0
 loadbefore: [VirusHD-Coins, VirusHD-Pets, VirusHD-Troll, VirusHD-CityBuild, VirusHD-Creative, VirusHD-TTT]
 commands:
   lobby:
-    description: return to lobby.
+    description: Lobby command
   admin:
-    description: activate the admin mode.
+    description: Admin command

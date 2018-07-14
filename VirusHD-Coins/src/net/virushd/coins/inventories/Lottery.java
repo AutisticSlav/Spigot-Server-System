@@ -21,16 +21,18 @@ import net.virushd.inventory.main.InventoryAPI;
 public class Lottery {
 
 	public static void open(Player p) {
-		
-		String InventoryDisplayName = PlaceHolder.Normal(FileManager.inv_lottery.getString("Inventory.DisplayName"));
-		String NotEnoughCoins = PlaceHolder.Normal(FileManager.messages.getString("Messages.NotEnoughCoins"));
-		String Wait = PlaceHolder.Normal(FileManager.messages.getString("Messages.Wait"));
-		
+
+		String InventoryDisplayName = PlaceHolder.normal(FileManager.inv_lottery.getString("Inventory.DisplayName"));
+		String NotEnoughCoins = PlaceHolder.normal(FileManager.messages.getString("Messages.NotEnoughCoins"));
+		String Wait = PlaceHolder.normal(FileManager.messages.getString("Messages.Wait"));
+
 		Inventory inv_lottery = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.CHEST);
-		
-		inv_lottery.setSlot(0, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.Info"), null);
-		
-		inv_lottery.setSlot(1, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.NormalTicket"), new ItemListener() {
+
+		// an info
+		inv_lottery.setSlot(0, SaveUtils.getItemFromFile(FileManager.inv_lottery, "Items.Info"), null);
+
+		// get a normal ticket
+		inv_lottery.setSlot(1, SaveUtils.getItemFromFile(FileManager.inv_lottery, "Items.NormalTicket"), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 				if (Coins.hasEnough(p.getUniqueId(), FileManager.inv_lottery.getInt("NormalPrice"))) {
@@ -45,8 +47,9 @@ public class Lottery {
 				}
 			}
 		});
-		
-		inv_lottery.setSlot(2, SaveUtils.GetItemFromFile(FileManager.inv_lottery, "Items.HighChanceTicket"), new ItemListener() {
+
+		// get a high chance ticket
+		inv_lottery.setSlot(2, SaveUtils.getItemFromFile(FileManager.inv_lottery, "Items.HighChanceTicket"), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 				if (Coins.hasEnough(p.getUniqueId(), FileManager.inv_lottery.getInt("HighChancePrice"))) {
@@ -61,95 +64,95 @@ public class Lottery {
 				}
 			}
 		});
-		
-		inv_lottery.setSlot(18, SaveUtils.GetItemFromFile(net.virushd.core.main.FileManager.itm_inventory, "Leave"), new ItemListener() {
+
+		// go back to cosmetics
+		inv_lottery.setSlot(18, SaveUtils.getItemFromFile(net.virushd.core.main.FileManager.itm_inventory, "Leave"), new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 				Cosmetics.open(p);
 			}
 		});
-		
+
 		inv_lottery.open(p);
 	}
-	
+
+	// the win algoritm
 	private static void lotteryTicket(Player p, Chance chance) {
-		String Lost = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Lost"), p);
-		String Won = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Won"), p);
+		String Lost = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Lost"), p);
+		String Won = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Won"), p);
 		Random random = new Random();
-		
+
+		// switch depending on the ticket
 		switch (chance) {
-		case NORMAL:
-			int choose1 = random.nextInt(40);
+			case NORMAL:
 
-			if (choose1 < 30) {
-				p.sendMessage(Lost);
-				
-			} else if (30 <= choose1 && choose1 < 34) {
-				p.sendMessage(Won.replace("{Won}", "" + 50));
-				Coins.add(p.getUniqueId(), 50);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-				
-			} else if (34 <= choose1 && choose1 < 37) {
-				p.sendMessage(Won.replace("{Won}", "" + 150));
-				Coins.add(p.getUniqueId(), 150);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-				
-			} else if (37 <= choose1 && choose1 < 39) {
-				p.sendMessage(Won.replace("{Won}", "" + 200));
-				Coins.add(p.getUniqueId(), 200);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-				
-			} else if (choose1 == 39) {
-				p.sendMessage(Won.replace("{Won}", "" + 500));
-				Coins.add(p.getUniqueId(), 500);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-			}
-			
-			break;
-		case HIGH:
-			int choose2 = random.nextInt(6);
+				// normal chance
 
-			if (choose2 < 3) {
-				p.sendMessage(Won.replace("{Won}", "" + 100));
-				Coins.add(p.getUniqueId(), 100);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-				
-			} else if (3 <= choose2 && choose2 < 5) {
-				p.sendMessage(Won.replace("{Won}", "" + 500));
-				Coins.add(p.getUniqueId(), 500);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-				
-			} else if (choose2 == 6) {
-				p.sendMessage(Won.replace("{Won}", "" + 1000));
-				Coins.add(p.getUniqueId(), 1000);
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-			}
-			
-			break;
-		default:
-			break;
+				int choose1 = random.nextInt(40);
+
+				if (choose1 < 30) {
+					p.sendMessage(Lost);
+
+				} else if (choose1 < 34) {
+					p.sendMessage(Won.replace("{Won}", "" + 50));
+					Coins.add(p.getUniqueId(), 50);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+
+				} else if (choose1 < 37) {
+					p.sendMessage(Won.replace("{Won}", "" + 150));
+					Coins.add(p.getUniqueId(), 150);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+
+				} else if (choose1 < 39) {
+					p.sendMessage(Won.replace("{Won}", "" + 200));
+					Coins.add(p.getUniqueId(), 200);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+
+				} else if (choose1 == 39) {
+					p.sendMessage(Won.replace("{Won}", "" + 500));
+					Coins.add(p.getUniqueId(), 500);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+				}
+
+				break;
+			case HIGH:
+
+				// high chance
+
+				int choose2 = random.nextInt(6);
+
+				if (choose2 < 3) {
+					p.sendMessage(Won.replace("{Won}", "" + 100));
+					Coins.add(p.getUniqueId(), 100);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+
+				} else if (choose2 < 5) {
+					p.sendMessage(Won.replace("{Won}", "" + 500));
+					Coins.add(p.getUniqueId(), 500);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+
+				} else if (choose2 == 6) {
+					p.sendMessage(Won.replace("{Won}", "" + 1000));
+					Coins.add(p.getUniqueId(), 1000);
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
+				}
+
+				break;
+			default:
+				break;
 		}
-		
-		// X minutes delay
+
+		// set a delay of x minutes
 		int WaitTime = FileManager.inv_lottery.getInt("WaitTime");
 		cant.add(p);
-		Bukkit.getServer().getScheduler().runTaskLater(CoreMain.main, new Runnable() {
-			@Override
-			public void run() {
-				cant.remove(p);
-			}
-		}, WaitTime * 60 * 20);
+		Bukkit.getServer().getScheduler().runTaskLater(CoreMain.main, () -> cant.remove(p), WaitTime * 60 * 20);
 	}
-	
+
 	private static boolean canLotto(Player p) {
-		if (cant.contains(p)) {
-			return false;
-		} else {
-			return true;
-		}
+		return !cant.contains(p);
 	}
-	
+
 	private static ArrayList<Player> cant = new ArrayList<>();
 }
 
-enum Chance { NORMAL, HIGH; }
+enum Chance {NORMAL, HIGH}

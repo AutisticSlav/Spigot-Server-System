@@ -6,8 +6,9 @@ import net.virushd.pets.pets.*;
 
 public class PetManager {
 
-	public static ArrayList<Pet> pets = new ArrayList<Pet>();
-	
+	public static ArrayList<Pet> pets = new ArrayList<>();
+
+	// register all the pets from the net.virushd.pets.pets package
 	public static void registerPets() {
 		pets.add(new Bat());
 		pets.add(new Blaze());
@@ -21,7 +22,7 @@ public class PetManager {
 		pets.add(new MagmaCube());
 		pets.add(new MushroomCow());
 		pets.add(new Ocelot());
-		
+
 		// id:19
 		pets.add(new Spider());
 	}

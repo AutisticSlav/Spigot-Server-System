@@ -25,52 +25,67 @@ import java.util.ArrayList;
 
 public class SignEvent implements Listener {
 
+	private static Arena getArenaBySign(Sign sign) {
+		for (Arena arena : ArenaManager.getArenas()) {
+			ArrayList<Boolean> LinesCorrect = new ArrayList<>();
+			for (int i = 0; i < 4; i++) {
+				LinesCorrect.add(ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()))));
+			}
+			if (LinesCorrect.get(0) && LinesCorrect.get(1) && LinesCorrect.get(2) && LinesCorrect.get(3)) {
+				return arena;
+			}
+		}
+		return null;
+	}
+	
 	@EventHandler
 	public void onSignClick (PlayerInteractEvent e) {
-		
+
 		Player p = e.getPlayer();
-		
+
 		int MaxPlayers = FileManager.config.getInt("MaxPlayers");
-		String NoJoinPerm = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.NoJoinPerm"), p);
-		String Full = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Full"), p);
-		String AlreadyStarted = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.AlreadyStarted"), p);
-		
-		// wenn der Spieler rechtsklickt
+		String NoJoinPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoJoinPerm"), p);
+		String Full = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Full"), p);
+		String AlreadyStarted = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.AlreadyStarted"), p);
+
+		// if the player makes a right click
 		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block block = e.getClickedBlock();
 
-			// wenn der block ein schild ist
+			// if the block is a sign
 			if (block.getType() == Material.WALL_SIGN || block.getType() == Material.SIGN_POST) {
 				Sign sign = (Sign) block.getState();
 
-				// wenn der spieler auch wirklich in der Lobby ist
-				if (CoreMain.players.contains(p)) {
+				// if the player is in the lobby
+				if (CoreMain.getPlayers().contains(p)) {
 
 					Arena arena = getArenaBySign(sign);
 
+					// if it's the correct sign and the arena is complete
 					if (arena == null || !arena.isComplete()) {
-						Updater.UpdateSigns.remove(sign);
+						Updater.updateSigns.remove(sign);
 						return;
 					}
 
-					// wenn der spieler die permission hat
+					// if the player has permissions
 					if (p.hasPermission("virushd.ttt.sign.click") || p.hasPermission("*")) {
-						
-						// wenn das spiel nicht schon begonnen hat
+
+						// if the game hasn't started yet
 						if (arena.getGameState().equals(GameState.LOBBY)) {
-						
-							// wenn es noch platz hat
+
+							// if the game isn't full
 							if (arena.getPlayers().size() < MaxPlayers) {
-								// so jetzt kann der spieler endlich joinen
+
+								// now the player can finally join
 								Bukkit.getServer().getScheduler().runTaskLater(TTTMain.main, () -> {
 
 									SetTTT.setTTT(p, arena.getID());
 									for (int i = 0; i < 4; i++) {
-										sign.setLine(i, PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()));
+										sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()));
 									}
 
-									// das schild updaten
-									Updater.UpdateSigns.put(sign, arena.getID());
+									// update the sign
+									Updater.updateSigns.put(sign, arena.getID());
 								}, 5L);
 							} else {
 								p.sendMessage(Full);
@@ -85,56 +100,36 @@ public class SignEvent implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onSignChange (SignChangeEvent e) {
-		
+
 		Player p = e.getPlayer();
-		
+
 		Block block = e.getBlock();
 		Sign sign = (Sign) block.getState();
-		
+
 		for (Arena arena : ArenaManager.getCompletedArenas()) {
-			
-			// wenn man [TTT] {ID} geschrieben hat
+
+			// if the player wrote [TTT] {ID}
 			if (e.getLine(0).equals("[TTT] " + arena.getID())) {
-				// wenn der Spieler im Admin modus ist
+
+				// if the player is admin mode
 				if (CoreMain.isAdmin(p)) {
-					
-					// wenn er auch noch das recht dazu hat
+
+					// if the player has permissions
 					if (p.hasPermission("virushd.ttt.sign.create") || p.hasPermission("*")) {
 						for (int i = 0; i < 4; i++) {
-							
-							// das schild richtig machen
-							sign.setLine(i, PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()));
-							
-							// das schild updaten
-							Updater.UpdateSigns.put(sign, arena.getID());
+
+							// make the sign correct
+							sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()));
+
+							// update the sign
+							Updater.updateSigns.put(sign, arena.getID());
 						}
 					}
 				}
 			}
 		}
-	}
-
-	private static Arena getArenaBySign(Sign sign) {
-		for (Arena arena : ArenaManager.getArenas()) {
-			ArrayList<Boolean> LinesCorrect = new ArrayList<>();
-			for (int i = 0; i < 4; i++) {
-				/*System.out.println("");
-				System.out.println("----------------------------");
-				System.out.println("i: " + i);
-				System.out.println("Real Line: " + ChatColor.stripColor(sign.getLine(i)));
-				System.out.println("Othe Line: " + ChatColor.stripColor(PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID())));
-				System.out.println("Equal: " + (ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID())))));
-				System.out.println("----------------------------");
-				System.out.println("");*/
-				LinesCorrect.add(ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)), arena.getID()))));
-			}
-			if (LinesCorrect.get(0) && LinesCorrect.get(1) && LinesCorrect.get(2) && LinesCorrect.get(3)) {
-				return arena;
-			}
-		}
-		return null;
 	}
 }

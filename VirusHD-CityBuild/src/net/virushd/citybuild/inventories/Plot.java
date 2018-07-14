@@ -23,29 +23,30 @@ import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
 
 public class Plot {
-	 
+
 	private static HashMap<Player, Location> positions1 = new HashMap<>();
 	private static HashMap<Player, Location> positions2 = new HashMap<>();
-	
+
 	public static void open(Player p) {
-		
-		String InventoryDisplayName = PlaceHolder.Normal(FileManager.inv_plot.getString("Inventory.DisplayName"));
-		ItemStack Pos1Item = SaveUtils.GetItemFromFile(FileManager.inv_plot, "Items.Pos1");
-		ItemStack Pos2Item = SaveUtils.GetItemFromFile(FileManager.inv_plot, "Items.Pos2");
-		ItemStack DeleteItem = SaveUtils.GetItemFromFile(FileManager.inv_plot, "Items.Delete");
-		ItemStack CreateItem = SaveUtils.GetItemFromFile(FileManager.inv_plot, "Items.Create");
-		String Pos1 = PlaceHolder.Normal(FileManager.messages.getString("Messages.Pos1"));
-		String Pos2 = PlaceHolder.Normal(FileManager.messages.getString("Messages.Pos2"));
-		String Delete = PlaceHolder.Normal(FileManager.messages.getString("Messages.Delete"));
-		String Create = PlaceHolder.Normal(FileManager.messages.getString("Messages.Create"));
-		String AlreadyAPlot = PlaceHolder.Normal(FileManager.messages.getString("Messages.AlreadyAPlot"));
-		String NoPlot = PlaceHolder.Normal(FileManager.messages.getString("Messages.NoPlot"));
-		String PlotCollides = PlaceHolder.Normal(FileManager.messages.getString("Messages.PlotCollides"));
-		String PlotTooBig = PlaceHolder.Normal(FileManager.messages.getString("Messages.PlotTooBig"));
-		World CityBuildWorld = SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.CityBuild").getWorld();
-		
-	Inventory inv = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.HOPPER);
-		
+
+		String InventoryDisplayName = PlaceHolder.normal(FileManager.inv_plot.getString("Inventory.DisplayName"));
+		ItemStack Pos1Item = SaveUtils.getItemFromFile(FileManager.inv_plot, "Items.Pos1");
+		ItemStack Pos2Item = SaveUtils.getItemFromFile(FileManager.inv_plot, "Items.Pos2");
+		ItemStack DeleteItem = SaveUtils.getItemFromFile(FileManager.inv_plot, "Items.Delete");
+		ItemStack CreateItem = SaveUtils.getItemFromFile(FileManager.inv_plot, "Items.Create");
+		String Pos1 = PlaceHolder.normal(FileManager.messages.getString("Messages.Pos1"));
+		String Pos2 = PlaceHolder.normal(FileManager.messages.getString("Messages.Pos2"));
+		String Delete = PlaceHolder.normal(FileManager.messages.getString("Messages.Delete"));
+		String Create = PlaceHolder.normal(FileManager.messages.getString("Messages.Create"));
+		String AlreadyAPlot = PlaceHolder.normal(FileManager.messages.getString("Messages.AlreadyAPlot"));
+		String NoPlot = PlaceHolder.normal(FileManager.messages.getString("Messages.NoPlot"));
+		String PlotCollides = PlaceHolder.normal(FileManager.messages.getString("Messages.PlotCollides"));
+		String PlotTooBig = PlaceHolder.normal(FileManager.messages.getString("Messages.PlotTooBig"));
+		World CityBuildWorld = SaveUtils.getLocationFromFile(FileManager.config, "Spawns.CityBuild").getWorld();
+
+		Inventory inv = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.HOPPER);
+
+		// set the first position for a new plot
 		inv.setSlot(0, Pos1Item, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -53,7 +54,8 @@ public class Plot {
 				p.sendMessage(Pos1);
 			}
 		});
-		
+
+		// set the second position
 		inv.setSlot(1, Pos2Item, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -61,7 +63,8 @@ public class Plot {
 				p.sendMessage(Pos2);
 			}
 		});
-		
+
+		// delete it
 		inv.setSlot(3, DeleteItem, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -73,7 +76,8 @@ public class Plot {
 				}
 			}
 		});
-		
+
+		// create a plot
 		inv.setSlot(4, CreateItem, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -95,7 +99,7 @@ public class Plot {
 
 						region.setOwners(owners);
 
-						if (Utils.LocationDifference(positions1.get(p), positions2.get(p)) > FileManager.config.getInt("MaxPlotSize") && !p.hasPermission("virushd.citybuild.ignoreplotsize")) {
+						if (Utils.locationDifference(positions1.get(p), positions2.get(p)) > FileManager.config.getInt("MaxPlotSize") && !p.hasPermission("virushd.citybuild.ignoreplotsize")) {
 							p.sendMessage(PlotTooBig);
 						} else if (CityBuildMain.getWorldGuard().getRegionManager(CityBuildWorld).getApplicableRegions(region).size() != 0) {
 							p.sendMessage(PlotCollides);
@@ -107,7 +111,7 @@ public class Plot {
 				}
 			}
 		});
-		
+
 		inv.open(p);
 	}
 }

@@ -8,11 +8,11 @@ import net.virushd.coins.events.BlockBreakEvent;
 import net.virushd.coins.events.KillEvent;
 
 public class CoinsMain extends JavaPlugin {
-	
+
 	public void onEnable() {
 
 		// files
-		FileManager.Manager();
+		FileManager.manager();
 
 		// events
 		getServer().getPluginManager().registerEvents(new AchievementEvent(), this);

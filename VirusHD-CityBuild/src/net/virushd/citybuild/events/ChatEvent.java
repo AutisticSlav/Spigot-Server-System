@@ -1,6 +1,7 @@
 package net.virushd.citybuild.events;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -11,20 +12,22 @@ import net.virushd.core.main.CoreMain;
 
 public class ChatEvent implements Listener {
 
-	public void onChat (AsyncPlayerChatEvent e) {
-		
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+
 		Player p = e.getPlayer();
 
-		if (CityBuildMain.players.contains(p)) {
-			
+		if (CityBuildMain.getPlayers().contains(p)) {
+
 			// debug
 			if (CoreMain.debug()) {
 				CityBuildMain.main.getLogger().info("DEBUG: (Chat) " + p.getName() + ": " + e.getMessage());
 			}
-			
-			String ChatFormat = PlaceHolder.WithPlayer(FileManager.messages.getString("ChatFormat"), p);
 
-			for (Player players : CityBuildMain.players) {
+			String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
+
+			// send all players in citybuild the message
+			for (Player players : CityBuildMain.getPlayers()) {
 				players.sendMessage(ChatFormat.replace("{Message}", e.getMessage()));
 			}
 		}

@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 public class CommandEvent implements Listener {
 
 	@EventHandler
-	public void onCommand (PlayerCommandPreprocessEvent e) {
+	public void onCommand(PlayerCommandPreprocessEvent e) {
 
 		Player p = e.getPlayer();
 

@@ -5,8 +5,10 @@ import net.virushd.core.main.SaveUtils;
 import net.virushd.creative.main.FileManager;
 
 public class Creative {
-	
-	public static void SetScoreboard(Player p) {
-		p.setScoreboard(SaveUtils.GetScoreboardFromFile(FileManager.sco_creative, "Creative", p));
+
+	public static void setScoreboard(Player p) {
+
+		// load the scoreboard from the file
+		p.setScoreboard(SaveUtils.getScoreboardFromFile(FileManager.sco_creative, "Creative", p));
 	}
 }

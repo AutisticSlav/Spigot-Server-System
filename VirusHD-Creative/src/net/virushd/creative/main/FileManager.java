@@ -1,7 +1,6 @@
 package net.virushd.creative.main;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
@@ -18,19 +17,19 @@ public class FileManager {
 	public static FileConfiguration config;
 	public static File sco_creativeF;
 	public static FileConfiguration sco_creative;
-	
+
 	@SuppressWarnings("static-access")
-	public static void Manager() {
-		
+	public static void manager() {
+
 		// messages
 		messagesF = new File("plugins/VirusHD-Creative", "messages.yml");
 		messages = new YamlConfiguration().loadConfiguration(messagesF);
 		messages.addDefault("CreativePrefix", "&0[&6Creative&0] &7");
 		messages.addDefault("ChatFormat", "&0[&3Chat&0] &c{PlayerName}&0:&7 {Message}");
-		messages.addDefault("Messages.Usage","&7»->--------------<-« &cUsage &7»->--------------<-«"
-											+ "\n&c - /creative hilfe &7Die Hilfe zum Spielmodus."
-											+ "\n&c - /creative commands &7Eine Liste der wichtigsten Commands."
-											+ "\n&c - /creative regeln &7Die Regeln.");
+		messages.addDefault("Messages.Usage", "&7»->--------------<-« &cUsage &7»->--------------<-«"
+				+ "\n&c - /creative hilfe &7Die Hilfe zum Spielmodus."
+				+ "\n&c - /creative commands &7Eine Liste der wichtigsten Commands."
+				+ "\n&c - /creative regeln &7Die Regeln.");
 		messages.addDefault("Messages.Creative", "{CreativePrefix}Tippe &c/creative&7.");
 		messages.addDefault("Messages.NoJoinPerm", "{Prefix}Nur gute Builder dürfen &6Creative &7betreten.\n&7Kontaktire den Admin wenn du gut bauen kannst.");
 		messages.addDefault("Messages.Full", "{Prefix}&6Creative &7ist voll. Versuche es später noch einmal.");
@@ -42,43 +41,43 @@ public class FileManager {
 		messages.addDefault("TabTitle.Header", "&4VirusHD.net &7- &6Creative\n&7-----------------------------------");
 		messages.addDefault("TabTitle.Footer", "&7-----------------------------------\n&cViel Spass!");
 		messages.addDefault("Messages.Help", "&7»->--------------<-« &cDie Hilfe &7»->--------------<-«"
-											+ "\n&c - &7Baue dir ein schönes Haus oder was du auch immer willst."
-											+ "\n&c - &7Viel spass in Creative.");
+				+ "\n&c - &7Baue dir ein schönes Haus oder was du auch immer willst."
+				+ "\n&c - &7Viel spass in Creative.");
 		messages.addDefault("Messages.Commands", "&7»->--------------<-« &cDie Commands &7»->--------------<-«"
-											+ "\n&c - /msg &7Mit einem Spieler chatten."
-											+ "\n&c - /coins &7Der Coins command."
-											+ "\n&c - /lobby &7Kehre zur Lobby zurück."
-											+ "\n&c Nur für &4V&9I&aP &c/ &fYou&4Tuber&c:"
-											+ "\n&c - /skull &7Gibt dir einen kopf von dir.");
+				+ "\n&c - /msg &7Mit einem Spieler chatten."
+				+ "\n&c - /coins &7Der Coins command."
+				+ "\n&c - /lobby &7Kehre zur Lobby zurück."
+				+ "\n&c Nur für &4V&9I&aP &c/ &fYou&4Tuber&c:"
+				+ "\n&c - /skull &7Gibt dir einen kopf von dir.");
 		messages.addDefault("Messages.Rules", "&7»->--------------<-« &cDie Regeln &7»->--------------<-«"
-											+ "\n&c - &7Häuser von anderen nicht zerstören."
-											+ "\n&c - &7Fair spielen."
-											+ "\n&c - &7Spam ist untersagt."
-											+ "\n&c - &7Nicht Hacken."
-											+ "\n&c - &7Bei Fragen sich an den Support wenden."
-											+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
+				+ "\n&c - &7Häuser von anderen nicht zerstören."
+				+ "\n&c - &7Fair spielen."
+				+ "\n&c - &7Spam ist untersagt."
+				+ "\n&c - &7Nicht Hacken."
+				+ "\n&c - &7Bei Fragen sich an den Support wenden."
+				+ "\n&c - &7Bei Bugs einen Screen machen und ihn mit einer genauen Schilderung dem Admin schicken.");
 		messages.options().copyDefaults(true);
-		SaveUtils.SaveFile(messagesF, messages);
-		
+		SaveUtils.saveFile(messagesF, messages);
+
 		// config
 		configF = new File("plugins/VirusHD-Creative", "config.yml");
-		config =  new YamlConfiguration().loadConfiguration(configF);
-		SaveUtils.SaveLocationToFile(configF, config, "Spawns.Creative", Bukkit.getWorld("Creative").getSpawnLocation());
+		config = new YamlConfiguration().loadConfiguration(configF);
+		SaveUtils.saveLocationToFile(configF, config, "Spawns.Creative", Bukkit.getWorld("Creative").getSpawnLocation());
 		config.addDefault("GameStates.Lobby", "&aLobby");
 		config.addDefault("GameStates.LobbyFull", "&eLobby");
 		config.addDefault("MaxPlayers", 10);
-		config.addDefault("Sign.Lines.1", "&7- &0[&6Creative&0] &7-");
-		config.addDefault("Sign.Lines.2", "&c{Name}");
-		config.addDefault("Sign.Lines.3", "&0[&r{GameState}&0]");
-		config.addDefault("Sign.Lines.4", "&c{Players} &7/ &c{MaxPlayers}");
+		config.addDefault("Sign.Lines.0", "&7- &0[&6Creative&0] &7-");
+		config.addDefault("Sign.Lines.1", "&c{Name}");
+		config.addDefault("Sign.Lines.2", "&0[&r{GameState}&0]");
+		config.addDefault("Sign.Lines.3", "&c{Players} &7/ &c{MaxPlayers}");
 		config.options().copyDefaults(true);
-		SaveUtils.SaveFile(configF, config);
-		
+		SaveUtils.saveFile(configF, config);
+
 		// sco_creative
 		sco_creativeF = new File("plugins/VirusHD-Creative/scoreboards", "creative.yml");
 		sco_creative = new YamlConfiguration().loadConfiguration(sco_creativeF);
-		SaveUtils.DefaultScoreboardToFile(sco_creative, "Creative", "&4VirusHD.net &7- &6Creative", Arrays.asList("{Space}", "&cBauideen:", "&7{Ideas}", "{Space}", "&cRang:", "&7{Rank}", "{Space}", "&cCoins:", "&7{Coins}"));
-		sco_creative.addDefault("#the idead: https://minecraftbuildinginc.com/minecraft-building-ideas-100/", "");
+		SaveUtils.defaultScoreboardToFile(sco_creative, "Creative", "&4VirusHD.net &7- &6Creative", Arrays.asList("{Space}", "&cBauideen:", "&7{Ideas}", "{Space}", "&cRang:", "&7{Rank}", "{Space}", "&cCoins:", "&7{Coins}"));
+		sco_creative.addDefault("the ideas are from", "https://minecraftbuildinginc.com/minecraft-building-ideas-100/");
 		sco_creative.addDefault("Ideas", Arrays.asList("Zoo", "School", "Farm", "Space Station", "Dump Truck",
 				"Highway", "House", "Police Station", "Theme Park", "College Campus", "Gas Station", "Castle", "Mine",
 				"Bridge", "Apartment", "Skyscraper", "Airplane", "Cruise Ship", "Pool / Water Park", "Roller Coaster",
@@ -96,6 +95,6 @@ public class FileManager {
 				"Cairo Citadel", "Ely Cathedral", "Panama Canal", "Grand Canyon", "CN Tower", "Ryugyong Hotel",
 				"Mario Level", "Helicopter"));
 		sco_creative.options().copyDefaults(true);
-		SaveUtils.SaveFile(sco_creativeF, sco_creative);
+		SaveUtils.saveFile(sco_creativeF, sco_creative);
 	}
 }

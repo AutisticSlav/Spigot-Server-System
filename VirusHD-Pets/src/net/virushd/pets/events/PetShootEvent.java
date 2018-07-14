@@ -15,19 +15,12 @@ public class PetShootEvent implements Listener {
 	public void onEntityShoot(ProjectileLaunchEvent e) {
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			if (PetUtils.hasPet(players)) {
+
+				// cancel if a pet shoots
 				if (e.getEntity().getUniqueId().toString().equals(FileManager.pets.getString(players.getUniqueId().toString() + ".PetUUID"))) {
 					e.setCancelled(true);
 				}
 			}
 		}
-//		
-//		if (entity instanceof Wither) {
-//			event.setCancelled(true);
-//			return;
-//		}
-//		if (entity instanceof Blaze) {
-//			event.setCancelled(true);
-//			return;
-//		}
 	}
 }

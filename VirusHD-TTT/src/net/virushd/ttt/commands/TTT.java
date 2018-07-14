@@ -14,15 +14,15 @@ public class TTT implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (sender instanceof Player) {
-			
+
 			Player p = (Player) sender;
-				
-			String NotInMode = PlaceHolder.WithPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NotInMode"), p);
-			String NoPerm = PlaceHolder.WithPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NoPerm"), p);
-	
+
+			String NotInMode = PlaceHolder.withPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NotInMode"), p);
+			String NoPerm = PlaceHolder.withPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NoPerm"), p);
+
 			if (cmd.getName().equalsIgnoreCase("ttt")) {
-				if (CoreMain.isNormal(p)){
-					
+				if (CoreMain.isNormal(p)) {
+
 					/*
 					 * Normal
 					 */
@@ -32,7 +32,7 @@ public class TTT implements CommandExecutor {
 						p.sendMessage(NoPerm);
 					}
 				} else if (CoreMain.isAdmin(p)) {
-					
+
 					/*
 					 * Admin
 					 */
@@ -42,7 +42,7 @@ public class TTT implements CommandExecutor {
 						p.sendMessage(NoPerm);
 					}
 				} else {
-					
+
 					/*
 					 * Troll
 					 */

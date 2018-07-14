@@ -15,41 +15,35 @@ import net.virushd.pets.pet.PetUtils;
 
 public class JoinEvent implements Listener {
 
-	private PetsMain pl;
-	
-	public JoinEvent (PetsMain main) {
-		this.pl = main;
-	}
-	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 
-		Bukkit.getServer().getScheduler().runTaskLater(pl, new Runnable() {
+		Bukkit.getServer().getScheduler().runTaskLater(PetsMain.main, () -> {
+			if (PetUtils.hasPet(p)) {
+				boolean isHide = FileManager.pets.getBoolean(p.getUniqueId().toString() + ".Hide");
 
-			@Override
-			public void run() {
-				if (PetUtils.hasPet(p)) {
-					boolean isHide = FileManager.pets.getBoolean(p.getUniqueId().toString() + ".Hide");
-					if (isHide == false) {
-						if (p.getWorld().getName().equalsIgnoreCase(net.virushd.core.main.FileManager.locations.getString("Spawn.World"))) {
-							
-							String PetUUID = FileManager.pets.getString(p.getUniqueId().toString() + ".PetUUID");
-							
-							for (Entity entities : p.getWorld().getEntities()) {
-								if (entities instanceof Animals || entities instanceof Monster) {
-									if (entities.getUniqueId().toString().equals(PetUUID)) {
-										return;
-									}
+				// when the pet is not hidden
+				if (!isHide) {
+					if (p.getWorld().getName().equalsIgnoreCase(net.virushd.core.main.FileManager.locations.getString("Spawn.World"))) {
+
+						String PetUUID = FileManager.pets.getString(p.getUniqueId().toString() + ".PetUUID");
+
+						// check if the pet already exists
+						for (Entity entities : p.getWorld().getEntities()) {
+							if (entities instanceof Animals || entities instanceof Monster) {
+								if (entities.getUniqueId().toString().equals(PetUUID)) {
+									return;
 								}
 							}
-							PetUtils.spawnPet(p, p.getWorld());
-						} else {
-							onJoin(e);
 						}
+
+						// if not spawn the pet
+						PetUtils.spawnPet(p, p.getWorld());
+					} else {
+						onJoin(e);
 					}
 				}
-
 			}
 		}, 40L);
 	}

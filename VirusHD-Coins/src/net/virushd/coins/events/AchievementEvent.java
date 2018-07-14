@@ -12,17 +12,18 @@ import net.virushd.coins.main.FileManager;
 import net.virushd.core.main.PlaceHolder;
 import net.virushd.core.main.CoreMain;
 
-public class AchievementEvent implements Listener{
+public class AchievementEvent implements Listener {
 
 	@EventHandler
 	public void onAchievement(PlayerAchievementAwardedEvent e) {
-		
+
 		Player p = e.getPlayer();
-		
+
+		// add 50 coins
 		if (CoreMain.isNormal(p)) {
 			if (!(p.getGameMode().equals(GameMode.CREATIVE))) {
 				Coins.add(p.getUniqueId(), 50);
-				p.sendMessage(PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));
+				p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));
 				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 			}
 		}

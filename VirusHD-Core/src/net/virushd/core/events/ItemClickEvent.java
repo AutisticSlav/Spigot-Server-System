@@ -13,43 +13,37 @@ import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.Utils;
 
 public class ItemClickEvent implements Listener {
-	
-	public static ArrayList<Player> HideMode = new ArrayList<Player>();
-	
+
+	public static ArrayList<Player> hideMode = new ArrayList<>();
+
 	@EventHandler
 	public void onItemRightClick(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 
-		if (CoreMain.players.contains(p)) {
+		if (CoreMain.getPlayers().contains(p)) {
 			if (e.getItem() != null) {
-				
-				/*
-				 * Hide Item
-				 */
-				if (/*Utils.ItemEquals(e.getItem(), Utils.HideItem(p))*/e.getItem().isSimilar(Utils.HideItem(p))) {
+				if (e.getItem().isSimilar(Utils.getHideItem(p))) {
+
+					// hide item (change hide mode)
 					if (p.hasPermission("virushd.core.item.hide") || p.hasPermission("*")) {
-						if (HideMode.contains(p)) {
+						if (hideMode.contains(p)) {
 							hideOff(p);
-							HideMode.remove(p);
+							hideMode.remove(p);
 						} else {
 							hideOn(p);
-							HideMode.add(p);
+							hideMode.add(p);
 						}
-						p.getInventory().setItem(1, Utils.HideItem(p));
+						p.getInventory().setItem(1, Utils.getHideItem(p));
 					}
-					
-				/*
-				 * Teleport Item
-				 */
-				} else if (/*Utils.ItemEquals(e.getItem(), Utils.TeleporterItem())*/e.getItem().isSimilar(Utils.TeleporterItem())){
+				} else if (e.getItem().isSimilar(Utils.getTeleporterItem())) {
+
+					// teleport item (open teleport inventory)
 					if (p.hasPermission("virushd.core.item.teleporter") || p.hasPermission("*")) {
 						Teleporter.open(p);
 					}
-				
-				/*
-				 * Cosmetics Item
-				 */
-				} else if (/*Utils.ItemEquals(e.getItem(), Utils.CosmeticsItem())*/e.getItem().isSimilar(Utils.CosmeticsItem())) {
+				} else if (e.getItem().isSimilar(Utils.getCosmeticsItem())) {
+
+					// cosmetics item (open cosmetics inventory)
 					if (p.hasPermission("virushd.core.item.cosmetics") || p.hasPermission("*")) {
 						Cosmetics.open(p);
 					}
@@ -57,15 +51,17 @@ public class ItemClickEvent implements Listener {
 			}
 		}
 	}
-	
-	public static void hideOn (Player p) {
-		for (Player players : CoreMain.players) {
+
+	// turn hide mode on
+	public static void hideOn(Player p) {
+		for (Player players : CoreMain.getPlayers()) {
 			p.hidePlayer(players);
 		}
 	}
-	
-	public static void hideOff (Player p) {
-		for (Player players : CoreMain.players) {
+
+	// turn hide mode off
+	public static void hideOff(Player p) {
+		for (Player players : CoreMain.getPlayers()) {
 			p.showPlayer(players);
 		}
 	}

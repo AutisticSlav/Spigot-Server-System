@@ -28,7 +28,9 @@ public class Pet {
 		item.setItemMeta(itemMeta);
 		this.item = item;
 	}
-	
+
+	// getters
+
 	public int getId() {
 		return id;
 	}
@@ -45,6 +47,7 @@ public class Pet {
 		return name;
 	}
 
+	// static method to get a pet by its id
 	public static Pet getPet(int id) {
 		for (Pet pet : PetManager.pets) {
 			if(pet.getId() == id) {
@@ -53,11 +56,12 @@ public class Pet {
 		} return null;
 	}
 
-	public void addOption(Option option) {
-		options.add(option);
-	}
-	
 	public ArrayList<Option> getOptions() {
 		return options;
+	}
+
+	// add an option
+	public void addOption(Option option) {
+		options.add(option);
 	}
 }

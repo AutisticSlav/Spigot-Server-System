@@ -11,42 +11,40 @@ import net.virushd.title.title.Title;
 
 public class SetCreative {
 
-public static void setCreative (Player p) {
-		
-		String CreativeMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Creative"), p);
-		String JoinTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Title"), p);
-		String JoinSubTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.SubTitle"), p);
-		String TabTitleHeader = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Header"), p);
-		String TabTitleFooter = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
-		String JoinMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Message"), p);
+	public static void setCreative(Player p) {
 
-		if (!CreativeMain.players.contains(p)) {
-			CreativeMain.players.add(p);
+		String CreativeMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Creative"), p);
+		String JoinTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Title"), p);
+		String JoinSubTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.SubTitle"), p);
+		String TabTitleHeader = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Header"), p);
+		String TabTitleFooter = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
+		String JoinMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Message"), p);
+
+		if (!CreativeMain.getPlayers().contains(p)) {
+			CreativeMain.getPlayers().add(p);
 		}
-		
+
 		// debug
 		if (CoreMain.debug()) {
 			CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " joined Creative.");
 		}
-		
-		Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.config, "Spawns.Creative"));
+
+		Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Creative"));
 		p.setGameMode(GameMode.CREATIVE);
-		
+
 		// Title
 		Title.sendTitle(p, 10, 40, 10, JoinTitle, JoinSubTitle);
 
 		// Tab
 		Title.sendTabTitle(p, TabTitleHeader, TabTitleFooter);
-				
+
 		// Scoreboard
-		net.virushd.creative.scoreboards.Creative.SetScoreboard(p);
-		
+		net.virushd.creative.scoreboards.Creative.setScoreboard(p);
+
 		p.sendMessage(CreativeMessage);
-		
-		for (Player players : CreativeMain.players) {
-			if (players.equals(p)) {
-				
-			} else {
+
+		for (Player players : CreativeMain.getPlayers()) {
+			if (!players.equals(p)) {
 				players.sendMessage(JoinMessage);
 			}
 		}

@@ -13,9 +13,11 @@ public class PetDamageEvent implements Listener {
 
 	@EventHandler
 	public void onPetDamage(EntityDamageEvent e) {
-		
+
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			if (PetUtils.hasPet(players)) {
+
+				// cancel if the pet has been damaged
 				if (e.getEntity().getUniqueId().toString().equals(FileManager.pets.getString(players.getUniqueId().toString() + ".PetUUID"))) {
 					e.setCancelled(true);
 				}

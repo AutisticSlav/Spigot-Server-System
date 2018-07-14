@@ -15,12 +15,12 @@ public class SetTTT {
 	public static void setTTT(Player p, int id) {
 
 		Arena theArena = ArenaManager.getArenaByID(id);
-		String TTTMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.TTT"), p);
-		String JoinTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Title"), p);
-		String JoinSubTitle = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.SubTitle"), p);
-		String TabTitleHeader = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Header"), p);
-		String TabTitleFooter = PlaceHolder.WithPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
-		String JoinMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Join.Message"), p);
+		String TTTMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.TTT"), p);
+		String JoinTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Title"), p);
+		String JoinSubTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.SubTitle"), p);
+		String TabTitleHeader = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Header"), p);
+		String TabTitleFooter = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
+		String JoinMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Message"), p);
 
 		if (theArena != null && theArena.isComplete()) {
 			if (!theArena.getPlayers().contains(p)) {
@@ -32,7 +32,7 @@ public class SetTTT {
 				TTTMain.main.getLogger().info("DEBUG: " + p.getName() + " joined the arena " + theArena.getName());
 			}
 
-			Utils.SmoothTeleport(p, theArena.getLobby());
+			Utils.smoothTeleport(p, theArena.getLobby());
 			p.setGameMode(GameMode.ADVENTURE);
 
 			// Title
@@ -42,7 +42,7 @@ public class SetTTT {
 			Title.sendTabTitle(p, TabTitleHeader, TabTitleFooter);
 
 			// Scoreboard
-			net.virushd.core.scoreboards.Lobby.SetScoreboard(p);
+			net.virushd.core.scoreboards.Lobby.setScoreboard(p);
 
 			p.sendMessage(TTTMessage);
 

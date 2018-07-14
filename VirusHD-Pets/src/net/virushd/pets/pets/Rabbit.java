@@ -3,6 +3,7 @@ package net.virushd.pets.pets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import net.virushd.core.main.PlaceHolder;
 import org.bukkit.Material;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;
@@ -10,7 +11,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import net.virushd.pets.main.FileManager;
-import net.virushd.pets.main.PlaceHolder;
 import net.virushd.pets.pet.Option;
 import net.virushd.pets.pet.Pet;
 
@@ -20,8 +20,8 @@ public class Rabbit extends Pet{
 	public Rabbit() {
 		super(4, EntityType.RABBIT, FileManager.messages.getString("PetNames.Rabbit"));
 		
-		String baby = PlaceHolder.Normal(FileManager.options.getString("Options.Baby"));
-		String ride = PlaceHolder.Normal(FileManager.options.getString("Options.Ride"));
+		String baby = PlaceHolder.normal(FileManager.options.getString("Options.Baby"));
+		String ride = PlaceHolder.normal(FileManager.options.getString("Options.Ride"));
 		
 		addOption(new Option(baby, new ArrayList<>(Arrays.asList(true, false)), new Option.Action() {
 			

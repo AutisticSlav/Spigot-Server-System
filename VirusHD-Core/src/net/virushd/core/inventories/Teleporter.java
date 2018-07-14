@@ -1,7 +1,6 @@
 package net.virushd.core.inventories;
 
 import net.virushd.core.main.*;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,48 +13,48 @@ import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
 
 public class Teleporter {
-	
+
 	public static void open(Player p) {
 
-		String InventoryDisplayName = PlaceHolder.Normal(FileManager.inv_teleporter.getString("Inventory.DisplayName"));
-		ItemStack SpawnItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.Spawn");
-		ItemStack CityBuildItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.CityBuild");
-		ItemStack CreativeItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.Creative");
-		ItemStack TTTItem = SaveUtils.GetItemFromFile(FileManager.inv_teleporter, "Items.TTT");
+		String InventoryDisplayName = PlaceHolder.normal(FileManager.inv_teleporter.getString("Inventory.DisplayName"));
+		ItemStack SpawnItem = SaveUtils.getItemFromFile(FileManager.inv_teleporter, "Items.Spawn");
+		ItemStack CityBuildItem = SaveUtils.getItemFromFile(FileManager.inv_teleporter, "Items.CityBuild");
+		ItemStack CreativeItem = SaveUtils.getItemFromFile(FileManager.inv_teleporter, "Items.Creative");
+		ItemStack TTTItem = SaveUtils.getItemFromFile(FileManager.inv_teleporter, "Items.TTT");
 		int SpawnSlot = FileManager.inv_teleporter.getInt("Items.Spawn.Slot");
 		int CityBuildSlot = FileManager.inv_teleporter.getInt("Items.CityBuild.Slot");
 		int CreativeSlot = FileManager.inv_teleporter.getInt("Items.Creative.Slot");
-		int TTTSlot = FileManager.inv_teleporter.getInt("Items.Creative.TTT");
+		int TTTSlot = FileManager.inv_teleporter.getInt("Items.TTT.Slot");
 
 		Inventory inv = InventoryAPI.createInventory(InventoryDisplayName, InventoryType.CHEST);
-		
+
 		// background items
 		ItemStack[] BGItems = new ItemStack[27];
 		ItemMeta[] BGItemMeta = new ItemMeta[27];
 
 		for (int i = 0; i < 27; i++) {
-			BGItems[i] = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) FileManager.inv_teleporter.getInt("Background." + (i + 1)));
+			BGItems[i] = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) FileManager.inv_teleporter.getInt("Background." + (i)));
 			BGItemMeta[i] = BGItems[i].getItemMeta();
 			BGItemMeta[i].setDisplayName(" ");
 			BGItems[i].setItemMeta(BGItemMeta[i]);
 			inv.setSlot(i, BGItems[i], null);
 		}
-		
+
 		// Spawn Item
-		inv.setSlot(SpawnSlot - 1, SpawnItem, new ItemListener() {
+		inv.setSlot(SpawnSlot, SpawnItem, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
 				SetLobby.setLobby(p);
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 			}
 		});
-		
+
 		// CityBuild Item
 		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-			inv.setSlot(CityBuildSlot - 1, CityBuildItem, new ItemListener() {
+			inv.setSlot(CityBuildSlot, CityBuildItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "CityBuild"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "CityBuild"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
@@ -63,10 +62,10 @@ public class Teleporter {
 
 		// Creative Item
 		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-			inv.setSlot(CreativeSlot - 1, CreativeItem, new ItemListener() {
+			inv.setSlot(CreativeSlot, CreativeItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "Creative"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "Creative"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
@@ -74,15 +73,15 @@ public class Teleporter {
 
 		// TTT Item
 		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-			inv.setSlot(TTTSlot - 1, TTTItem, new ItemListener() {
+			inv.setSlot(TTTSlot, TTTItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.SmoothTeleport(p, SaveUtils.GetLocationFromFile(FileManager.locations, "TTT"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "TTT"));
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
 		}
-		
+
 		inv.open(p);
 	}
 }

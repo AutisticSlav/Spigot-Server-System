@@ -34,21 +34,23 @@ class TimeManager {
 	private Runnable Starting;
 	private Runnable Game;
 	private Runnable Restarting;
-	
+
 	public TimeManager(Arena arena) {
 		this.arena = arena;
 		setup();
 	}
 
+	// start the whole time management
 	public void start() {
 		if (arena.isComplete()) {
-			LobbyID = schedule(Lobby, 0,5L, LobbyID);
+			LobbyID = schedule(Lobby, 0, 5L, LobbyID);
 			StartingCountdown = FileManager.config.getInt("Countdown.Starting");
 			LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
 			RestartingCountdown = FileManager.config.getInt("Countdown.Restarting");
 		}
 	}
 
+	// initialize the runnables
 	private void setup() {
 
 		String LobbyCountdownMessage = FileManager.messages.getString("Countdown.Lobby.Message");
@@ -65,7 +67,7 @@ class TimeManager {
 			}
 			arena.setGameState(GameState.LOBBY);
 			if (arena.getPlayers().size() >= MinPlayers) {
-				PrestartingID = schedule(Prestarting, 20L,20L, PrestartingID);
+				PrestartingID = schedule(Prestarting, 20L, 20L, PrestartingID);
 			} else {
 				unSchedule(PrestartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
@@ -76,12 +78,12 @@ class TimeManager {
 			if (LobbyCountdown == 0) {
 				unSchedule(LobbyID);
 				unSchedule(PrestartingID);
-				TeleportPlayers();
-				StartingID = schedule(Starting, 20L,20L, StartingID);
+				teleportPlayers();
+				StartingID = schedule(Starting, 20L, 20L, StartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
 			} else {
 				for (Player p : arena.getPlayers()) {
-					p.sendMessage(PlaceHolder.WithPlayer(LobbyCountdownMessage, p).replace("{Time}", "" + LobbyCountdown));
+					p.sendMessage(PlaceHolder.withPlayer(LobbyCountdownMessage, p).replace("{Time}", "" + LobbyCountdown));
 				}
 				LobbyCountdown--;
 			}
@@ -94,13 +96,13 @@ class TimeManager {
 				GameID = schedule(Game, 0, 0, GameID);
 				StartingCountdown = FileManager.config.getInt("Countdown.Starting");
 				for (Player p : arena.getPlayers()) {
-					p.sendMessage(PlaceHolder.WithPlayer(StartingCountdownFinal, p));
+					p.sendMessage(PlaceHolder.withPlayer(StartingCountdownFinal, p));
 				}
 			} else {
 				for (Player p : arena.getPlayers()) {
-					p.sendMessage(PlaceHolder.WithPlayer(StartingCountdownMessage, p).replace("{Time}", "" + StartingCountdown));
+					p.sendMessage(PlaceHolder.withPlayer(StartingCountdownMessage, p).replace("{Time}", "" + StartingCountdown));
 					if (StartingCountdown <= 3) {
-						Title.sendTitle(p, 0,20,0, PlaceHolder.WithPlayer(StartingCountdownTitle, p).replace("{Time}", "" + StartingCountdown), "");
+						Title.sendTitle(p, 0, 20, 0, PlaceHolder.withPlayer(StartingCountdownTitle, p).replace("{Time}", "" + StartingCountdown), "");
 					}
 				}
 				StartingCountdown--;
@@ -124,21 +126,23 @@ class TimeManager {
 				arena.start();
 			} else {
 				for (Player p : arena.getPlayers()) {
-					p.sendMessage(PlaceHolder.WithPlayer(RestartingCountdownMessage, p).replace("{Time}", "" + RestartingCountdown));
+					p.sendMessage(PlaceHolder.withPlayer(RestartingCountdownMessage, p).replace("{Time}", "" + RestartingCountdown));
 				}
 				RestartingCountdown--;
 			}
 		};
 	}
 
-	private void TeleportPlayers() {
+	// teleport all the players to the spawns
+	private void teleportPlayers() {
 		ArrayList<Location> spawnsLeft = new ArrayList<>(arena.getSpawns());
 		for (Player p : arena.getPlayers()) {
-			Utils.SmoothTeleport(p, spawnsLeft.remove(new Random().nextInt(spawnsLeft.size())));
+			Utils.smoothTeleport(p, spawnsLeft.remove(new Random().nextInt(spawnsLeft.size())));
 			p.setGameMode(GameMode.ADVENTURE);
 		}
 	}
 
+	// repeat a runnable
 	private String schedule(Runnable task, long start, long update, String ID) {
 		if (ID.equals("")) {
 			return "" + scheduler.scheduleSyncRepeatingTask(TTTMain.main, task, start, update);
@@ -146,9 +150,10 @@ class TimeManager {
 		return ID;
 	}
 
+	// cancel it
 	private void unSchedule(String ID) {
 		if (!ID.equals("")) {
 			scheduler.cancelTask(Integer.parseInt(ID));
 		}
 	}
- }
+}

@@ -8,27 +8,28 @@ import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.FileManager;
 import net.virushd.core.main.PlaceHolder;
 
-public class ChatEvent implements Listener{
+public class ChatEvent implements Listener {
 
-	@EventHandler()
+	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 
 		Player p = e.getPlayer();
-		
-		if (CoreMain.players.contains(p)) {
-			
+
+		if (CoreMain.getPlayers().contains(p)) {
+
 			// debug
 			if (CoreMain.debug()) {
 				CoreMain.main.getLogger().info("DEBUG: (Chat) " + p.getName() + ": " + e.getMessage());
 			}
-			
-			String ChatFormat = PlaceHolder.WithPlayer(FileManager.messages.getString("ChatFormat"), p);
 
-			for (Player players : CoreMain.players) {
+			String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
+
+			// send the messages to the other players
+			for (Player players : CoreMain.getPlayers()) {
 				players.sendMessage(ChatFormat.replace("{Message}", e.getMessage()));
 			}
 		}
-		
+
 		e.setCancelled(true);
 	}
 }

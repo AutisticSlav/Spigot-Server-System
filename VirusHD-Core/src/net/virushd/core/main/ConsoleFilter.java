@@ -12,12 +12,15 @@ import org.apache.logging.log4j.message.Message;
 
 public class ConsoleFilter {
 
+	// all texts that should be filtered
 	private static ArrayList<String> messages = new ArrayList<>();
-	
+
+	// add a text that should be filtered
 	public static void addFilter(String message) {
 		messages.add(message);
 	}
-	
+
+	// start the filterer
 	public static void start() {
 		((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(new Filter() {
 
@@ -46,10 +49,10 @@ public class ConsoleFilter {
 				return null;
 			}
 
-			@Override
+			@Override // actual filter method
 			public Result filter(LogEvent e) {
-				for (int i = 0; i < messages.size(); i++) {
-					if (e.getMessage().toString().toLowerCase().contains(messages.get(i).toLowerCase())) {
+				for (String message : messages) {
+					if (e.getMessage().toString().toLowerCase().contains(message.toLowerCase())) {
 						return Result.DENY;
 					}
 				}

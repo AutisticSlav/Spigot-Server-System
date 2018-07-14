@@ -15,13 +15,13 @@ import net.virushd.pets.main.FileManager;
 
 public class PetUtils {
 
-	// buyPet
+	// buy a pet (and spawn it)
 	public static void buyPet(Player owner, Pet pet, String petName) {
 
 		FileManager.pets.set(owner.getUniqueId().toString() + ".ID", pet.getId());
 		FileManager.pets.set(owner.getUniqueId().toString() + ".Name", petName);
 		FileManager.pets.set(owner.getUniqueId().toString() + ".Hide", false);
-		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
+		SaveUtils.saveFile(FileManager.petsF, FileManager.pets);
 		if (pet.getOptions().size() != 0) {
 			for (Option option : pet.getOptions()) {
 				option.save(owner);
@@ -30,29 +30,29 @@ public class PetUtils {
 		spawnPet(owner, owner.getWorld());
 	}
 
-	// sellPet
+	// sell a pet (and despawn it)
 	public static void sellPet(Player owner) {
 
 		despawnPet(owner, owner.getWorld());
 
 		FileManager.pets.set(owner.getUniqueId().toString(), null);
-		SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
+		SaveUtils.saveFile(FileManager.petsF, FileManager.pets);
 	}
 
-	// spawnPet
+	// spawn a pet
 	public static void spawnPet(Player owner, World world) {
 		if (FileManager.pets.contains(owner.getUniqueId().toString())) {
 			Pet pet = Pet.getPet(FileManager.pets.getInt(owner.getUniqueId().toString() + ".ID"));
 			String petName = FileManager.pets.getString(owner.getUniqueId().toString() + ".Name");
 
 			LivingEntity ent = (LivingEntity) world.spawnEntity(owner.getLocation(), pet.getType());
-			
+
 			if (pet.getOptions().size() != 0) {
 				for (Option option : pet.getOptions()) {
 					option.run(owner, ent);
 				}
 			}
-			
+
 //			// Zombie
 //			if (ent.getType().equals(EntityType.ZOMBIE)) {
 //				Zombie zombie = (Zombie) ent;
@@ -119,11 +119,11 @@ public class PetUtils {
 			ent.setCustomNameVisible(true);
 
 			FileManager.pets.set(owner.getUniqueId().toString() + ".PetUUID", "" + ent.getUniqueId());
-			SaveUtils.SaveFile(FileManager.petsF, FileManager.pets);
+			SaveUtils.saveFile(FileManager.petsF, FileManager.pets);
 		}
 	}
 
-	// despawnPet
+	// despawn a pet
 	public static void despawnPet(Player owner, World world) {
 		if (FileManager.pets.contains(owner.getUniqueId().toString())) {
 			String PetUUID = FileManager.pets.getString(owner.getUniqueId().toString() + ".PetUUID");
@@ -137,17 +137,14 @@ public class PetUtils {
 		}
 	}
 
-	// hasPet
+	// check if a player has a pet
 	public static boolean hasPet(Player owner) {
-		if (FileManager.pets.contains(owner.getUniqueId().toString())) {
-			return true;
-		}
-		return false;
+		return FileManager.pets.contains(owner.getUniqueId().toString());
 	}
 
-	// getPet
+	// get the pet by its owner
 	public static Entity getPet(Player owner) {
-		if (FileManager.pets.contains(owner.getUniqueId().toString())) {
+		if (hasPet(owner)) {
 			String PetUUID = FileManager.pets.getString(owner.getUniqueId().toString() + ".PetUUID");
 			for (Entity ent : Bukkit.getPlayer(UUID.fromString(owner.getUniqueId().toString())).getWorld()
 					.getEntities()) {
@@ -162,7 +159,7 @@ public class PetUtils {
 		return null;
 	}
 
-	// follow player
+	// follow the player
 	public static void walkToLoc(Entity pet, Location loc, double speed) {
 		if (pet.getLocation().distanceSquared(loc) >= 15) {
 			pet.teleport(loc);

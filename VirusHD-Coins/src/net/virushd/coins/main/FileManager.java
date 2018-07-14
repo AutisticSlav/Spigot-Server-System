@@ -16,9 +16,9 @@ public class FileManager {
 	public static FileConfiguration messages;
 	public static File inv_lotteryF;
 	public static FileConfiguration inv_lottery;
-	
+
 	@SuppressWarnings("static-access")
-	public static void Manager() {
+	public static void manager() {
 
 		// messages
 		messagesF = new File("plugins/VirusHD-Coins", "messages.yml");
@@ -26,11 +26,11 @@ public class FileManager {
 		messages.addDefault("CoinsPrefix", "&0[&2Coins&0] &7");
 		messages.addDefault("LotteryPrefix", "&0[&2Lotto&0] &7");
 		messages.addDefault("Messages.NotANumber", "{CoinsPrefix}Die Anzahl an Coins muss eine Nummer sein.");
-		messages.addDefault("Messages.Usage","&7»->--------------<-« &cUsage &7»->--------------<-«"
-											+ "\n&c - /coins add <Spieler> <Menge> &7Einem Spieler Coins dazu addieren."
-											+ "\n&c - /coins remove <Spieler> <Menge> &7Einem Spieler Coins entfernen."
-											+ "\n&c - /coins set <Spieler> <Menge> &7Einem Spieler eine bestimmte menge an Coins setzen"
-											+ "\n&c - /coins check <Spieler> &7Hiermit erfährst du wie viele Coins ein Spieler hat.");
+		messages.addDefault("Messages.Usage", "&7»->--------------<-« &cUsage &7»->--------------<-«"
+				+ "\n&c - /coins add <Spieler> <Menge> &7Einem Spieler Coins dazu addieren."
+				+ "\n&c - /coins remove <Spieler> <Menge> &7Einem Spieler Coins entfernen."
+				+ "\n&c - /coins set <Spieler> <Menge> &7Einem Spieler eine bestimmte menge an Coins setzen"
+				+ "\n&c - /coins check <Spieler> &7Hiermit erfährst du wie viele Coins ein Spieler hat.");
 		messages.addDefault("Messages.PlayerNotFound", "{CoinsPrefix}&cFehler: &4Spieler nicht gefunden.");
 		messages.addDefault("Messages.CheckSelf", "{CoinsPrefix}Deine Coins:&c {Coins}&7.");
 		messages.addDefault("Messages.CheckOthers", "{CoinsPrefix}Coins von {DisplayName}:&c {Coins}&7.");
@@ -46,19 +46,19 @@ public class FileManager {
 		messages.addDefault("Messages.NotEnoughCoins", "{LotteryPrefix}Du hast zu wenig Coins.");
 		messages.addDefault("Messages.Wait", "{LotteryPrefix}Du kannst nur alle &c{WaitTime} &7Minuten ein Los kaufen.");
 		messages.options().copyDefaults(true);
-		SaveUtils.SaveFile(messagesF, messages);
-		
+		SaveUtils.saveFile(messagesF, messages);
+
 		// inv_lottery
 		inv_lotteryF = new File("plugins/VirusHD-Coins/inventories", "lottery.yml");
 		inv_lottery = new YamlConfiguration().loadConfiguration(inv_lotteryF);
 		inv_lottery.addDefault("Inventory.DisplayName", "&cLotto");
-		SaveUtils.DefaultItemToFile(inv_lottery, "Items.Info", InventoryAPI.createItem("&cInfo", Arrays.asList("&7Du kannst ein Los nur alle &c{WaitTime} &7minuten kaufen."), Material.TORCH, null, 1));
-		SaveUtils.DefaultItemToFile(inv_lottery, "Items.NormalTicket", InventoryAPI.createItem("&cNormales Los", Arrays.asList("&7Normales Los kaufen für &c{NormalPrice} &7Coins."), Material.PAPER, null, 1));
-		SaveUtils.DefaultItemToFile(inv_lottery, "Items.HighChanceTicket", InventoryAPI.createItem("&cHohe Chance", Arrays.asList("&7Los mit höherer Chance für &c{HighChancePrice} &7Coins kaufen."), Material.PAPER, null, 1));
+		SaveUtils.defaultItemToFile(inv_lottery, "Items.Info", InventoryAPI.createItem("&cInfo", Arrays.asList("&7Du kannst ein Los nur alle &c{WaitTime} &7minuten kaufen."), Material.TORCH, null, 1));
+		SaveUtils.defaultItemToFile(inv_lottery, "Items.NormalTicket", InventoryAPI.createItem("&cNormales Los", Arrays.asList("&7Normales Los kaufen für &c{NormalPrice} &7Coins."), Material.PAPER, null, 1));
+		SaveUtils.defaultItemToFile(inv_lottery, "Items.HighChanceTicket", InventoryAPI.createItem("&cHohe Chance", Arrays.asList("&7Los mit höherer Chance für &c{HighChancePrice} &7Coins kaufen."), Material.PAPER, null, 1));
 		inv_lottery.addDefault("NormalPrice", 100);
 		inv_lottery.addDefault("HighChancePrice", 300);
 		inv_lottery.addDefault("WaitTime", 10);
 		inv_lottery.options().copyDefaults(true);
-		SaveUtils.SaveFile(inv_lotteryF, inv_lottery);
+		SaveUtils.saveFile(inv_lotteryF, inv_lottery);
 	}
 }

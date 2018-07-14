@@ -16,47 +16,51 @@ import net.virushd.creative.events.SignEvent;
 import net.virushd.core.main.PlaceHolder;
 
 public class CreativeMain extends JavaPlugin {
-	
+
 	public static CreativeMain main;
 
-	public static ArrayList<Player> players = new ArrayList<>();
+	private static ArrayList<Player> players = new ArrayList<>();
 
 	public void onEnable() {
-		
+
 		// instance
 		main = this;
 
 		// files
-		FileManager.Manager();
+		FileManager.manager();
 
 		// commands
 		getCommand("creative").setExecutor(new Creative());
 
 		// events
-//		getServer().getPluginManager().registerEvents(new WorldChangeEvent(), this);
 		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
 		getServer().getPluginManager().registerEvents(new ChatEvent(), this);
 		getServer().getPluginManager().registerEvents(new SignEvent(), this);
 		getServer().getPluginManager().registerEvents(new CommandEvent(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathEvent(), this);
-		
+
 		// updater
-		Updater.ScoreboardUpdater();
-		Updater.PlayerVisibility();
-		Updater.SignUpdater();
-		
+		Updater.scoreboardUpdater();
+		Updater.playerVisibility();
+		Updater.signUpdater();
+
 		// load message
 		getLogger().info("Plugin enabled!");
 	}
-	
+
 	public void onDisable() {
 
 		// anti sign bug
-		for (Sign signs : Updater.UpdateSigns) {
+		for (Sign signs : Updater.updateSigns) {
 			for (int i = 0; i < 4; i++) {
-				signs.setLine(i, PlaceHolder.CreativeSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0)));
+				signs.setLine(i, PlaceHolder.creativeSign(FileManager.config.getString("Sign.Lines." + (i)).replace("{Players}", "" + 0)));
 				signs.update();
 			}
 		}
+	}
+
+	// get the players
+	public static ArrayList<Player> getPlayers() {
+		return players;
 	}
 }

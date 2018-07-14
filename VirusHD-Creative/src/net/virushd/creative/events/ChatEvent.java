@@ -11,23 +11,24 @@ import net.virushd.creative.main.CreativeMain;
 import net.virushd.creative.main.FileManager;
 import net.virushd.core.main.PlaceHolder;
 
-public class ChatEvent implements Listener{
+public class ChatEvent implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat (AsyncPlayerChatEvent e) {
-		
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+
 		Player p = e.getPlayer();
 
-		if (CreativeMain.players.contains(p)) {
-			
+		if (CreativeMain.getPlayers().contains(p)) {
+
 			// debug
 			if (CoreMain.debug()) {
 				CreativeMain.main.getLogger().info("DEBUG: (Chat) " + p.getName() + ": " + e.getMessage());
 			}
-			
-			String ChatFormat = PlaceHolder.WithPlayer(FileManager.messages.getString("ChatFormat"), p);
 
-			for (Player players : CreativeMain.players) {
+			String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
+
+			// send all players in creative the message
+			for (Player players : CreativeMain.getPlayers()) {
 				players.sendMessage(ChatFormat.replace("{Message}", e.getMessage()));
 			}
 		}

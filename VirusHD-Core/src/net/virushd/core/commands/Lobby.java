@@ -20,57 +20,67 @@ public class Lobby implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (sender instanceof Player) {
-			
+
 			Player p = (Player) sender;
-				
-			String NotInMode = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.NotInMode"), p);
-			String NoPerm = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
-			String Usage = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.LobbyUsage"), p);
-			String Help = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Help"), p);
-			String Commands = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Commands"), p);
-			String Rules = PlaceHolder.WithPlayer(FileManager.messages.getString("Messages.Rules"), p);
-	
+
+			String NotInMode = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NotInMode"), p);
+			String NoPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
+			String Usage = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.LobbyUsage"), p);
+			String Help = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Help"), p);
+			String Commands = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Commands"), p);
+			String Rules = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Rules"), p);
+
 			if (cmd.getName().equalsIgnoreCase("lobby")) {
 				if (CoreMain.isNormal(p)) {
 					if (p.hasPermission("virushd.core.command.lobby") || p.hasPermission("*")) {
-						if (CoreMain.players.contains(p)) {
+
+						// already in lobby
+						if (CoreMain.getPlayers().contains(p)) {
 							switch (args.length) {
-							case 0:
-								SetLobby.setLobby(p);
-								break;
-							case 1:
-								if (args[0].equalsIgnoreCase("hilfe") || args[0].equalsIgnoreCase("help")) {
-									
-									// help
-									p.sendMessage(Help);
+								case 0:
+
+									// set to lobby again
+									SetLobby.setLobby(p);
 									break;
-								} else if (args[0].equalsIgnoreCase("commands")) {
-									
-									// commands
-									p.sendMessage(Commands);
+								case 1:
+
+									// help commands and rules
+									if (args[0].equalsIgnoreCase("hilfe") || args[0].equalsIgnoreCase("help")) {
+
+										// help
+										p.sendMessage(Help);
+										break;
+									} else if (args[0].equalsIgnoreCase("commands")) {
+
+										// commands
+										p.sendMessage(Commands);
+										break;
+									} else if (args[0].equalsIgnoreCase("regeln") || args[0].equalsIgnoreCase("rules")) {
+
+										// rules
+										p.sendMessage(Rules);
+										break;
+									} else {
+										p.sendMessage(Usage);
+									}
 									break;
-								} else if (args[0].equalsIgnoreCase("regeln") || args[0].equalsIgnoreCase("rules")) {
-									
-									// rules
-									p.sendMessage(Rules);
-									break;
-								} else {
+								default:
 									p.sendMessage(Usage);
-								}
-								break;
-							default:
-								p.sendMessage(Usage);
-								break;
+									break;
 							}
 						} else {
+
+							// set to lobby
 							SetLobby.setLobby(p);
+
+							// remove from other minigames
 							if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-								if (CityBuildMain.players.contains(p)) {
-									CityBuildMain.players.remove(p);
+								if (CityBuildMain.getPlayers().contains(p)) {
+									CityBuildMain.getPlayers().remove(p);
 
-									String QuitMessage = PlaceHolder.WithPlayer(net.virushd.citybuild.main.FileManager.messages.getString("Quit.Message"), p);
+									String QuitMessage = PlaceHolder.withPlayer(net.virushd.citybuild.main.FileManager.messages.getString("Quit.Message"), p);
 
-									for (Player players : CityBuildMain.players) {
+									for (Player players : CityBuildMain.getPlayers()) {
 										players.sendMessage(QuitMessage);
 									}
 
@@ -82,12 +92,12 @@ public class Lobby implements CommandExecutor {
 							}
 
 							if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-								if (CreativeMain.players.contains(p)) {
-									CreativeMain.players.remove(p);
+								if (CreativeMain.getPlayers().contains(p)) {
+									CreativeMain.getPlayers().remove(p);
 
-									String QuitMessage = PlaceHolder.WithPlayer(net.virushd.creative.main.FileManager.messages.getString("Quit.Message"), p);
+									String QuitMessage = PlaceHolder.withPlayer(net.virushd.creative.main.FileManager.messages.getString("Quit.Message"), p);
 
-									for (Player players : CreativeMain.players) {
+									for (Player players : CreativeMain.getPlayers()) {
 										players.sendMessage(QuitMessage);
 									}
 
@@ -103,7 +113,7 @@ public class Lobby implements CommandExecutor {
 									if (a.getPlayers().contains(p)) {
 										a.getPlayers().remove(p);
 
-										String QuitMessage = PlaceHolder.WithPlayer(net.virushd.ttt.main.FileManager.messages.getString("Quit.Message"), p);
+										String QuitMessage = PlaceHolder.withPlayer(net.virushd.ttt.main.FileManager.messages.getString("Quit.Message"), p);
 
 										for (Player players : a.getPlayers()) {
 											players.sendMessage(QuitMessage);

@@ -13,22 +13,23 @@ import net.virushd.core.main.PlaceHolder;
 
 public class QuitEvent implements Listener{
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onQuit (PlayerQuitEvent e) {
 		
 		Player p = e.getPlayer();
 		
-		String QuitMessage = PlaceHolder.WithPlayer(FileManager.messages.getString("Quit.Message"), p);
+		String QuitMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Quit.Message"), p);
 		
-		if (CreativeMain.players.contains(p)) {
+		if (CreativeMain.getPlayers().contains(p)) {
 			
 			// debug
 			if (CoreMain.debug()) {
 				CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " left Creative.");
 			}
-			
-			CreativeMain.players.remove(p);
-			for (Player players : CreativeMain.players) {
+
+			// send the quit message to the creative players and remove the player
+			CreativeMain.getPlayers().remove(p);
+			for (Player players : CreativeMain.getPlayers()) {
 				players.sendMessage(QuitMessage);
 			}
 		}

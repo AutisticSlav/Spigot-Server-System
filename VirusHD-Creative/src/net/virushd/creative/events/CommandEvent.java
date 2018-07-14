@@ -9,14 +9,14 @@ import net.virushd.core.main.CoreMain;
 import net.virushd.creative.main.CreativeMain;
 
 public class CommandEvent implements Listener {
-	
+
 	@EventHandler
-	public void onCommand (PlayerCommandPreprocessEvent e) {
-		
+	public void onCommand(PlayerCommandPreprocessEvent e) {
+
 		Player p = e.getPlayer();
-		
+
 		// debug
-		if (CreativeMain.players.contains(p)) {
+		if (CreativeMain.getPlayers().contains(p)) {
 			if (CoreMain.debug()) {
 				CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " executed the command " + e.getMessage());
 			}

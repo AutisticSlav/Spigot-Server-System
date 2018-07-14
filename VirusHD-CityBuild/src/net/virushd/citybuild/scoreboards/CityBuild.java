@@ -6,7 +6,9 @@ import net.virushd.core.main.SaveUtils;
 
 public class CityBuild {
 
-	public static void SetScoreboard(Player p) {
-		p.setScoreboard(SaveUtils.GetScoreboardFromFile(FileManager.sco_citybuild, "CityBuild", p));
+	public static void setScoreboard(Player p) {
+
+		// load the scoreboard from the file
+		p.setScoreboard(SaveUtils.getScoreboardFromFile(FileManager.sco_citybuild, "CityBuild", p));
 	}
 }

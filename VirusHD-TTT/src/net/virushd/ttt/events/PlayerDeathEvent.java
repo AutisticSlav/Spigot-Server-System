@@ -11,14 +11,15 @@ import org.bukkit.event.Listener;
 public class PlayerDeathEvent implements Listener {
 
 	@EventHandler
-	public void onDeath(org.bukkit.event.entity.PlayerDeathEvent  e) {
+	public void onDeath(org.bukkit.event.entity.PlayerDeathEvent e) {
 
 		Player p = e.getEntity();
 
-		// debug
 		for (Arena a : ArenaManager.getCompletedArenas()) {
 			if (a.getPlayers().contains(p)) {
 				p.spigot().respawn();
+
+				// debug
 				if (CoreMain.debug()) {
 					TTTMain.main.getLogger().info("DEBUG: " + p.getName() + " died.");
 				}

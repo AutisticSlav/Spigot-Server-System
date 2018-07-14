@@ -2,6 +2,7 @@ package net.virushd.pets.events;
 
 import java.util.Collection;
 
+import net.virushd.pets.pet.PetUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +16,17 @@ public class TargetEvent implements Listener {
 	@EventHandler
 	public void onPetTarget(EntityTargetEvent e) {
 
-		// if config contains entity uuid
-		Collection<? extends Player> onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
+		for (Player players : Bukkit.getOnlinePlayers()) {
+			if (PetUtils.hasPet(players)) {
+
+				// cancel pet targetting
+				if (e.getEntity().getUniqueId().toString().equals(FileManager.pets.getString(players.getUniqueId().toString() + ".PetUUID"))) {
+					e.setCancelled(true);
+				}
+			}
+		}
+
+/*		Collection<? extends Player> onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
 		int i = 0;
 		String[] petuuids = new String[Bukkit.getServer().getOnlinePlayers().size()];
 		for (Player player : onlinePlayerList) {
@@ -30,6 +40,6 @@ public class TargetEvent implements Listener {
 			} else {
 				i++;
 			}
-		}
+		}*/
 	}
 }

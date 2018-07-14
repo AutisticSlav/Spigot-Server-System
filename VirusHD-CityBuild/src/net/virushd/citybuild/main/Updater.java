@@ -10,48 +10,39 @@ import net.virushd.citybuild.scoreboards.CityBuild;
 import net.virushd.core.main.PlaceHolder;
 
 public class Updater {
-	
-	/*
-	 * ScoreboardUpdater
-	 */
-	public static void ScoreboardUpdater () {
-		
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, new Runnable() {
-			
-			@Override
-			public void run() {
-				for (Player players : CityBuildMain.players) {
-					CityBuild.SetScoreboard(players);
-				}
+
+	// update all citybuild scoreboards
+	public static void scoreboardUpdater() {
+
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
+			for (Player players : CityBuildMain.getPlayers()) {
+				CityBuild.setScoreboard(players);
 			}
 		}, 60L, 60L);
 	}
-	
-	/*
-	 * SignUpdater
-	 */
-	public static ArrayList<Sign> UpdateSigns = new ArrayList<>();
-	public static void SignUpdater () {
-		
+
+	public static ArrayList<Sign> updateSigns = new ArrayList<>();
+
+	// update all citybuild signs
+	public static void signUpdater() {
+
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
-			for (Sign signs : UpdateSigns) {
+			for (Sign signs : updateSigns) {
 				for (int i = 0; i < 4; i++) {
-					signs.setLine(i, PlaceHolder.CityBuildSign(FileManager.config.getString("Sign.Lines." + (i + 1))));
+					signs.setLine(i, PlaceHolder.citybuildSign(FileManager.config.getString("Sign.Lines." + (i))));
 					signs.update();
 				}
 			}
 		}, 5L, 5L);
 	}
-	
-	/*
-	 * PlayerVisibility
-	 */
-	public static void PlayerVisibility () {
-		
+
+	// update the visibility of the players
+	public static void playerVisibility() {
+
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
-			for (Player players : CityBuildMain.players) {
+			for (Player players : CityBuildMain.getPlayers()) {
 				for (Player AllPlayers : Bukkit.getOnlinePlayers()) {
-					if (CityBuildMain.players.contains(AllPlayers)) {
+					if (CityBuildMain.getPlayers().contains(AllPlayers)) {
 						if (!players.canSee(AllPlayers)) players.showPlayer(AllPlayers);
 					} else {
 						if (players.canSee(AllPlayers)) players.hidePlayer(AllPlayers);

@@ -7,12 +7,14 @@ import net.virushd.ttt.arena.Arena;
 import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.ttt.main.TTTMain;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatEvent implements Listener {
 
-	public void onChat (AsyncPlayerChatEvent e) {
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
 
 		Player p = e.getPlayer();
 
@@ -24,8 +26,9 @@ public class ChatEvent implements Listener {
 					TTTMain.main.getLogger().info("DEBUG: (Chat) (Arena " + a.getID() + ") " + p.getName() + ": " + e.getMessage());
 				}
 
-				String ChatFormat = PlaceHolder.WithPlayer(FileManager.messages.getString("ChatFormat"), p);
+				String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
 
+				// send all players in the arena the message
 				for (Player players : a.getPlayers()) {
 					players.sendMessage(ChatFormat.replace("{Message}", e.getMessage()));
 				}

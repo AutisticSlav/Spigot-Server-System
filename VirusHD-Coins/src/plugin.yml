@@ -5,4 +5,4 @@ version: 1.0
 loadbefore: [CoinsAPI]
 commands:
   coins:
-    description: Hier findest du alles, was mit Coins zu tun hat.
+    description: Coins command

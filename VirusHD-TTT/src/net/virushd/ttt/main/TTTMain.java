@@ -11,23 +11,23 @@ import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.core.main.PlaceHolder;
 
 public class TTTMain extends JavaPlugin {
-	
+
 	public static TTTMain main;
-	
+
 	public void onEnable() {
-		
+
 		// instance
 		main = this;
 
 		// files
-		FileManager.Manager();
+		FileManager.manager();
 
 		// load arenas
 		ArenaManager.loadArenas();
-		for(Arena arena : ArenaManager.getCompletedArenas()) {
+		for (Arena arena : ArenaManager.getCompletedArenas()) {
 			arena.start();
 		}
-		
+
 		// commands
 		getCommand("ttt").setExecutor(new TTT());
 
@@ -38,23 +38,23 @@ public class TTTMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerDeathEvent(), this);
 		getServer().getPluginManager().registerEvents(new PlayerMoveEvent(), this);
 		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
-		
+
 		// updater
-		Updater.SignUpdater();
-		Updater.ScoreboardUpdater();
-		Updater.PlayerVisibility();
+		Updater.signUpdater();
+		Updater.scoreboardUpdater();
+		Updater.playerVisibility();
 
 		// load message
 		getLogger().info("Plugin enabled!");
 	}
-	
+
 	public void onDisable() {
 
 		// anti sign bug
-		for (Sign sign : Updater.UpdateSigns.keySet()) {
+		for (Sign sign : Updater.updateSigns.keySet()) {
 			for (int i = 0; i < 4; i++) {
 				try {
-					sign.setLine(i, PlaceHolder.TTTSign(FileManager.config.getString("Sign.Lines." + (i + 1)).replace("{Players}", "" + 0), Updater.UpdateSigns.get(sign)));
+					sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + (i)).replace("{Players}", "" + 0), Updater.updateSigns.get(sign)));
 					sign.update();
 				} catch (Exception ex) {
 					ex.printStackTrace();

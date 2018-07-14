@@ -60,24 +60,19 @@ class TimeManager {
 		String RestartingCountdownMessage = FileManager.messages.getString("Countdown.Restarting.Message");
 
 		Lobby = () -> {
-			for (Player p : arena.getPlayers()) {
-				if (p.getGameMode() != GameMode.ADVENTURE) {
-					p.setGameMode(GameMode.ADVENTURE);
-				}
-			}
 			arena.setGameState(GameState.LOBBY);
 			if (arena.getPlayers().size() >= MinPlayers) {
 				PrestartingID = schedule(Prestarting, 20L, 20L, PrestartingID);
 			} else {
-				unSchedule(PrestartingID);
+				PrestartingID = unSchedule(PrestartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
 			}
 		};
 
 		Prestarting = () -> {
 			if (LobbyCountdown == 0) {
-				unSchedule(LobbyID);
-				unSchedule(PrestartingID);
+				LobbyID = unSchedule(LobbyID);
+				PrestartingID = unSchedule(PrestartingID);
 				teleportPlayers();
 				StartingID = schedule(Starting, 20L, 20L, StartingID);
 				LobbyCountdown = FileManager.config.getInt("Countdown.Lobby");
@@ -92,7 +87,7 @@ class TimeManager {
 		Starting = () -> {
 			arena.setGameState(GameState.STARTING);
 			if (StartingCountdown == 0) {
-				unSchedule(StartingID);
+				StartingID = unSchedule(StartingID);
 				GameID = schedule(Game, 0, 0, GameID);
 				StartingCountdown = FileManager.config.getInt("Countdown.Starting");
 				for (Player p : arena.getPlayers()) {
@@ -112,7 +107,7 @@ class TimeManager {
 		Game = () -> {
 			arena.setGameState(GameState.GAME);
 			if (arena.getPlayers().size() == 0) {
-				unSchedule(GameID);
+				GameID = unSchedule(GameID);
 				RestartingID = schedule(Restarting, 0, 20L, RestartingID);
 			}
 		};
@@ -120,7 +115,7 @@ class TimeManager {
 		Restarting = () -> {
 			arena.setGameState(GameState.RESTARTING);
 			if (RestartingCountdown == 0) {
-				unSchedule(RestartingID);
+				RestartingID = unSchedule(RestartingID);
 				RestartingCountdown = FileManager.config.getInt("Countdown.Starting");
 				arena.kickPlayers();
 				arena.start();
@@ -137,8 +132,7 @@ class TimeManager {
 	private void teleportPlayers() {
 		ArrayList<Location> spawnsLeft = new ArrayList<>(arena.getSpawns());
 		for (Player p : arena.getPlayers()) {
-			Utils.smoothTeleport(p, spawnsLeft.remove(new Random().nextInt(spawnsLeft.size())));
-			p.setGameMode(GameMode.ADVENTURE);
+			Utils.smoothTeleport(p, spawnsLeft.remove(new Random().nextInt(spawnsLeft.size())), GameMode.ADVENTURE);
 		}
 	}
 
@@ -151,9 +145,10 @@ class TimeManager {
 	}
 
 	// cancel it
-	private void unSchedule(String ID) {
+	private String unSchedule(String ID) {
 		if (!ID.equals("")) {
 			scheduler.cancelTask(Integer.parseInt(ID));
 		}
+		return "";
 	}
 }

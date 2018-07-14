@@ -1,5 +1,6 @@
 package net.virushd.coins.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -19,7 +20,7 @@ public class BlockBreakEvent implements Listener {
 	public void onBlockBreack(org.bukkit.event.block.BlockBreakEvent e) {
 		Player p = e.getPlayer();
 
-		if (CoreMain.isNormal(p)) {
+		if (PlayerManager.isNormal(p)) {
 
 			// make sure the player isn't cheating
 			if (!(p.getItemInHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH))) {

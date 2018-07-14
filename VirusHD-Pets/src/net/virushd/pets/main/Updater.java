@@ -1,5 +1,6 @@
 package net.virushd.pets.main;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -15,7 +16,7 @@ public class Updater {
 	public static void petHearts() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(PetsMain.main, () -> {
-			for (Player players : CoreMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				if (PetUtils.hasPet(players)) {
 					try {
 						Location loc = PetUtils.getPet(players).getLocation().add(0, 1, 0);
@@ -35,7 +36,7 @@ public class Updater {
 			for (Player players : Bukkit.getOnlinePlayers()) {
 				if (PetUtils.hasPet(players)) {
 					boolean isHide = FileManager.pets.getBoolean(players.getUniqueId().toString() + ".Hide");
-					if (!CoreMain.getPlayers().contains(players)) {
+					if (!PlayerManager.getPlayers().contains(players)) {
 						try {
 							if (!isHide) {
 								PetUtils.despawnPet(players, SaveUtils.getLocationFromFile(net.virushd.core.main.FileManager.config, "Spawns.Lobby").getWorld());

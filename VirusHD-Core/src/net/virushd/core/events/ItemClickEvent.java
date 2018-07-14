@@ -2,6 +2,7 @@ package net.virushd.core.events;
 
 import java.util.ArrayList;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +21,7 @@ public class ItemClickEvent implements Listener {
 	public void onItemRightClick(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 
-		if (CoreMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 			if (e.getItem() != null) {
 				if (e.getItem().isSimilar(Utils.getHideItem(p))) {
 
@@ -54,14 +55,14 @@ public class ItemClickEvent implements Listener {
 
 	// turn hide mode on
 	public static void hideOn(Player p) {
-		for (Player players : CoreMain.getPlayers()) {
+		for (Player players : PlayerManager.getPlayers()) {
 			p.hidePlayer(players);
 		}
 	}
 
 	// turn hide mode off
 	public static void hideOff(Player p) {
-		for (Player players : CoreMain.getPlayers()) {
+		for (Player players : PlayerManager.getPlayers()) {
 			p.showPlayer(players);
 		}
 	}

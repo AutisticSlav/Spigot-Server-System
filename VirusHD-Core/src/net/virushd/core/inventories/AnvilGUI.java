@@ -172,7 +172,7 @@ public class AnvilGUI {
 			}
 		};
 
-		Bukkit.getPluginManager().registerEvents(listener, CoreMain.main); // Replace with instance of main class
+		Bukkit.getPluginManager().registerEvents(listener, CoreMain.main);
 	}
 
 	public Player getPlayer() {

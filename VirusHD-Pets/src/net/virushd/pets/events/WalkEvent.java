@@ -1,5 +1,6 @@
 package net.virushd.pets.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,7 @@ public class WalkEvent implements Listener {
 		Player p = e.getPlayer();
 
 		if (p.getWorld().equals(SaveUtils.getLocationFromFile(net.virushd.core.main.FileManager.config, "Spawns.Lobby").getWorld())) {
-			if (PetUtils.hasPet(p) && CoreMain.getPlayers().contains(p)) {
+			if (PetUtils.hasPet(p) && PlayerManager.getPlayers().contains(p)) {
 				boolean isHide = FileManager.pets.getBoolean(p.getUniqueId().toString() + ".Hide");
 
 				// if pet is not hidden

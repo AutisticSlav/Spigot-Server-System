@@ -3,6 +3,7 @@ package net.virushd.core.main;
 import java.util.List;
 import java.util.Random;
 
+import net.virushd.creative.main.PlayerManager;
 import net.virushd.ttt.arena.Arena;
 import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.ttt.arena.GameState;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import CoinsAPI.Coins;
 import net.virushd.creative.main.CreativeMain;
-import net.virushd.citybuild.main.CityBuildMain;
 
 public class PlaceHolder {
 
@@ -71,10 +71,10 @@ public class PlaceHolder {
 			String Lobby = net.virushd.citybuild.main.FileManager.config.getString("GameStates.Lobby");
 			String LobbyFull = net.virushd.citybuild.main.FileManager.config.getString("GameStates.LobbyFull");
 			s = s.replace("{Name}", "CityBuild");
-			if (CityBuildMain.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
-			if (CityBuildMain.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
+			if (net.virushd.citybuild.main.PlayerManager.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
+			if (net.virushd.citybuild.main.PlayerManager.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
 			s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-			s = s.replace("{Players}", "" + CityBuildMain.getPlayers().size());
+			s = s.replace("{Players}", "" + net.virushd.citybuild.main.PlayerManager.getPlayers().size());
 			s = normal(s);
 		}
 		return s;
@@ -97,10 +97,10 @@ public class PlaceHolder {
 			String Lobby = net.virushd.creative.main.FileManager.config.getString("GameStates.Lobby");
 			String LobbyFull = net.virushd.creative.main.FileManager.config.getString("GameStates.LobbyFull");
 			s = s.replace("{Name}", "Creative");
-			if (CreativeMain.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
-			if (CreativeMain.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
+			if (net.virushd.creative.main.PlayerManager.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
+			if (net.virushd.creative.main.PlayerManager.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
 			s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-			s = s.replace("{Players}", "" + CreativeMain.getPlayers().size());
+			s = s.replace("{Players}", "" + net.virushd.creative.main.PlayerManager.getPlayers().size());
 			s = normal(s);
 		}
 		return s;

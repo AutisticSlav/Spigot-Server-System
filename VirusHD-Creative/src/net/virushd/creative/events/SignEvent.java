@@ -1,5 +1,6 @@
 package net.virushd.creative.events;
 
+import net.virushd.creative.main.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,12 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.PlaceHolder;
-import net.virushd.creative.main.CreativeMain;
-import net.virushd.creative.main.FileManager;
-import net.virushd.creative.main.SetCreative;
-import net.virushd.creative.main.Updater;
 
 public class SignEvent implements Listener {
 
@@ -39,7 +35,7 @@ public class SignEvent implements Listener {
 				Sign sign = (Sign) block.getState();
 
 				// if the player is in the lobby
-				if (CoreMain.getPlayers().contains(p)) {
+				if (net.virushd.core.main.PlayerManager.getPlayers().contains(p)) {
 
 					// if it's the correct sign
 					for (int i = 0; i < 4; i++) {
@@ -52,11 +48,11 @@ public class SignEvent implements Listener {
 					if (p.hasPermission("virushd.creative.sign.click") || p.hasPermission("*")) {
 
 						// if the game isn't full
-						if (CreativeMain.getPlayers().size() < MaxPlayers) {
+						if (PlayerManager.getPlayers().size() < MaxPlayers) {
 
 							// now the player can finally join
 							Bukkit.getServer().getScheduler().runTaskLater(CreativeMain.main, () -> {
-								SetCreative.setCreative(p);
+								PlayerManager.join(p);
 								for (int i = 0; i < 4; i++) {
 									sign.setLine(i, PlaceHolder.creativeSign(FileManager.config.getString("Sign.Lines." + (i))));
 								}
@@ -89,7 +85,7 @@ public class SignEvent implements Listener {
 		if (e.getLine(0).equals("[Creative]")) {
 
 			// if the player is admin mode
-			if (CoreMain.isAdmin(p)) {
+			if (net.virushd.core.main.PlayerManager.isAdmin(p)) {
 
 				// if the player has permissions
 				if (p.hasPermission("virushd.creative.sign.create") || p.hasPermission("*")) {

@@ -1,5 +1,6 @@
 package net.virushd.troll.commands;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +24,10 @@ public class Troll implements CommandExecutor {
 
 			if (cmd.getName().equalsIgnoreCase("troll")) {
 				if (p.hasPermission("virushd.troll.command.troll") || p.hasPermission("*")) {
-					if (CoreMain.isNormal(p) || CoreMain.isAdmin(p)) {
+					if (PlayerManager.isNormal(p) || PlayerManager.isAdmin(p)) {
 
 						// set to troll when the player isn't in troll mode yet
-						CoreMain.setTroll(p);
+						PlayerManager.setTroll(p);
 						// TODO Troll mode message
 
 						// debug
@@ -34,12 +35,12 @@ public class Troll implements CommandExecutor {
 							TrollMain.main.getLogger().info("DEBUG: " + p.getName() + " entered troll mode.");
 						}
 
-					} else if (CoreMain.isTroll(p)) {
+					} else if (PlayerManager.isTroll(p)) {
 						switch (args.length) {
 							case 0:
 
 								// set back to normal
-								CoreMain.setNormal(p);
+								PlayerManager.setNormal(p);
 
 								// debug
 								if (CoreMain.debug()) {

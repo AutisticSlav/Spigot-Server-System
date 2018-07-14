@@ -4,4 +4,4 @@ main: net.virushd.ttt.main.TTTMain
 version: 1.0
 commands:
   ttt:
-    description: Der Command zum TTT Spielmodus.
+    description: TTT command

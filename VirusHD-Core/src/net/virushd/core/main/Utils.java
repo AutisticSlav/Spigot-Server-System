@@ -2,10 +2,7 @@ package net.virushd.core.main;
 
 import java.util.List;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -92,8 +89,11 @@ public class Utils {
 	}
 
 	// teleport a player to a normalized location
-	public static void smoothTeleport(Player p, Location l) {
+	public static void smoothTeleport(Player p, Location l, GameMode gamemode) {
 		p.teleport(normalizeLocation(l));
+		Bukkit.getServer().getScheduler().runTaskLater(CoreMain.main, () -> {
+			p.setGameMode(gamemode);
+		}, 3L);
 	}
 
 	// normalize a location (center the player and round the yaw and pitch)

@@ -1,5 +1,6 @@
 package net.virushd.ttt.commands;
 
+import net.virushd.core.main.PlayerManager;
 import net.virushd.ttt.inventories.Admin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +22,7 @@ public class TTT implements CommandExecutor {
 			String NoPerm = PlaceHolder.withPlayer(net.virushd.core.main.FileManager.messages.getString("Messages.NoPerm"), p);
 
 			if (cmd.getName().equalsIgnoreCase("ttt")) {
-				if (CoreMain.isNormal(p)) {
+				if (PlayerManager.isNormal(p)) {
 
 					/*
 					 * Normal
@@ -31,7 +32,7 @@ public class TTT implements CommandExecutor {
 					} else {
 						p.sendMessage(NoPerm);
 					}
-				} else if (CoreMain.isAdmin(p)) {
+				} else if (PlayerManager.isAdmin(p)) {
 
 					/*
 					 * Admin

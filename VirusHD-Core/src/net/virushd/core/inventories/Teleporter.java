@@ -1,6 +1,7 @@
 package net.virushd.core.inventories;
 
 import net.virushd.core.main.*;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -44,7 +45,7 @@ public class Teleporter {
 		inv.setSlot(SpawnSlot, SpawnItem, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
-				SetLobby.setLobby(p);
+				Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Lobby"), GameMode.ADVENTURE);
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 			}
 		});
@@ -54,7 +55,7 @@ public class Teleporter {
 			inv.setSlot(CityBuildSlot, CityBuildItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "CityBuild"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "CityBuild"), GameMode.ADVENTURE);
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
@@ -65,7 +66,7 @@ public class Teleporter {
 			inv.setSlot(CreativeSlot, CreativeItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "Creative"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "Creative"), GameMode.ADVENTURE);
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});
@@ -76,7 +77,7 @@ public class Teleporter {
 			inv.setSlot(TTTSlot, TTTItem, new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "TTT"));
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "TTT"), GameMode.ADVENTURE);
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});

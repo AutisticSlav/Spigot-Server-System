@@ -1,5 +1,6 @@
 package net.virushd.coins.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Animals;
@@ -26,7 +27,7 @@ public class KillEvent implements Listener {
 		if (p != null) {
 
 			// check if the player isn't cheating
-			if (CoreMain.isNormal(p)) {
+			if (PlayerManager.isNormal(p)) {
 				if (!(p.getGameMode().equals(GameMode.CREATIVE))) {
 
 					// then add coins depending on the kill

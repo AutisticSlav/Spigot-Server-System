@@ -1,5 +1,6 @@
 package net.virushd.coins.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class AchievementEvent implements Listener {
 		Player p = e.getPlayer();
 
 		// add 50 coins
-		if (CoreMain.isNormal(p)) {
+		if (PlayerManager.isNormal(p)) {
 			if (!(p.getGameMode().equals(GameMode.CREATIVE))) {
 				Coins.add(p.getUniqueId(), 50);
 				p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));

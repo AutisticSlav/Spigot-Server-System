@@ -1,12 +1,12 @@
 package net.virushd.core.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.SetLobby;
 
 public class PlayerDeathEvent implements Listener {
 
@@ -18,7 +18,7 @@ public class PlayerDeathEvent implements Listener {
 
 		Player p = e.getEntity();
 
-		if (CoreMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 
 			// clear the drops
 			e.getDrops().clear();
@@ -32,12 +32,6 @@ public class PlayerDeathEvent implements Listener {
 
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
-
-		Player p = e.getPlayer();
-
-		// set to lobby
-		if (CoreMain.getPlayers().contains(p)) {
-			SetLobby.setLobby(p);
-		}
+		PlayerManager.join(e.getPlayer());
 	}
 }

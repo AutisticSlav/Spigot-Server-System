@@ -1,5 +1,6 @@
 package net.virushd.citybuild.events;
 
+import net.virushd.citybuild.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,20 +18,8 @@ public class QuitEvent implements Listener {
 
 		Player p = e.getPlayer();
 
-		String QuitMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Quit.Message"), p);
-
-		if (CityBuildMain.getPlayers().contains(p)) {
-
-			// debug
-			if (CoreMain.debug()) {
-				CityBuildMain.main.getLogger().info("DEBUG: " + p.getName() + " left CityBuild.");
-			}
-
-			// send all players in citybuild the quit message and remove the player
-			CityBuildMain.getPlayers().remove(p);
-			for (Player players : CityBuildMain.getPlayers()) {
-				players.sendMessage(QuitMessage);
-			}
+		if (PlayerManager.getPlayers().contains(p)) {
+			PlayerManager.leave(p);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package net.virushd.core.events;
 
+import net.virushd.core.main.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect.Type;
@@ -8,11 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.SetLobby;
-import net.virushd.core.main.Utils;
 import net.virushd.title.title.Title;
 
 public class JoinEvent implements Listener {
@@ -31,13 +27,8 @@ public class JoinEvent implements Listener {
 			CoreMain.main.getLogger().info("DEBUG: " + p.getName() + " joined the game.");
 		}
 
-		// add the player
-		if (!CoreMain.getPlayers().contains(p)) {
-			CoreMain.getPlayers().add(p);
-		}
-
-		// set lobby
-		SetLobby.setLobby(p);
+		// join the lobby
+		PlayerManager.join(p);
 
 		// some titles
 		Title.sendTitle(p, 10, 40, 10, JoinTitle, JoinSubTitle);
@@ -58,7 +49,7 @@ public class JoinEvent implements Listener {
 			p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Modt"), p));
 
 			// spawn message and sound
-			for (Player players : CoreMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				if (!players.equals(p)) {
 					players.sendMessage(JoinMessage);
 					players.playSound(players.getLocation(), Sound.ANVIL_LAND, 1, 1);

@@ -15,7 +15,7 @@ public class Updater {
 	public static void scoreboardUpdater() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
-			for (Player players : CoreMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				Lobby.setScoreboard(players);
 			}
 		}, 60L, 60L);
@@ -44,7 +44,7 @@ public class Updater {
 				// loop that sends the message
 				Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
 
-					for (Player players : CoreMain.getPlayers()) {
+					for (Player players : PlayerManager.getPlayers()) {
 						Title.sendActionBar(players, PlaceHolder.withPlayer(ActionBarMessages.get(n), players));
 					}
 
@@ -58,9 +58,9 @@ public class Updater {
 	public static void playerVisibility() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
-			for (Player players : CoreMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				for (Player AllPlayers : Bukkit.getOnlinePlayers()) {
-					if (CoreMain.getPlayers().contains(AllPlayers)) {
+					if (PlayerManager.getPlayers().contains(AllPlayers)) {
 						if (!ItemClickEvent.hideMode.contains(players)) {
 							if (!players.canSee(AllPlayers)) players.showPlayer(AllPlayers);
 						}
@@ -76,10 +76,10 @@ public class Updater {
 	public static void antiRespawnBug() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
-			for (Player players : CoreMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				if (!(players.getWorld().equals(SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Lobby").getWorld()))) {
 					players.getInventory().clear();
-					SetLobby.setLobby(players);
+					PlayerManager.join(players);
 				}
 			}
 		}, 5L, 5L);

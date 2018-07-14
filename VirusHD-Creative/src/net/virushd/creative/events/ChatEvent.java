@@ -1,5 +1,6 @@
 package net.virushd.creative.events;
 
+import net.virushd.creative.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +19,7 @@ public class ChatEvent implements Listener {
 
 		Player p = e.getPlayer();
 
-		if (CreativeMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 
 			// debug
 			if (CoreMain.debug()) {
@@ -28,7 +29,7 @@ public class ChatEvent implements Listener {
 			String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
 
 			// send all players in creative the message
-			for (Player players : CreativeMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				players.sendMessage(ChatFormat.replace("{Message}", e.getMessage()));
 			}
 		}

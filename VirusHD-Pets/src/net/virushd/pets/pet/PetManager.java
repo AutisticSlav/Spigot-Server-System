@@ -8,7 +8,7 @@ public class PetManager {
 
 	public static ArrayList<Pet> pets = new ArrayList<>();
 
-	// register all the pets from the net.virushd.pets.pets package
+	// register all the pets
 	public static void registerPets() {
 		pets.add(new Bat());
 		pets.add(new Blaze());

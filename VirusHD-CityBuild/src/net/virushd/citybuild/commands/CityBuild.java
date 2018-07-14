@@ -1,6 +1,6 @@
 package net.virushd.citybuild.commands;
 
-import net.virushd.core.main.Utils;
+import net.virushd.core.main.*;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,10 +11,6 @@ import net.virushd.citybuild.inventories.Admin;
 import net.virushd.citybuild.inventories.Plot;
 import net.virushd.citybuild.main.CityBuildMain;
 import net.virushd.citybuild.main.FileManager;
-
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.SaveUtils;
 
 public class CityBuild implements CommandExecutor {
 
@@ -35,14 +31,14 @@ public class CityBuild implements CommandExecutor {
 
 			if (cmd.getName().equalsIgnoreCase("CityBuild")) {
 
-				if (CoreMain.isNormal(p)) {
+				if (PlayerManager.isNormal(p)) {
 
 					/*
 					 * Normal
 					 */
 
 					if (p.hasPermission("virushd.citybuild.command.citybuild") || p.hasPermission("*")) {
-						if (CityBuildMain.getPlayers().contains(p)) {
+						if (net.virushd.citybuild.main.PlayerManager.getPlayers().contains(p)) {
 							switch (args.length) {
 								case 0:
 									p.sendMessage(Usage);
@@ -87,20 +83,17 @@ public class CityBuild implements CommandExecutor {
 										if (args[1].equalsIgnoreCase("farmwelt") || args[1].equalsIgnoreCase("farmworld")) {
 
 											// teleport to farmworld
-											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Farmworld"));
-											p.setGameMode(GameMode.SURVIVAL);
+											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Farmworld"), GameMode.SURVIVAL);
 											break;
 										} else if (args[1].equalsIgnoreCase("nether")) {
 
 											// teleport to nether
-											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Nether"));
-											p.setGameMode(GameMode.SURVIVAL);
+											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Nether"), GameMode.SURVIVAL);
 											break;
 										} else if (args[1].equalsIgnoreCase("citybuild")) {
 
 											// teleport to citybuild spawn
-											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.CityBuild"));
-											p.setGameMode(GameMode.SURVIVAL);
+											Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.CityBuild"), GameMode.SURVIVAL);
 											break;
 										} else {
 											p.sendMessage(WrongWorld);
@@ -118,7 +111,7 @@ public class CityBuild implements CommandExecutor {
 					} else {
 						p.sendMessage(NoPerm);
 					}
-				} else if (CoreMain.isAdmin(p)) {
+				} else if (PlayerManager.isAdmin(p)) {
 
 					/*
 					 * Admin

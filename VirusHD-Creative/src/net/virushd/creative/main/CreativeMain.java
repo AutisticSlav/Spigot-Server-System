@@ -19,8 +19,6 @@ public class CreativeMain extends JavaPlugin {
 
 	public static CreativeMain main;
 
-	private static ArrayList<Player> players = new ArrayList<>();
-
 	public void onEnable() {
 
 		// instance
@@ -57,10 +55,5 @@ public class CreativeMain extends JavaPlugin {
 				signs.update();
 			}
 		}
-	}
-
-	// get the players
-	public static ArrayList<Player> getPlayers() {
-		return players;
 	}
 }

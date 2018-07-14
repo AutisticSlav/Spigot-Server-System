@@ -15,7 +15,7 @@ public class Updater {
 	public static void scoreboardUpdater() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CreativeMain.main, () -> {
-			for (Player players : CreativeMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				Creative.setScoreboard(players);
 			}
 		}, 60L, 60L);
@@ -40,9 +40,9 @@ public class Updater {
 	public static void playerVisibility() {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CreativeMain.main, () -> {
-			for (Player players : CreativeMain.getPlayers()) {
+			for (Player players : PlayerManager.getPlayers()) {
 				for (Player AllPlayers : Bukkit.getOnlinePlayers()) {
-					if (CreativeMain.getPlayers().contains(AllPlayers)) {
+					if (PlayerManager.getPlayers().contains(AllPlayers)) {
 						if (!players.canSee(AllPlayers)) players.showPlayer(AllPlayers);
 					} else {
 						if (players.canSee(AllPlayers)) players.hidePlayer(AllPlayers);

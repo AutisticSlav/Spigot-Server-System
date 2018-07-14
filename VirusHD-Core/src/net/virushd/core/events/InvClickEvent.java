@@ -1,5 +1,6 @@
 package net.virushd.core.events;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +16,7 @@ public class InvClickEvent implements Listener {
 	public void onInvClick(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
 
-		if (CoreMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 			e.setCancelled(true);
 		}
 	}
@@ -24,7 +25,7 @@ public class InvClickEvent implements Listener {
 	public void onItemDrop(PlayerDropItemEvent e) {
 		Player p = e.getPlayer();
 
-		if (CoreMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 			e.setCancelled(true);
 		}
 	}

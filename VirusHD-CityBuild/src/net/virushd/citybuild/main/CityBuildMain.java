@@ -22,8 +22,6 @@ public class CityBuildMain extends JavaPlugin {
 
 	public static CityBuildMain main;
 
-	private static ArrayList<Player> players = new ArrayList<>();
-
 	public void onEnable() {
 
 		// instance
@@ -60,11 +58,6 @@ public class CityBuildMain extends JavaPlugin {
 				signs.update();
 			}
 		}
-	}
-
-	// get the players
-	public static ArrayList<Player> getPlayers() {
-		return players;
 	}
 
 	// get the worldguard plugin

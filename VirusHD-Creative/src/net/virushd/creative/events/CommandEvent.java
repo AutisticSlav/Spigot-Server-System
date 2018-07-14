@@ -1,5 +1,6 @@
 package net.virushd.creative.events;
 
+import net.virushd.creative.main.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ public class CommandEvent implements Listener {
 		Player p = e.getPlayer();
 
 		// debug
-		if (CreativeMain.getPlayers().contains(p)) {
+		if (PlayerManager.getPlayers().contains(p)) {
 			if (CoreMain.debug()) {
 				CreativeMain.main.getLogger().info("DEBUG: " + p.getName() + " executed the command " + e.getMessage());
 			}

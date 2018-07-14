@@ -1,12 +1,11 @@
 package net.virushd.ttt.arena;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import net.virushd.core.main.SetLobby;
+import net.virushd.core.main.PlayerManager;
 import net.virushd.ttt.main.FileManager;
+import net.virushd.ttt.main.Updater;
 import org.bukkit.Location;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 
@@ -43,6 +42,7 @@ public class Arena {
 
 	public void addSpawn(Location spawn) {
 		spawns.add(spawn);
+		start();
 	}
 
 	public Location getLobby() {
@@ -51,9 +51,17 @@ public class Arena {
 
 	public void setLobby(Location lobby) {
 		this.lobby = lobby;
+		start();
 	}
 
 	public void deleteSpawns() {
+		kickPlayers();
+		for (Sign sign : Updater.updateSigns.keySet()) {
+			if (Updater.updateSigns.get(sign) == id) {
+				Updater.updateSigns.remove(sign);
+				break;
+			}
+		}
 		spawns = new ArrayList<>();
 		lobby = null;
 	}
@@ -78,11 +86,11 @@ public class Arena {
 
 	public void kickPlayers() {
 		for (Player p : players) {
-			SetLobby.setLobby(p);
+			PlayerManager.join(p);
 			players.remove(p);
 		}
 		for (Player p : spectators) {
-			SetLobby.setLobby(p);
+			PlayerManager.join(p);
 			players.remove(p);
 		}
 	}

@@ -1,11 +1,11 @@
 package net.virushd.creative.commands;
 
+import net.virushd.core.main.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.virushd.core.main.CoreMain;
 import net.virushd.creative.inventories.Admin;
 import net.virushd.creative.main.CreativeMain;
 import net.virushd.creative.main.FileManager;
@@ -28,14 +28,14 @@ public class Creative implements CommandExecutor {
 
 			if (cmd.getName().equalsIgnoreCase("creative")) {
 
-				if (CoreMain.isNormal(p)) {
+				if (PlayerManager.isNormal(p)) {
 
 					/*
 					 * Normal
 					 */
 
 					if (p.hasPermission("virushd.creative.command.creative") || p.hasPermission("*")) {
-						if (CreativeMain.getPlayers().contains(p)) {
+						if (net.virushd.creative.main.PlayerManager.getPlayers().contains(p)) {
 							switch (args.length) {
 								case 0:
 									p.sendMessage(Usage);
@@ -71,7 +71,7 @@ public class Creative implements CommandExecutor {
 					} else {
 						p.sendMessage(NoPerm);
 					}
-				} else if (CoreMain.isAdmin(p)) {
+				} else if (PlayerManager.isAdmin(p)) {
 
 					/*
 					 * Admin

@@ -1,6 +1,7 @@
 package net.virushd.ttt.events;
 
 import net.md_5.bungee.api.ChatColor;
+import net.virushd.ttt.main.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,14 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.PlaceHolder;
 import net.virushd.ttt.arena.Arena;
 import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.ttt.arena.GameState;
 import net.virushd.ttt.main.FileManager;
 import net.virushd.ttt.main.TTTMain;
-import net.virushd.ttt.main.SetTTT;
 import net.virushd.ttt.main.Updater;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class SignEvent implements Listener {
 				Sign sign = (Sign) block.getState();
 
 				// if the player is in the lobby
-				if (CoreMain.getPlayers().contains(p)) {
+				if (net.virushd.core.main.PlayerManager.getPlayers().contains(p)) {
 
 					Arena arena = getArenaBySign(sign);
 
@@ -78,8 +77,7 @@ public class SignEvent implements Listener {
 
 								// now the player can finally join
 								Bukkit.getServer().getScheduler().runTaskLater(TTTMain.main, () -> {
-
-									SetTTT.setTTT(p, arena.getID());
+									PlayerManager.join(p, arena.getID());
 									for (int i = 0; i < 4; i++) {
 										sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()));
 									}
@@ -115,7 +113,7 @@ public class SignEvent implements Listener {
 			if (e.getLine(0).equals("[TTT] " + arena.getID())) {
 
 				// if the player is admin mode
-				if (CoreMain.isAdmin(p)) {
+				if (net.virushd.core.main.PlayerManager.isAdmin(p)) {
 
 					// if the player has permissions
 					if (p.hasPermission("virushd.ttt.sign.create") || p.hasPermission("*")) {

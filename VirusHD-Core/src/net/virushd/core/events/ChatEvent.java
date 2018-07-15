@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class ChatEvent implements Listener {
 

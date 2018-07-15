@@ -7,7 +7,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 
 import net.virushd.citybuild.scoreboards.CityBuild;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class Updater {
 
@@ -29,7 +29,7 @@ public class Updater {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CityBuildMain.main, () -> {
 			for (Sign signs : updateSigns) {
 				for (int i = 0; i < 4; i++) {
-					signs.setLine(i, PlaceHolder.citybuildSign(FileManager.config.getString("Sign.Lines." + (i))));
+					signs.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + (i)), CityBuildMain.main));
 					signs.update();
 				}
 			}

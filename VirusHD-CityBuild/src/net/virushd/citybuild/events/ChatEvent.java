@@ -8,7 +8,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import net.virushd.citybuild.main.CityBuildMain;
 import net.virushd.citybuild.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import net.virushd.core.main.CoreMain;
 
 public class ChatEvent implements Listener {

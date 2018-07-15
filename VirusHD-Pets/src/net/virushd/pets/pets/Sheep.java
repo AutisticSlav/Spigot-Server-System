@@ -3,7 +3,7 @@ package net.virushd.pets.pets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import org.bukkit.Material;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;

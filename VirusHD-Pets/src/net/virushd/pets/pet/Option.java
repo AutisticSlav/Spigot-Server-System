@@ -3,7 +3,7 @@ package net.virushd.pets.pet;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;

@@ -25,29 +25,19 @@ public class ConsoleFilter {
 		((org.apache.logging.log4j.core.Logger) LogManager.getRootLogger()).addFilter(new Filter() {
 
 			@Override
-			public Result getOnMismatch() {
-				return null;
-			}
+			public Result getOnMismatch() { return null; }
 
 			@Override
-			public Result getOnMatch() {
-				return null;
-			}
+			public Result getOnMatch() { return null; }
 
 			@Override
-			public Result filter(Logger logger, Level level, Marker marker, String s, Object... objects) {
-				return null;
-			}
+			public Result filter(Logger logger, Level level, Marker marker, String s, Object... objects) { return null; }
 
 			@Override
-			public Result filter(Logger logger, Level level, Marker marker, Object o, Throwable throwable) {
-				return null;
-			}
+			public Result filter(Logger logger, Level level, Marker marker, Object o, Throwable throwable) { return null; }
 
 			@Override
-			public Result filter(Logger logger, Level level, Marker marker, Message message, Throwable throwable) {
-				return null;
-			}
+			public Result filter(Logger logger, Level level, Marker marker, Message message, Throwable throwable) { return null; }
 
 			@Override // actual filter method
 			public Result filter(LogEvent e) {

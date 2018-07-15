@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import net.virushd.ttt.arena.Arena;
 import net.virushd.ttt.arena.ArenaManager;
 import net.virushd.ttt.arena.GameState;
@@ -28,7 +28,7 @@ public class SignEvent implements Listener {
 		for (Arena arena : ArenaManager.getArenas()) {
 			ArrayList<Boolean> LinesCorrect = new ArrayList<>();
 			for (int i = 0; i < 4; i++) {
-				LinesCorrect.add(ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()))));
+				LinesCorrect.add(ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), TTTMain.main, arena.getID()))));
 			}
 			if (LinesCorrect.get(0) && LinesCorrect.get(1) && LinesCorrect.get(2) && LinesCorrect.get(3)) {
 				return arena;
@@ -79,7 +79,7 @@ public class SignEvent implements Listener {
 								Bukkit.getServer().getScheduler().runTaskLater(TTTMain.main, () -> {
 									PlayerManager.join(p, arena.getID());
 									for (int i = 0; i < 4; i++) {
-										sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()));
+										sign.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), TTTMain.main, arena.getID()));
 									}
 
 									// update the sign
@@ -120,7 +120,7 @@ public class SignEvent implements Listener {
 						for (int i = 0; i < 4; i++) {
 
 							// make the sign correct
-							sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + i), arena.getID()));
+							sign.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), TTTMain.main, arena.getID()));
 
 							// update the sign
 							Updater.updateSigns.put(sign, arena.getID());

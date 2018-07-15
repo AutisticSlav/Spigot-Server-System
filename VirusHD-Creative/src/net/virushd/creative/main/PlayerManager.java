@@ -1,9 +1,9 @@
 package net.virushd.creative.main;
 
 import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.SaveUtils;
-import net.virushd.core.main.Utils;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
 import net.virushd.creative.scoreboards.Creative;
 import net.virushd.title.title.Title;
 import org.bukkit.GameMode;

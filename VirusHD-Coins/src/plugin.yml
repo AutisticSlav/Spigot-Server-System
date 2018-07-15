@@ -3,6 +3,7 @@ author: VirusHD
 main: net.virushd.coins.main.CoinsMain
 version: 1.0
 loadbefore: [CoinsAPI]
+depend: [VirusHD-Core, VirusHD-Title, InventoryAPI]
 commands:
   coins:
     description: Coins command

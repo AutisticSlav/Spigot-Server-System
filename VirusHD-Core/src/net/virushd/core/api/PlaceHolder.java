@@ -1,29 +1,25 @@
-package net.virushd.core.main;
+package net.virushd.core.api;
 
 import java.util.List;
-import java.util.Random;
 
-import net.virushd.creative.main.PlayerManager;
-import net.virushd.ttt.arena.Arena;
-import net.virushd.ttt.arena.ArenaManager;
-import net.virushd.ttt.arena.GameState;
+import net.virushd.core.main.CoreMain;
+import net.virushd.core.main.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import CoinsAPI.Coins;
-import net.virushd.creative.main.CreativeMain;
 
 public class PlaceHolder {
 
 	// normal placeholder replacement
 	public static String normal(String s) {
 		s = s.replace("{Prefix}", FileManager.messages.getString("Prefix"));
-		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) s = citybuild(s);
-		if (CoreMain.pluginAvailable("VirusHD-Creative")) s = creative(s);
+		for (Minigame minigame : CoreMain.getMinigames()) {
+			s = minigame.normalPlaceholder(s);
+		}
 		if (CoreMain.pluginAvailable("VirusHD-Coins")) s = coins(s);
 		if (CoreMain.pluginAvailable("VirusHD-Pets")) s = pets(s);
-		if (CoreMain.pluginAvailable("VirusHD-TTT")) s = ttt(s);
 		s = ChatColor.translateAlternateColorCodes('&', s);
 		return s;
 	}
@@ -58,51 +54,15 @@ public class PlaceHolder {
 		return s;
 	}
 
-	// normal citybuild placeholders
-	private static String citybuild(String s) {
-		s = s.replace("{CityBuildPrefix}", net.virushd.citybuild.main.FileManager.messages.getString("CityBuildPrefix"));
+	// placeholder for signs (normal)
+	public static String sign(String s, Minigame.NormalMinigame minigame) {
+		s = minigame.signPlaceholder(s);
 		return s;
 	}
 
-	// citybuild sign placeholders
-	public static String citybuildSign(String s) {
-		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-			int MaxPlayers = net.virushd.citybuild.main.FileManager.config.getInt("MaxPlayers");
-			String Lobby = net.virushd.citybuild.main.FileManager.config.getString("GameStates.Lobby");
-			String LobbyFull = net.virushd.citybuild.main.FileManager.config.getString("GameStates.LobbyFull");
-			s = s.replace("{Name}", "CityBuild");
-			if (net.virushd.citybuild.main.PlayerManager.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
-			if (net.virushd.citybuild.main.PlayerManager.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
-			s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-			s = s.replace("{Players}", "" + net.virushd.citybuild.main.PlayerManager.getPlayers().size());
-			s = normal(s);
-		}
-		return s;
-	}
-
-	// normal cretive placeholders
-	private static String creative(String s) {
-		s = s.replace("{CreativePrefix}", net.virushd.creative.main.FileManager.messages.getString("CreativePrefix"));
-		if (s.contains("{Ideas}")) {
-			List<String> ideas = net.virushd.creative.main.FileManager.sco_creative.getStringList("Ideas");
-			s = s.replace("{Ideas}", ideas.get(new Random().nextInt(ideas.size())));
-		}
-		return s;
-	}
-
-	// creative sign placeholders
-	public static String creativeSign(String s) {
-		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-			int MaxPlayers = net.virushd.creative.main.FileManager.config.getInt("MaxPlayers");
-			String Lobby = net.virushd.creative.main.FileManager.config.getString("GameStates.Lobby");
-			String LobbyFull = net.virushd.creative.main.FileManager.config.getString("GameStates.LobbyFull");
-			s = s.replace("{Name}", "Creative");
-			if (net.virushd.creative.main.PlayerManager.getPlayers().size() < MaxPlayers) s = s.replace("{GameState}", Lobby);
-			if (net.virushd.creative.main.PlayerManager.getPlayers().size() == MaxPlayers) s = s.replace("{GameState}", LobbyFull);
-			s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-			s = s.replace("{Players}", "" + net.virushd.creative.main.PlayerManager.getPlayers().size());
-			s = normal(s);
-		}
+	// placeholder for signs (arena)
+	public static String sign(String s, Minigame.ArenaMinigame minigame, int id) {
+		s = minigame.signPlaceholder(s, id);
 		return s;
 	}
 
@@ -123,7 +83,7 @@ public class PlaceHolder {
 		return s;
 	}
 
-	// normal ttt placeholders
+	/* //normal ttt placeholders
 	private static String ttt(String s) {
 		s = s.replace("{TTTPrefix}", net.virushd.ttt.main.FileManager.messages.getString("TTTPrefix"));
 		return s;
@@ -151,7 +111,7 @@ public class PlaceHolder {
 			}
 		}
 		return s;
-	}
+	}*/
 
 	// switch the color codes
 	public static String betterColorCode(String s) {

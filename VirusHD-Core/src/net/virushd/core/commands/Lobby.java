@@ -1,5 +1,7 @@
 package net.virushd.core.commands;
 
+import net.virushd.core.api.Minigame;
+import net.virushd.core.api.PlaceHolder;
 import net.virushd.core.main.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -65,18 +67,9 @@ public class Lobby implements CommandExecutor {
 							// join
 							PlayerManager.join(p);
 
-							// remove from other minigames
-
-							if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-								net.virushd.citybuild.main.PlayerManager.leave(p);
-							}
-
-							if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-								net.virushd.creative.main.PlayerManager.leave(p);
-							}
-
-							if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-								net.virushd.ttt.main.PlayerManager.leave(p);
+							// remove the players form other minigames
+							for (Minigame minigame : CoreMain.getMinigames()) {
+								minigame.leave(p);
 							}
 						}
 					} else {

@@ -1,6 +1,6 @@
 package net.virushd.pets.main;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.pets.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

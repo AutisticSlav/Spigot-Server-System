@@ -1,7 +1,7 @@
 package net.virushd.ttt.arena;
 
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.Utils;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.Utils;
 import net.virushd.ttt.main.FileManager;
 import net.virushd.ttt.main.TTTMain;
 import net.virushd.title.title.Title;

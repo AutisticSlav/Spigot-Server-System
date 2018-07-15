@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.creative.main.FileManager;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;

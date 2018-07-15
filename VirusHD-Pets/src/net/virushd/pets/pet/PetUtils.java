@@ -2,7 +2,7 @@ package net.virushd.pets.pet;
 
 import java.util.UUID;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

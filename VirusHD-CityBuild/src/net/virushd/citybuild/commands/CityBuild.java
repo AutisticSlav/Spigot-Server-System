@@ -1,6 +1,9 @@
 package net.virushd.citybuild.commands;
 
-import net.virushd.core.main.*;
+import net.virushd.citybuild.main.PlayerManager;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +12,6 @@ import org.bukkit.entity.Player;
 
 import net.virushd.citybuild.inventories.Admin;
 import net.virushd.citybuild.inventories.Plot;
-import net.virushd.citybuild.main.CityBuildMain;
 import net.virushd.citybuild.main.FileManager;
 
 public class CityBuild implements CommandExecutor {
@@ -31,14 +33,14 @@ public class CityBuild implements CommandExecutor {
 
 			if (cmd.getName().equalsIgnoreCase("CityBuild")) {
 
-				if (PlayerManager.isNormal(p)) {
+				if (net.virushd.core.main.PlayerManager.isNormal(p)) {
 
 					/*
 					 * Normal
 					 */
 
 					if (p.hasPermission("virushd.citybuild.command.citybuild") || p.hasPermission("*")) {
-						if (net.virushd.citybuild.main.PlayerManager.getPlayers().contains(p)) {
+						if (PlayerManager.getPlayers().contains(p)) {
 							switch (args.length) {
 								case 0:
 									p.sendMessage(Usage);
@@ -111,7 +113,7 @@ public class CityBuild implements CommandExecutor {
 					} else {
 						p.sendMessage(NoPerm);
 					}
-				} else if (PlayerManager.isAdmin(p)) {
+				} else if (net.virushd.core.main.PlayerManager.isAdmin(p)) {
 
 					/*
 					 * Admin

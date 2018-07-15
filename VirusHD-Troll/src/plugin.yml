@@ -2,6 +2,7 @@ name: VirusHD-Troll
 author: VirusHD
 main: net.virushd.troll.main.TrollMain
 version: 1.0
+depend: [VirusHD-Core, VirusHD-Title, InventoryAPI]
 commands:
   troll:
     description: Troll command

@@ -2,13 +2,14 @@ package net.virushd.core.inventories;
 
 import java.util.Arrays;
 
+import net.virushd.core.api.Minigame;
 import net.virushd.core.main.CoreMain;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;
@@ -36,37 +37,12 @@ public class Admin {
 			}
 		});
 
-		// teleporter
-		int i = 0;
-
-		// change citybuild location
-		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-			locations.setSlot(i, InventoryAPI.createItem("&cCityBuild", Arrays.asList("&7Change the CityBuild location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.CityBuild.Item")), null, 1), new ItemListener() {
+		for (int i = 0; i < CoreMain.getMinigames().size(); i++) {
+			Minigame minigame = CoreMain.getMinigames().get(i);
+			locations.setSlot(i, InventoryAPI.createItem("&c" + minigame.getRealName(), Arrays.asList("&7Change the " + minigame.getRealName() + " location."), Material.valueOf(FileManager.inv_teleporter.getString("Items." + minigame.getRealName() + ".Item")), null, 1), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					SaveUtils.saveLocationToFile(FileManager.locationsF, FileManager.locations, "CityBuild", p.getLocation());
-				}
-			});
-			i++;
-		}
-
-		// change creative location
-		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-			locations.setSlot(i, InventoryAPI.createItem("&cCreative", Arrays.asList("&7Change the Creative location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.Creative.Item")), null, 1), new ItemListener() {
-				@Override
-				public void onItemClick(Player p) {
-					SaveUtils.saveLocationToFile(FileManager.locationsF, FileManager.locations, "Creative", p.getLocation());
-				}
-			});
-			i++;
-		}
-
-		// change ttt location
-		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-			locations.setSlot(i, InventoryAPI.createItem("&cTTT", Arrays.asList("&7Change the TTT location."), Material.valueOf(FileManager.inv_teleporter.getString("Items.TTT.Item")), null, 1), new ItemListener() {
-				@Override
-				public void onItemClick(Player p) {
-					SaveUtils.saveLocationToFile(FileManager.locationsF, FileManager.locations, "TTT", p.getLocation());
+					SaveUtils.saveLocationToFile(FileManager.locationsF, FileManager.locations, minigame.getRealName(), p.getLocation());
 				}
 			});
 		}

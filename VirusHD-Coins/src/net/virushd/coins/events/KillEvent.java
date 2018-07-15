@@ -13,8 +13,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import CoinsAPI.Coins;
 import net.virushd.coins.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.CoreMain;
+import net.virushd.core.api.PlaceHolder;
 
 public class KillEvent implements Listener {
 

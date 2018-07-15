@@ -2,9 +2,9 @@ package net.virushd.citybuild.main;
 
 import net.virushd.citybuild.scoreboards.CityBuild;
 import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.SaveUtils;
-import net.virushd.core.main.Utils;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
 import net.virushd.title.title.Title;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

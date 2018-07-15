@@ -2,7 +2,7 @@ package net.virushd.core.scoreboards;
 
 import org.bukkit.entity.Player;
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 
 public class Lobby {
 	

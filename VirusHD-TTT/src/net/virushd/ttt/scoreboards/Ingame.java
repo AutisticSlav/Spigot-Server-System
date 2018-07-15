@@ -1,6 +1,6 @@
 package net.virushd.ttt.scoreboards;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.ttt.main.FileManager;
 import org.bukkit.entity.Player;
 

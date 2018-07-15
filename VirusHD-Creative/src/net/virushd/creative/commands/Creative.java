@@ -7,9 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.virushd.creative.inventories.Admin;
-import net.virushd.creative.main.CreativeMain;
 import net.virushd.creative.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class Creative implements CommandExecutor {
 

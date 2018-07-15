@@ -6,8 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.pets.main.FileManager;
 import net.virushd.pets.pet.PetUtils;
 

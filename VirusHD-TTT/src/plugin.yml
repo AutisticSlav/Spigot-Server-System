@@ -2,6 +2,7 @@ name: VirusHD-TTT
 author: VirusHD
 main: net.virushd.ttt.main.TTTMain
 version: 1.0
+depend: [VirusHD-Core, VirusHD-Title, InventoryAPI]
 commands:
   ttt:
     description: TTT command

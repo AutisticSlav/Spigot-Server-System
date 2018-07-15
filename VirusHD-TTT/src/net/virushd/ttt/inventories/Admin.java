@@ -2,7 +2,7 @@ package net.virushd.ttt.inventories;
 
 import net.virushd.core.inventories.AnvilGUI;
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;

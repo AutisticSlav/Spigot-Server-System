@@ -13,7 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class SignEvent implements Listener {
 
@@ -39,7 +39,7 @@ public class SignEvent implements Listener {
 
 					// if it's the correct sign
 					for (int i = 0; i < 4; i++) {
-						if (!ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.citybuildSign(FileManager.config.getString("Sign.Lines." + i))))) {
+						if (!ChatColor.stripColor(sign.getLine(i)).equals(ChatColor.stripColor(PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), CityBuildMain.main)))) {
 							return;
 						}
 					}
@@ -54,7 +54,7 @@ public class SignEvent implements Listener {
 							Bukkit.getServer().getScheduler().runTaskLater(CityBuildMain.main, () -> {
 								PlayerManager.join(p);
 								for (int i = 0; i < 4; i++) {
-									sign.setLine(i, PlaceHolder.citybuildSign(FileManager.config.getString("Sign.Lines." + i)));
+									sign.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), CityBuildMain.main));
 								}
 
 								// update the sign
@@ -92,7 +92,7 @@ public class SignEvent implements Listener {
 					for (int i = 0; i < 4; i++) {
 
 						// make the sign correct
-						sign.setLine(i, PlaceHolder.citybuildSign(FileManager.config.getString("Sign.Lines." + i)));
+						sign.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + i), CityBuildMain.main));
 
 						// update the sign
 						Updater.updateSigns.add(sign);

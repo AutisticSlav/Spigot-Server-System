@@ -2,7 +2,7 @@ name: VirusHD-CityBuild
 author: VirusHD
 main: net.virushd.citybuild.main.CityBuildMain
 version: 1.0
-depend: [WorldEdit, WorldGuard]
+depend: [VirusHD-Core, VirusHD-Title, InventoryAPI, WorldEdit, WorldGuard]
 commands:
   citybuild:
     description: CityBuild command

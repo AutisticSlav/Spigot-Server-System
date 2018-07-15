@@ -1,5 +1,6 @@
 package net.virushd.core.commands;
 
+import net.virushd.core.api.Minigame;
 import net.virushd.core.main.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class Admin implements CommandExecutor {
 
@@ -34,17 +35,8 @@ public class Admin implements CommandExecutor {
 						p.sendMessage(AdminMode);
 
 						// remove the players form other minigames
-
-						if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-							net.virushd.citybuild.main.PlayerManager.leave(p);
-						}
-
-						if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-							net.virushd.creative.main.PlayerManager.leave(p);
-						}
-
-						if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-							net.virushd.ttt.main.PlayerManager.leave(p);
+						for (Minigame minigame : CoreMain.getMinigames()) {
+							minigame.leave(p);
 						}
 
 						// debug

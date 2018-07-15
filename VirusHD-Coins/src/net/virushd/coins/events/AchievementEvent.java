@@ -10,8 +10,7 @@ import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
 import CoinsAPI.Coins;
 import net.virushd.coins.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.CoreMain;
+import net.virushd.core.api.PlaceHolder;
 
 public class AchievementEvent implements Listener {
 

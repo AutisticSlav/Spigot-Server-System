@@ -3,6 +3,7 @@ package net.virushd.core.main;
 import java.io.File;
 import java.util.Arrays;
 
+import net.virushd.core.api.SaveUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -113,13 +114,7 @@ public class FileManager {
 		inv_teleporter = new YamlConfiguration().loadConfiguration(inv_teleporterF);
 		inv_teleporter.addDefault("Inventory.DisplayName", "&cTeleporter");
 		SaveUtils.defaultItemToFile(inv_teleporter, "Items.Spawn", InventoryAPI.createItem("&cSpawn", Arrays.asList("&7Zurück zum Spawn."), Material.ENDER_PEARL, null, 1));
-		SaveUtils.defaultItemToFile(inv_teleporter, "Items.CityBuild", InventoryAPI.createItem("&6CityBuild", Arrays.asList("&7CityBuild, wer kennts nicht?"), Material.BRICK, null, 1));
-		SaveUtils.defaultItemToFile(inv_teleporter, "Items.Creative", InventoryAPI.createItem("&6Creative", Arrays.asList("&7Unentlich Ressourcen &c:O&7!"), Material.DIAMOND_BLOCK, null, 1));
-		SaveUtils.defaultItemToFile(inv_teleporter, "Items.TTT", InventoryAPI.createItem("&4TTT", Arrays.asList("&7Finde den Mörder und töte ihn!"), Material.STICK, null, 1));
 		inv_teleporter.addDefault("Items.Spawn.Slot", 13);
-		inv_teleporter.addDefault("Items.CityBuild.Slot", 22);
-		inv_teleporter.addDefault("Items.Creative.Slot", 4);
-		inv_teleporter.addDefault("Items.TTT.Slot", 14);
 		inv_teleporter.addDefault("Background.0", 15);
 		inv_teleporter.addDefault("Background.1", 14);
 		inv_teleporter.addDefault("Background.2", 15);
@@ -163,9 +158,6 @@ public class FileManager {
 		// locations
 		locationsF = new File("plugins/VirusHD-Core", "locations.yml");
 		locations = new YamlConfiguration().loadConfiguration(locationsF);
-		SaveUtils.defaultLocationToFile(locations, "CityBuild", Bukkit.getWorld("world").getSpawnLocation());
-		SaveUtils.defaultLocationToFile(locations, "Creative", Bukkit.getWorld("world").getSpawnLocation());
-		SaveUtils.defaultLocationToFile(locations, "TTT", Bukkit.getWorld("world").getSpawnLocation());
 		locations.options().copyDefaults(true);
 		SaveUtils.saveFile(locationsF, locations);
 

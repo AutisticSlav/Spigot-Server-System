@@ -1,5 +1,9 @@
 package net.virushd.core.inventories;
 
+import net.virushd.core.api.Minigame;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
 import net.virushd.core.main.*;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -41,7 +45,7 @@ public class Teleporter {
 			inv.setSlot(i, BGItems[i], null);
 		}
 
-		// Spawn Item
+		// spawn item
 		inv.setSlot(SpawnSlot, SpawnItem, new ItemListener() {
 			@Override
 			public void onItemClick(Player p) {
@@ -50,34 +54,12 @@ public class Teleporter {
 			}
 		});
 
-		// CityBuild Item
-		if (CoreMain.pluginAvailable("VirusHD-CityBuild")) {
-			inv.setSlot(CityBuildSlot, CityBuildItem, new ItemListener() {
+		// minigame items
+		for (Minigame minigame : CoreMain.getMinigames()) {
+			inv.setSlot(FileManager.inv_teleporter.getInt("Items." + minigame.getRealName() + ".Slot"), SaveUtils.getItemFromFile(FileManager.inv_teleporter, "Items." + minigame.getRealName()), new ItemListener() {
 				@Override
 				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "CityBuild"), GameMode.ADVENTURE);
-					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
-				}
-			});
-		}
-
-		// Creative Item
-		if (CoreMain.pluginAvailable("VirusHD-Creative")) {
-			inv.setSlot(CreativeSlot, CreativeItem, new ItemListener() {
-				@Override
-				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "Creative"), GameMode.ADVENTURE);
-					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
-				}
-			});
-		}
-
-		// TTT Item
-		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-			inv.setSlot(TTTSlot, TTTItem, new ItemListener() {
-				@Override
-				public void onItemClick(Player p) {
-					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, "TTT"), GameMode.ADVENTURE);
+					Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.locations, minigame.getRealName()), GameMode.ADVENTURE);
 					p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
 				}
 			});

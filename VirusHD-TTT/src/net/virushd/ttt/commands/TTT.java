@@ -7,8 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 
 public class TTT implements CommandExecutor {
 
@@ -27,6 +26,7 @@ public class TTT implements CommandExecutor {
 					/*
 					 * Normal
 					 */
+
 					if ((p.hasPermission("virushd.ttt.command.ttt") || p.hasPermission("*"))) {
 						// TODO Normal ttt command
 					} else {
@@ -37,6 +37,7 @@ public class TTT implements CommandExecutor {
 					/*
 					 * Admin
 					 */
+
 					if (p.hasPermission("virushd.ttt.command.ttt") || p.hasPermission("*")) {
 						Admin.open(p);
 					} else {
@@ -47,6 +48,7 @@ public class TTT implements CommandExecutor {
 					/*
 					 * Troll
 					 */
+
 					p.sendMessage(NotInMode);
 				}
 			}

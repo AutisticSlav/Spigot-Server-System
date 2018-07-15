@@ -10,7 +10,7 @@ import net.virushd.ttt.scoreboards.Lobby;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import org.bukkit.entity.Player;
 
 public class Updater {
@@ -40,7 +40,7 @@ public class Updater {
 			for (Sign sign : updateSigns.keySet()) {
 				for (int i = 0; i < 4; i++) {
 					try {
-						sign.setLine(i, PlaceHolder.tttSign(FileManager.config.getString("Sign.Lines." + (i)), updateSigns.get(sign)));
+						sign.setLine(i, PlaceHolder.sign(FileManager.config.getString("Sign.Lines." + (i)), TTTMain.main, updateSigns.get(sign)));
 						sign.update();
 					} catch (Exception ex) {
 						ex.printStackTrace();

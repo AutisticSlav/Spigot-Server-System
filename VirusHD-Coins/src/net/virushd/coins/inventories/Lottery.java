@@ -10,10 +10,10 @@ import org.bukkit.event.inventory.InventoryType;
 
 import CoinsAPI.Coins;
 import net.virushd.coins.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import net.virushd.core.inventories.Cosmetics;
 import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;

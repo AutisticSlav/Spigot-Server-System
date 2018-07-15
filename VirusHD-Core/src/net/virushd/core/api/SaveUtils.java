@@ -1,9 +1,10 @@
-package net.virushd.core.main;
+package net.virushd.core.api;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import net.virushd.core.api.PlaceHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

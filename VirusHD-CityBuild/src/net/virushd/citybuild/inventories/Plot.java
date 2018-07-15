@@ -15,9 +15,9 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 
 import net.virushd.citybuild.main.CityBuildMain;
 import net.virushd.citybuild.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
-import net.virushd.core.main.SaveUtils;
-import net.virushd.core.main.Utils;
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
 import net.virushd.inventory.inventory.Inventory;
 import net.virushd.inventory.inventory.ItemListener;
 import net.virushd.inventory.main.InventoryAPI;

@@ -10,8 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import net.virushd.core.inventories.Cosmetics;
 import net.virushd.core.inventories.Teleporter;
-import net.virushd.core.main.CoreMain;
-import net.virushd.core.main.Utils;
+import net.virushd.core.api.Utils;
 
 public class ItemClickEvent implements Listener {
 

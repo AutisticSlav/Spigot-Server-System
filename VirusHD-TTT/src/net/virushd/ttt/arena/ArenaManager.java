@@ -2,7 +2,7 @@ package net.virushd.ttt.arena;
 
 import java.util.ArrayList;
 
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.ttt.main.FileManager;
 import org.bukkit.Location;
 

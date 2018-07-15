@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.FileManager;
-import net.virushd.core.main.PlaceHolder;
+import net.virushd.core.api.PlaceHolder;
 import net.virushd.troll.main.TrollMain;
 
 public class Troll implements CommandExecutor {

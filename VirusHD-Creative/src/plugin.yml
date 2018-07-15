@@ -2,6 +2,7 @@ name: VirusHD-Creative
 author: VirusHD
 main: net.virushd.creative.main.CreativeMain
 version: 1.0
+depend: [VirusHD-Core, VirusHD-Title, InventoryAPI]
 commands:
   creative:
     description: Creative command

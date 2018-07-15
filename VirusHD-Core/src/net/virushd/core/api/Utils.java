@@ -1,7 +1,11 @@
-package net.virushd.core.main;
+package net.virushd.core.api;
 
 import java.util.List;
 
+import net.virushd.core.api.PlaceHolder;
+import net.virushd.core.api.SaveUtils;
+import net.virushd.core.main.CoreMain;
+import net.virushd.core.main.FileManager;
 import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.EntityType;

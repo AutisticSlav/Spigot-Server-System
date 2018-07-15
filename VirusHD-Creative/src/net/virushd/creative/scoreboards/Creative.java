@@ -1,7 +1,7 @@
 package net.virushd.creative.scoreboards;
 
 import org.bukkit.entity.Player;
-import net.virushd.core.main.SaveUtils;
+import net.virushd.core.api.SaveUtils;
 import net.virushd.creative.main.FileManager;
 
 public class Creative {

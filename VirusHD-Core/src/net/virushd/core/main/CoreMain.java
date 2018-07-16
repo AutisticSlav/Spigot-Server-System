@@ -40,11 +40,6 @@ public class CoreMain extends JavaPlugin {
 		// files
 		FileManager.manager();
 
-		// test the new FileSystem
-		ConfigFile test = new ConfigFile("test", FileType.NORMAL, this);
-		ItemStack item = InventoryAPI.createItem("&cHi", Arrays.asList("&7Test 1", "&7Test 2"), Material.DIAMOND, null, 1);
-		test.getConfig().addDefault("TestItem", item.serialize());
-
 		// events
 		getServer().getPluginManager().registerEvents(new JoinEvent(), this);
 		getServer().getPluginManager().registerEvents(new QuitEvent(), this);

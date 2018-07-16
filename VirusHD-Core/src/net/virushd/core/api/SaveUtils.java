@@ -18,7 +18,6 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import net.virushd.inventory.main.InventoryAPI;
 
-@Deprecated
 public class SaveUtils {
 
 	// locations

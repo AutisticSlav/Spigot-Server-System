@@ -1,9 +1,14 @@
 package net.virushd.core.main;
 
+import net.virushd.core.api.ConfigFile;
+import net.virushd.core.api.ConfigFile.FileType;
 import net.virushd.core.api.Minigame;
 import net.virushd.core.api.SaveUtils;
+import net.virushd.inventory.main.InventoryAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.virushd.core.commands.Admin;
@@ -17,6 +22,7 @@ import net.virushd.core.events.PlayerDeathEvent;
 import net.virushd.core.events.QuitEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static net.virushd.core.main.FileManager.inv_teleporter;
 import static net.virushd.core.main.FileManager.locations;
@@ -33,6 +39,11 @@ public class CoreMain extends JavaPlugin {
 
 		// files
 		FileManager.manager();
+
+		// test the new FileSystem
+		ConfigFile test = new ConfigFile("test", FileType.NORMAL, this);
+		ItemStack item = InventoryAPI.createItem("&cHi", Arrays.asList("&7Test 1", "&7Test 2"), Material.DIAMOND, null, 1);
+		test.getConfig().addDefault("TestItem", item.serialize());
 
 		// events
 		getServer().getPluginManager().registerEvents(new JoinEvent(), this);

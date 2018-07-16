@@ -83,36 +83,6 @@ public class PlaceHolder {
 		return s;
 	}
 
-	/* //normal ttt placeholders
-	private static String ttt(String s) {
-		s = s.replace("{TTTPrefix}", net.virushd.ttt.main.FileManager.messages.getString("TTTPrefix"));
-		return s;
-	}
-
-	// ttt sign placeholders
-	public static String tttSign(String s, int id) {
-		if (CoreMain.pluginAvailable("VirusHD-TTT")) {
-			Arena arena = ArenaManager.getArenaByID(id);
-			if (arena != null && arena.isComplete()) {
-				int MaxPlayers = net.virushd.ttt.main.FileManager.config.getInt("MaxPlayers");
-				String Lobby = net.virushd.ttt.main.FileManager.config.getString("GameStates.Lobby");
-				String LobbyFull = net.virushd.ttt.main.FileManager.config.getString("GameStates.LobbyFull");
-				String Ingame = net.virushd.ttt.main.FileManager.config.getString("GameStates.Ingame");
-				s = s.replace("{Name}", arena.getName());
-				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() < MaxPlayers)
-					s = s.replace("{GameState}", Lobby);
-				if (arena.getGameState() == GameState.LOBBY && arena.getPlayers().size() == MaxPlayers)
-					s = s.replace("{GameState}", LobbyFull);
-				if (arena.getGameState() == GameState.STARTING || arena.getGameState() == GameState.GAME || arena.getGameState() == GameState.RESTARTING)
-					s = s.replace("{GameState}", Ingame);
-				s = s.replace("{MaxPlayers}", "" + MaxPlayers);
-				s = s.replace("{Players}", "" + arena.getPlayers().size());
-				s = normal(s);
-			}
-		}
-		return s;
-	}*/
-
 	// switch the color codes
 	public static String betterColorCode(String s) {
 		return s.replaceAll("§", "&");

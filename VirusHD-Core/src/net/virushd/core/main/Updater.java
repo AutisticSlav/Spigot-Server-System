@@ -2,8 +2,9 @@ package net.virushd.core.main;
 
 import java.util.List;
 
+import net.virushd.core.api.ConfigFile;
 import net.virushd.core.api.PlaceHolder;
-import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Serializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,7 @@ import net.virushd.core.events.ItemClickEvent;
 import net.virushd.core.scoreboards.Lobby;
 import net.virushd.title.title.Title;
 
+@SuppressWarnings("ConstantConditions")
 public class Updater {
 
 	// update the scoreboards
@@ -25,8 +27,7 @@ public class Updater {
 
 	// random action bar messages
 	public static void randomMessages() {
-
-		List<String> ActionBarMessages = FileManager.messages.getStringList("Messages.ActionBar");
+		List<String> ActionBarMessages = FileManager.getFile("messages",ConfigFile.FileType.NORMAL).getConfig().getStringList("Messages.ActionBar");
 		int Laenge = 10;
 
 		// loop that changes the message
@@ -79,7 +80,7 @@ public class Updater {
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(CoreMain.main, () -> {
 			for (Player players : PlayerManager.getPlayers()) {
-				if (!(players.getWorld().equals(SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Lobby").getWorld()))) {
+				if (!(players.getWorld().equals(Serializer.deserializeLocation(Serializer.getMap(FileManager.getFile("config", ConfigFile.FileType.NORMAL), "Spawns.Lobby")).getWorld()))) {
 					players.getInventory().clear();
 					PlayerManager.join(players);
 				}

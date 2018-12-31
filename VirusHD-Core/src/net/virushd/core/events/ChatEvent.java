@@ -23,7 +23,7 @@ public class ChatEvent implements Listener {
 				CoreMain.main.getLogger().info("DEBUG: (Chat) " + p.getName() + ": " + e.getMessage());
 			}
 
-			String ChatFormat = PlaceHolder.withPlayer(FileManager.messages.getString("ChatFormat"), p);
+			String ChatFormat = PlaceHolder.withPlayer(FileManager.getMessage("ChatFormat"), p);
 
 			// send the messages to the other players
 			for (Player players : PlayerManager.getPlayers()) {

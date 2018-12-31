@@ -17,12 +17,12 @@ public class Lobby implements CommandExecutor {
 
 			Player p = (Player) sender;
 
-			String NotInMode = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NotInMode"), p);
-			String NoPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
-			String Usage = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.LobbyUsage"), p);
-			String Help = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Help"), p);
-			String Commands = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Commands"), p);
-			String Rules = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Rules"), p);
+			String NotInMode = PlaceHolder.withPlayer(FileManager.getMessage("Messages.NotInMode"), p);
+			String NoPerm = PlaceHolder.withPlayer(FileManager.getMessage("Messages.NoPerm"), p);
+			String Usage = PlaceHolder.withPlayer(FileManager.getMessage("Messages.LobbyUsage"), p);
+			String Help = PlaceHolder.withPlayer(FileManager.getMessage("Messages.Help"), p);
+			String Commands = PlaceHolder.withPlayer(FileManager.getMessage("Messages.Commands"), p);
+			String Rules = PlaceHolder.withPlayer(FileManager.getMessage("Messages.Rules"), p);
 
 			if (cmd.getName().equalsIgnoreCase("lobby")) {
 				if (PlayerManager.isNormal(p)) {

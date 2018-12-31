@@ -20,9 +20,9 @@ public class Admin implements CommandExecutor {
 
 			Player p = (Player) sender;
 
-			String Usage = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.AdminUsage"), p);
-			String AdminMode = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.AdminMode"), p);
-			String NoPerm = PlaceHolder.withPlayer(FileManager.messages.getString("Messages.NoPerm"), p);
+			String Usage = PlaceHolder.withPlayer(FileManager.getMessage("Messages.AdminUsage"), p);
+			String AdminMode = PlaceHolder.withPlayer(FileManager.getMessage("Messages.AdminMode"), p);
+			String NoPerm = PlaceHolder.withPlayer(FileManager.getMessage("Messages.NoPerm"), p);
 
 			if (cmd.getName().equals("admin")) {
 				if (p.hasPermission("virushd.core.command.admin") || p.hasPermission("*")) {

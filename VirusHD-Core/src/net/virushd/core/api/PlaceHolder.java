@@ -13,8 +13,9 @@ import CoinsAPI.Coins;
 public class PlaceHolder {
 
 	// normal placeholder replacement
+	@SuppressWarnings("ConstantConditions")
 	public static String normal(String s) {
-		s = s.replace("{Prefix}", FileManager.messages.getString("Prefix"));
+		s = s.replace("{Prefix}", FileManager.getMessage("Prefix"));
 		for (Minigame minigame : CoreMain.getMinigames()) {
 			s = minigame.normalPlaceholder(s);
 		}

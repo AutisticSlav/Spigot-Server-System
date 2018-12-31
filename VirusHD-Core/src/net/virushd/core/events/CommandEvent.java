@@ -21,7 +21,7 @@ public class CommandEvent implements Listener {
 
 		// custom unknown command message
 		if (Bukkit.getHelpMap().getHelpTopic(cmd) == null) {
-			p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.UnknownCommand"), p).replace("{Command}", cmd));
+			p.sendMessage(PlaceHolder.withPlayer(FileManager.getMessage("Messages.UnknownCommand"), p).replace("{Command}", cmd));
 			e.setCancelled(true);
 		}
 

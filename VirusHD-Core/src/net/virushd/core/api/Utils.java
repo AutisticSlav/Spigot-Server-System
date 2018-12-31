@@ -1,9 +1,11 @@
 package net.virushd.core.api;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-import net.virushd.core.api.PlaceHolder;
-import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.ConfigFile.FileType;
 import net.virushd.core.main.CoreMain;
 import net.virushd.core.main.FileManager;
 import org.bukkit.*;
@@ -15,14 +17,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import net.virushd.core.events.ItemClickEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
+@SuppressWarnings("ConstantConditions")
 public class Utils {
 
 	// get some items form the config
 	public static ItemStack getHideItem(Player p) {
-		ItemStack item = SaveUtils.getItemFromFile(FileManager.itm_cosmetics, "Hide");
-		String HideModeOn = PlaceHolder.normal(FileManager.itm_hide.getString("HideMode.on"));
-		String HideModeOff = PlaceHolder.normal(FileManager.itm_hide.getString("HideMode.off"));
+		ConfigFile file = FileManager.getFile("hide", FileType.ITEMS);
+		ItemStack item = Serializer.deserializeItem(Serializer.getMap(file, "Hide"));
+		String HideModeOn = PlaceHolder.normal(file.getConfig().getString("HideMode.on"));
+		String HideModeOff = PlaceHolder.normal(file.getConfig().getString("HideMode.off"));
 		ItemMeta meta = item.getItemMeta();
 		String HideDisplayName = meta.getDisplayName();
 
@@ -37,11 +45,11 @@ public class Utils {
 	}
 
 	public static ItemStack getTeleporterItem() {
-		return SaveUtils.getItemFromFile(FileManager.itm_teleporter, "Teleporter");
+		return Serializer.deserializeItem(Serializer.getMap(FileManager.getFile("teleporter", FileType.ITEMS), "Teleporter"));
 	}
 
 	public static ItemStack getCosmeticsItem() {
-		return SaveUtils.getItemFromFile(FileManager.itm_cosmetics, "Cosmetics");
+		return Serializer.deserializeItem(Serializer.getMap(FileManager.getFile("cosmetics", FileType.ITEMS), "Cosmetics"));
 	}
 
 	/**
@@ -68,8 +76,9 @@ public class Utils {
 
 	// get the players rank via permissions
 	public static String getRank(Player p) {
-		List<String> DisplayNames = FileManager.ranks.getStringList("Ranks.DisplayNames");
-		List<String> Permissions = FileManager.ranks.getStringList("Ranks.Permissions");
+		ConfigFile ranks = FileManager.getFile("ranks", FileType.NORMAL);
+		List<String> DisplayNames = ranks.getConfig().getStringList("Ranks.DisplayNames");
+		List<String> Permissions = ranks.getConfig().getStringList("Ranks.Permissions");
 
 		if (DisplayNames.size() != Permissions.size()) {
 			System.err.println("Error in rank.yml!");
@@ -115,5 +124,65 @@ public class Utils {
 	// round the yaw and pitch
 	private static int roundDegreesToQuarter(float d) {
 		return (int) (((float) Math.round(d / 360 * 4)) / 4 * 360);
+	}
+
+	// simplier scoreboards
+	public static class SimpleScoreboard {
+
+		private String displayName;
+		private List<String> lines;
+
+		public SimpleScoreboard(String displayName, List<String> lines) {
+			this.displayName = displayName;
+			this.lines = lines;
+		}
+
+		public void setScoreboard(Player p) {
+			Scoreboard s = Bukkit.getScoreboardManager().getNewScoreboard();
+			Objective o = s.registerNewObjective("AAA", "BBB");
+			o.setDisplayName(PlaceHolder.withPlayer(displayName, p));
+			o.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+			List<String> lines = new ArrayList<>(this.lines);
+
+			// fix a scoreboard space bug
+			String spaces = "";
+			for (int i = 0; i < lines.size(); i++) {
+				if (lines.get(i).equals("{Space}")) {
+					lines.set(i, spaces);
+					spaces += " ";
+				}
+			}
+
+			for (int i = 0; i < lines.size(); i++) {
+				Score sc = o.getScore(PlaceHolder.withPlayer(lines.get(i), p));
+				sc.setScore(lines.size() - i);
+			}
+
+			p.setScoreboard(s);
+		}
+
+		public String getDisplayName() {
+			return displayName;
+		}
+
+		public List<String> getLines() {
+			return lines;
+		}
+
+		public static Map<String, Object> serialize(SimpleScoreboard scoreboard) {
+			Map<String, Object> map = new TreeMap<>();
+			map.put("DisplayName", scoreboard.getDisplayName());
+			map.put("Lines", scoreboard.getLines());
+			return map;
+		}
+
+		@SuppressWarnings("unchecked")
+		public static SimpleScoreboard deserialize(Map<String, Object> map) {
+			return new SimpleScoreboard(
+					(String) map.get("DisplayName"),
+					(List<String>) map.get("Lines")
+			);
+		}
 	}
 }

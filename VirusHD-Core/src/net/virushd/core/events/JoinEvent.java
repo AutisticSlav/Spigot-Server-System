@@ -20,9 +20,9 @@ public class JoinEvent implements Listener {
 
 		Player p = e.getPlayer();
 
-		String JoinTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Title"), p);
-		String JoinSubTitle = PlaceHolder.withPlayer(FileManager.messages.getString("Join.SubTitle"), p);
-		String JoinMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Join.Message"), p);
+		String JoinTitle = PlaceHolder.withPlayer(FileManager.getMessage("Join.Title"), p);
+		String JoinSubTitle = PlaceHolder.withPlayer(FileManager.getMessage("Join.SubTitle"), p);
+		String JoinMessage = PlaceHolder.withPlayer(FileManager.getMessage("Join.Message"), p);
 
 		// debug
 		if (CoreMain.debug()) {
@@ -48,7 +48,7 @@ public class JoinEvent implements Listener {
 			Utils.spawnFirework(p.getLocation().add(0, 1, 0), Color.RED, Type.BALL, 1);
 
 			// send the player the server modt
-			p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.Modt"), p));
+			p.sendMessage(PlaceHolder.withPlayer(FileManager.getMessage("Messages.Modt"), p));
 
 			// spawn message and sound
 			for (Player players : PlayerManager.getPlayers()) {

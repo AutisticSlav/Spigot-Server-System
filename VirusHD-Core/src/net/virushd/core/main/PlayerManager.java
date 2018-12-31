@@ -1,8 +1,6 @@
 package net.virushd.core.main;
 
-import net.virushd.core.api.PlaceHolder;
-import net.virushd.core.api.SaveUtils;
-import net.virushd.core.api.Utils;
+import net.virushd.core.api.*;
 import net.virushd.core.events.ItemClickEvent;
 import net.virushd.core.scoreboards.Lobby;
 import net.virushd.core.scoreboards.NoScoreboard;
@@ -13,6 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("ConstantConditions")
 public class PlayerManager {
 
 	private static ArrayList<Player> players = new ArrayList<>();
@@ -25,11 +24,11 @@ public class PlayerManager {
 	public static void join(Player p) {
 		if (!players.contains(p)) {
 
-			String TabTitleHeader = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Header"), p);
-			String TabTitleFooter = PlaceHolder.withPlayer(FileManager.messages.getString("TabTitle.Footer"), p);
+			String TabTitleHeader = PlaceHolder.withPlayer(FileManager.getMessage("TabTitle.Header"), p);
+			String TabTitleFooter = PlaceHolder.withPlayer(FileManager.getMessage("TabTitle.Footer"), p);
 
 			// teleport
-			Utils.smoothTeleport(p, SaveUtils.getLocationFromFile(FileManager.config, "Spawns.Lobby"), GameMode.ADVENTURE);
+			Utils.smoothTeleport(p, Serializer.deserializeLocation(Serializer.getMap(FileManager.getFile("config", ConfigFile.FileType.NORMAL), "Spawns.Lobby")), GameMode.ADVENTURE);
 			p.getInventory().clear();
 
 			// items
@@ -52,7 +51,7 @@ public class PlayerManager {
 	public static void leave(Player p) {
 		if (players.contains(p)) {
 
-			String QuitMessage = PlaceHolder.withPlayer(FileManager.messages.getString("Quit.Message"), p);
+			String QuitMessage = PlaceHolder.withPlayer(FileManager.getMessage("Quit.Message"), p);
 
 			// send the quit message & remove the player
 			players.remove(p);

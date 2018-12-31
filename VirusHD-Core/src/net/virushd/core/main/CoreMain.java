@@ -3,12 +3,9 @@ package net.virushd.core.main;
 import net.virushd.core.api.ConfigFile;
 import net.virushd.core.api.ConfigFile.FileType;
 import net.virushd.core.api.Minigame;
-import net.virushd.core.api.SaveUtils;
-import net.virushd.inventory.main.InventoryAPI;
+import net.virushd.core.api.Serializer;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.virushd.core.commands.Admin;
@@ -22,11 +19,8 @@ import net.virushd.core.events.PlayerDeathEvent;
 import net.virushd.core.events.QuitEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static net.virushd.core.main.FileManager.inv_teleporter;
-import static net.virushd.core.main.FileManager.locations;
-
+@SuppressWarnings("ConstantConditions")
 public class CoreMain extends JavaPlugin {
 
 	public static CoreMain main;
@@ -38,7 +32,7 @@ public class CoreMain extends JavaPlugin {
 		main = this;
 
 		// files
-		FileManager.manager();
+		FileManager.initFiles();
 
 		// events
 		getServer().getPluginManager().registerEvents(new JoinEvent(), this);
@@ -82,7 +76,7 @@ public class CoreMain extends JavaPlugin {
 
 	// check if debug mode is active
 	public static boolean debug() {
-		return FileManager.config.getBoolean("DebugMode");
+		return FileManager.getFile("config", FileType.NORMAL).getConfig().getBoolean("DebugMode");
 	}
 
 	// check if a plugin is available
@@ -93,9 +87,13 @@ public class CoreMain extends JavaPlugin {
 	// register a minigame
 	public static void registerMinigame(Minigame minigame) {
 		minigames.add(minigame);
-		SaveUtils.defaultItemToFile(inv_teleporter, "Items." + minigame.getRealName(), minigame.getDefaultItem());
-		inv_teleporter.addDefault("Items." + minigame.getRealName() + ".Slot", minigame.getDefaultSlot());
-		SaveUtils.defaultLocationToFile(locations, minigame.getRealName(), minigame.getDefaultLocation());
+		ConfigFile teleporter = FileManager.getFile("teleporter", FileType.INVENTORIES);
+		teleporter.addDefault("Items." + minigame.getRealName(), Serializer.serializeItem(minigame.getDefaultItem()));
+		teleporter.addDefault("Items." + minigame.getRealName() + ".Slot", minigame.getDefaultSlot());
+		teleporter.save();
+		ConfigFile locations = FileManager.getFile("teleporter", FileType.INVENTORIES);
+		locations.addDefault(minigame.getRealName(), Serializer.serializeLocation(minigame.getDefaultLocation()));
+		locations.save();
 	}
 
 	// get a copy of the minigame list

@@ -22,8 +22,8 @@ public class AchievementEvent implements Listener {
 		// add 50 coins
 		if (PlayerManager.isNormal(p)) {
 			if (!(p.getGameMode().equals(GameMode.CREATIVE))) {
-				Coins.add(p.getUniqueId(), 50);
-				p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));
+				Coins.add(p.getUniqueId(), 5);
+				p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
 				p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 			}
 		}

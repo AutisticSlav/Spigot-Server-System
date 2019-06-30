@@ -7,6 +7,6 @@ import net.virushd.pets.pet.Pet;
 public class Blaze extends Pet {
 
 	public Blaze() {
-		super(2, EntityType.BLAZE, FileManager.messages.getString("PetNames.Blaze"));
+		super(EntityType.BLAZE, FileManager.messages.getString("PetNames.Blaze"));
 	}
 }

@@ -10,6 +10,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 import org.bukkit.entity.Horse.Variant;
+import org.bukkit.entity.Horse.Color;
+import org.bukkit.entity.Horse.Style;
 
 import net.virushd.pets.main.FileManager;
 import net.virushd.pets.pet.Option;
@@ -18,16 +20,16 @@ import net.virushd.pets.pet.Pet;
 public class Horse extends Pet {
 
 	public Horse() {
-		super(8, EntityType.HORSE, FileManager.messages.getString("PetNames.Horse"));
-		
+		super(EntityType.HORSE, FileManager.messages.getString("PetNames.Horse"));
+
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
-			
+
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-				
+
 				Ageable age = (Ageable) ent;
 				age.setAgeLock(true);
-				
+
 				if (theCase.equals(true)) {
 					age.setBaby();
 				} else {
@@ -35,38 +37,41 @@ public class Horse extends Pet {
 				}
 			}
 		}, Material.EGG));
-		
-		addOption(new Option("Tamed", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
+
+		ArrayList<Object> types = new ArrayList<>();
+		for (Variant type : Variant.values()) {
+			types.add("HorseType." + type.toString());
+		}
+		addOption(new Option("HorseType", types, new Option.Action() {
 			
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-				((Tameable) ent).setTamed((boolean) theCase);
-			}
-		}, Material.BONE));
-		
-		addOption(new Option("HorseType", new ArrayList<>(Arrays.asList(Variant.values())), new Option.Action() {
-			
-			@Override
-			public void run(Player p, Object theCase, Entity ent) {
-				((org.bukkit.entity.Horse) ent).setVariant(Variant.valueOf(theCase.toString()));
+				((org.bukkit.entity.Horse) ent).setVariant(Variant.valueOf(theCase.toString().replaceFirst("HorseType.", "")));
 			}
 		}, Material.BOOK));
-		
-		
-//		addOption(new Option("HorseColor", new ArrayList<>(Arrays.asList(Color.values())), new Option.Action() {
-//			
-//			@Override
-//			public void run(Player p, Object theCase, Entity ent) {
-//				((org.bukkit.entity.Horse) ent).setColor(Color.valueOf(theCase.toString()));
-//			}
-//		}, Material.BOOK));
-//		
-//		addOption(new Option("HorseStyle", new ArrayList<>(Arrays.asList(Style.values())), new Option.Action() {
-//			
-//			@Override
-//			public void run(Player p, Object theCase, Entity ent) {
-//				((org.bukkit.entity.Horse) ent).setStyle(Style.valueOf(theCase.toString()));
-//			}
-//		}, Material.BOOK));
+
+		ArrayList<Object> colors = new ArrayList<>();
+		for (Color type : Color.values()) {
+			colors.add("HorseColor." + type.toString());
+		}
+		addOption(new Option("HorseColor", colors, new Option.Action() {
+
+			@Override
+			public void run(Player p, Object theCase, Entity ent) {
+				((org.bukkit.entity.Horse) ent).setColor(Color.valueOf(theCase.toString().replaceFirst("HorseColor.", "")));
+			}
+		}, Material.BOOK));
+
+		ArrayList<Object> styles = new ArrayList<>();
+		for (Style type : Style.values()) {
+			styles.add("HorseStyle." + type.toString());
+		}
+		addOption(new Option("HorseStyle", styles, new Option.Action() {
+
+			@Override
+			public void run(Player p, Object theCase, Entity ent) {
+				((org.bukkit.entity.Horse) ent).setStyle(Style.valueOf(theCase.toString().replaceFirst("HorseStyle.", "")));
+			}
+		}, Material.BOOK));
 	}
 }

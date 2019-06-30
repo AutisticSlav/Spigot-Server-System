@@ -2,7 +2,13 @@ package net.virushd.pets.pet;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Ageable;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Tameable;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.SpawnEgg;
@@ -15,8 +21,10 @@ public class Pet {
 	private String name;
 	private ArrayList<Option> options = new ArrayList<>();
 
-	public Pet(int id, EntityType type, String name) {
-		this.id = id;
+	public static int ids = 0;
+
+	public Pet(EntityType type, String name) {
+		this.id = ids; ids++;
 		this.type = type;
 		this.name = name;
 		

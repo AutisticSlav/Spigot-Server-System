@@ -4,6 +4,7 @@ import net.virushd.core.main.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import net.virushd.core.api.SaveUtils;
@@ -18,7 +19,7 @@ public class Updater {
 			for (Player players : PlayerManager.getPlayers()) {
 				if (PetUtils.hasPet(players)) {
 					try {
-						Location loc = PetUtils.getPet(players).getLocation().add(0, 1, 0);
+						Location loc = ((LivingEntity) PetUtils.getPet(players)).getEyeLocation().add(0, 0.3, 0);
 						players.playEffect(loc, Effect.HEART, null);
 					} catch (Exception ignored) {
 
@@ -47,5 +48,30 @@ public class Updater {
 				}
 			}
 		}, 5L, 5L);
+	}
+
+	// pet following mechanics
+	public static void petFollow() {
+
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(PetsMain.main, () -> {
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (PetUtils.hasPet(p) && PlayerManager.getPlayers().contains(p)) {
+					boolean isHide = FileManager.pets.getBoolean(p.getUniqueId().toString() + ".Hide");
+
+					// if pet is not hidden
+					if (!isHide) {
+
+						// let the pet follow the player
+						try {
+							PetUtils.walkToLoc(PetUtils.getPet(p), p.getLocation());
+						} catch (Exception ex) {
+							PetUtils.spawnPet(p, p.getWorld());
+							FileManager.pets.set(p.getUniqueId().toString() + ".Hide", false);
+							SaveUtils.saveFile(FileManager.petsF, FileManager.pets);
+						}
+					}
+				}
+			}
+		}, 0L, 20L);
 	}
 }

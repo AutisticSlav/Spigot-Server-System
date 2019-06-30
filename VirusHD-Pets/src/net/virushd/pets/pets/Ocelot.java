@@ -18,7 +18,7 @@ import net.virushd.pets.pet.Pet;
 public class Ocelot extends Pet {
 
 	public Ocelot() {
-		super(12, EntityType.OCELOT, FileManager.messages.getString("PetNames.Ocelot"));
+		super(EntityType.OCELOT, FileManager.messages.getString("PetNames.Ocelot"));
 		
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
 			
@@ -35,20 +35,16 @@ public class Ocelot extends Pet {
 				}
 			}
 		}, Material.EGG));
-		
-		addOption(new Option("Tamed", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
+
+		ArrayList<Object> types = new ArrayList<>();
+		for (Type type : Type.values()) {
+			types.add("CatType." + type.toString());
+		}
+		addOption(new Option("CatType", types, new Option.Action() {
 			
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-				((Tameable) ent).setTamed((boolean) theCase);
-			}
-		}, Material.BONE));
-		
-		addOption(new Option("CatType", new ArrayList<>(Arrays.asList(Type.values())), new Option.Action() {
-			
-			@Override
-			public void run(Player p, Object theCase, Entity ent) {
-				((org.bukkit.entity.Ocelot) ent).setCatType(Type.valueOf(theCase.toString()));
+				((org.bukkit.entity.Ocelot) ent).setCatType(Type.valueOf(theCase.toString().replaceFirst("CatType.", "")));
 			}
 		}, Material.BOOK));
 		

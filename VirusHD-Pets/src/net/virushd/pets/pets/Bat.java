@@ -7,6 +7,6 @@ import net.virushd.pets.pet.Pet;
 public class Bat extends Pet {
 
 	public Bat() {
-		super(1, EntityType.BAT, FileManager.messages.getString("PetNames.Bat"));
+		super(EntityType.BAT, FileManager.messages.getString("PetNames.Bat"));
 	}
 }

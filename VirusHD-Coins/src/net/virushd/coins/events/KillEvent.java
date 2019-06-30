@@ -31,18 +31,18 @@ public class KillEvent implements Listener {
 
 					// then add coins depending on the kill
 					if (e.getEntity() instanceof Player) {
-						Coins.add(p.getUniqueId(), 30);
-						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 30));
+						Coins.add(p.getUniqueId(), 5);
+						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
 						p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 
 					} else if (e.getEntity() instanceof Animals) {
-						Coins.add(p.getUniqueId(), 10);
-						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 10));
+						Coins.add(p.getUniqueId(), 1);
+						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 1));
 						p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 
 					} else if (e.getEntity() instanceof Monster) {
-						Coins.add(p.getUniqueId(), 20);
-						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 20));
+						Coins.add(p.getUniqueId(), 2);
+						p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 2));
 						p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 					}
 				}

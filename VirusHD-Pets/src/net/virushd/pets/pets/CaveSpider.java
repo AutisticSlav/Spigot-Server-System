@@ -7,6 +7,6 @@ import net.virushd.pets.pet.Pet;
 public class CaveSpider extends Pet {
 	
 	public CaveSpider() {
-		super(3, EntityType.CAVE_SPIDER, FileManager.messages.getString("PetNames.CaveSpider"));
+		super(EntityType.CAVE_SPIDER, FileManager.messages.getString("PetNames.CaveSpider"));
 	}
 }

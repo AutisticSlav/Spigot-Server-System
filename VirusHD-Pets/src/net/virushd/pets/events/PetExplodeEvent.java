@@ -12,7 +12,7 @@ import net.virushd.pets.pet.PetUtils;
 public class PetExplodeEvent implements Listener {
 
 	@EventHandler
-	public void onExploder(EntityExplodeEvent e) {
+	public void onExplode(EntityExplodeEvent e) {
 
 		for (Player players : Bukkit.getOnlinePlayers()) {
 			if (PetUtils.hasPet(players)) {
@@ -20,6 +20,7 @@ public class PetExplodeEvent implements Listener {
 				// cancel pet explotions
 				if (e.getEntity().getUniqueId().toString().equals(FileManager.pets.getString(players.getUniqueId().toString() + ".PetUUID"))) {
 					e.setCancelled(true);
+					System.out.println("Explode");
 				}
 			}
 		}

@@ -85,11 +85,11 @@ public class Utils {
 		return "null";
 	}
 
-	// get the distance between two locations
-	public static double locationDifference(Location pos1, Location pos2) {
-		double x = (pos2.getX() - pos1.getX());
-		double z = (pos2.getZ() - pos1.getZ());
-		return Math.abs(x * z);
+	// get the area (2D) between two locations
+	public static double locationArea(Location pos1, Location pos2) {
+		double x = Math.abs(pos2.getX() - pos1.getX());
+		double z = Math.abs(pos2.getZ() - pos1.getZ());
+		return x * z;
 	}
 
 	// teleport a player to a normalized location

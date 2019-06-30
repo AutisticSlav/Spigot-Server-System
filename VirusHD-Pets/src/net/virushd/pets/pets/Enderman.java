@@ -7,6 +7,6 @@ import net.virushd.pets.pet.Pet;
 public class Enderman extends Pet {
 
 	public Enderman() {
-		super(7, EntityType.ENDERMAN, FileManager.pets.getString("PetNames.Enderman"));
+		super(EntityType.ENDERMAN, FileManager.messages.getString("PetNames.Enderman"));
 	}
 }

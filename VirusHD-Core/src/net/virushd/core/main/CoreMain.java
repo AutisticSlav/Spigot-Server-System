@@ -4,6 +4,7 @@ import net.virushd.core.api.ConfigFile;
 import net.virushd.core.api.ConfigFile.FileType;
 import net.virushd.core.api.Minigame;
 import net.virushd.core.api.SaveUtils;
+import net.virushd.core.events.*;
 import net.virushd.inventory.main.InventoryAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -13,13 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.virushd.core.commands.Admin;
 import net.virushd.core.commands.Lobby;
-import net.virushd.core.events.ChatEvent;
-import net.virushd.core.events.CommandEvent;
-import net.virushd.core.events.InvClickEvent;
-import net.virushd.core.events.ItemClickEvent;
-import net.virushd.core.events.JoinEvent;
-import net.virushd.core.events.PlayerDeathEvent;
-import net.virushd.core.events.QuitEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +41,7 @@ public class CoreMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChatEvent(), this);
 		getServer().getPluginManager().registerEvents(new InvClickEvent(), this);
 		getServer().getPluginManager().registerEvents(new CommandEvent(), this);
-		//getServer().getPluginManager().registerEvents(new DamageEvent(), this);
+		getServer().getPluginManager().registerEvents(new DamageEvent(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathEvent(), this);
 
 		// commands

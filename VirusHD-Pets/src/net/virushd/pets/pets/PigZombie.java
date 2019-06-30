@@ -8,28 +8,21 @@ import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Pig extends Pet {
+public class PigZombie extends Pet {
 
-	public Pig() {
-		super(EntityType.PIG, FileManager.messages.getString("PetNames.Pig"));
+	public PigZombie() {
+		super(EntityType.PIG_ZOMBIE, FileManager.messages.getString("PetNames.PigZombie"));
 
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
 
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-
-				Ageable age = (Ageable) ent;
-				age.setAgeLock(true);
-
-				if (theCase.equals(true)) {
-					age.setBaby();
-				} else {
-					age.setAdult();
-				}
+				((Zombie) ent).setBaby((boolean) theCase);
 			}
 		}, Material.EGG));
 	}

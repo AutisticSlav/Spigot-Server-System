@@ -1,16 +1,20 @@
 package net.virushd.pets.pet;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
+import net.minecraft.server.v1_8_R3.EntityInsentient;
+import net.minecraft.server.v1_8_R3.PathEntity;
 import net.virushd.core.api.SaveUtils;
+import net.virushd.core.api.Utils;
+import net.virushd.pets.main.PetsMain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftCreature;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.entity.*;
 import net.virushd.pets.main.FileManager;
 
 public class PetUtils {
@@ -45,7 +49,7 @@ public class PetUtils {
 			Pet pet = Pet.getPet(FileManager.pets.getInt(owner.getUniqueId().toString() + ".ID"));
 			String petName = FileManager.pets.getString(owner.getUniqueId().toString() + ".Name");
 
-			LivingEntity ent = (LivingEntity) world.spawnEntity(owner.getLocation(), pet.getType());
+			LivingEntity ent = (LivingEntity) world.spawnEntity(owner.getLocation().add(1d, 0d, 1d), pet.getType());
 
 			if (pet.getOptions().size() != 0) {
 				for (Option option : pet.getOptions()) {
@@ -53,61 +57,11 @@ public class PetUtils {
 				}
 			}
 
-//			// Zombie
-//			if (ent.getType().equals(EntityType.ZOMBIE)) {
-//				Zombie zombie = (Zombie) ent;
-//				zombie.setBaby(false);
-//			}
-//
-//			// Cat
-//			if (ent.getType().equals(EntityType.OCELOT)) {
-//				Ocelot ocelot = (Ocelot) ent;
-//				ocelot.setAdult();
-//				ocelot.setTamed(true);
-//				ocelot.setCatType(org.bukkit.entity.Ocelot.Type.BLACK_CAT);
-//			}
-//
-//			// Dog
-//			if (ent.getType().equals(EntityType.WOLF)) {
-//				Wolf wolf = (Wolf) ent;
-//				wolf.setAdult();
-//				wolf.setTamed(true);
-//			}
-//
-//			// Rabbit
-//			if (ent.getType().equals(EntityType.RABBIT)) {
-//				Rabbit rabbit = (Rabbit) ent;
-//				rabbit.setAdult();
-//				rabbit.setRabbitType(org.bukkit.entity.Rabbit.Type.BROWN);
-//			}
-//
-//			// Horse
-//			if (ent.getType().equals(EntityType.HORSE)) {
-//				Horse horse = (Horse) ent;
-//				horse.setAdult();
-//				horse.setTamed(true);
-//				horse.setStyle(org.bukkit.entity.Horse.Style.NONE);
-//				horse.setColor(org.bukkit.entity.Horse.Color.BLACK);
-//			}
-//
-//			// Sheep
-//			if (ent.getType().equals(EntityType.SHEEP)) {
-//				Sheep sheep = (Sheep) ent;
-//				sheep.setAdult();
-//				sheep.setColor(DyeColor.WHITE);
-//			}
-//
-//			// Pig
-//			if (ent.getType().equals(EntityType.PIG)) {
-//				Pig pig = (Pig) ent;
-//				pig.setAdult();
-//			}
-//
-//			// Chicken
-//			if (ent.getType().equals(EntityType.CHICKEN)) {
-//				Chicken chicken = (Chicken) ent;
-//				chicken.setAdult();
-//			}
+			if (ent instanceof Tameable) {
+				Tameable t = (Tameable) ent;
+				t.setTamed(true);
+				t.setOwner(owner);
+			}
 
 			ent.getEquipment().clear();
 
@@ -160,10 +114,25 @@ public class PetUtils {
 	}
 
 	// follow the player
-	public static void walkToLoc(Entity pet, Location loc, double speed) {
-		if (pet.getLocation().distanceSquared(loc) >= 15) {
-			pet.teleport(loc);
+	public static void walkToLoc(Entity pet, Location loc) {
+		if (!(pet instanceof Ocelot && ((Ocelot) pet).isSitting() || pet instanceof Wolf && ((Wolf) pet).isSitting())) {
+			/* if (Math.round(Utils.locationDistance(pet.getLocation(), loc)) >= 15) {
+				pet.teleport(loc);
+			}
+
+			((CraftCreature) pet).getHandle().getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 1.4); */
+
+			EntityInsentient handle = (EntityInsentient) ((CraftEntity) pet).getHandle();
+			PathEntity path = (handle).getNavigation().a(loc.getX() + 1, loc.getY(), loc.getZ() +1);
+
+			if(path != null) {
+				(handle).getNavigation().a(path, 1.0D);
+				(handle).getNavigation().a(2.0D);
+			}
+
+			if(loc.distance(pet.getLocation()) > 10) {
+				pet.teleport(loc);
+			}
 		}
-		((CraftCreature) pet).getHandle().getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), speed);
 	}
 }

@@ -16,16 +16,16 @@ import net.virushd.pets.pet.Pet;
 public class Cow extends Pet {
 
 	public Cow() {
-		super(5, EntityType.COW, FileManager.messages.getString("PetNames.Cow"));
-		
+		super(EntityType.COW, FileManager.messages.getString("PetNames.Cow"));
+
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
-			
+
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-				
+
 				Ageable age = (Ageable) ent;
 				age.setAgeLock(true);
-				
+
 				if (theCase.equals(true)) {
 					age.setBaby();
 				} else {

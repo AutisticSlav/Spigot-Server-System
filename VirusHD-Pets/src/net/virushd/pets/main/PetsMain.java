@@ -25,7 +25,7 @@ public class PetsMain extends JavaPlugin {
 
 		//events
 		Bukkit.getPluginManager().registerEvents(new TargetEvent(), this);
-		Bukkit.getPluginManager().registerEvents(new WalkEvent(), this);
+		//Bukkit.getPluginManager().registerEvents(new WalkEvent(), this);
 		Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
 		Bukkit.getPluginManager().registerEvents(new QuitEvent(), this);
 		Bukkit.getPluginManager().registerEvents(new PetDamageEvent(), this);
@@ -37,6 +37,7 @@ public class PetsMain extends JavaPlugin {
 		//updater
 		Updater.petHearts();
 		Updater.petVisibility();
+		Updater.petFollow();
 
 		//load message
 		getLogger().info("Plugin enabled!");

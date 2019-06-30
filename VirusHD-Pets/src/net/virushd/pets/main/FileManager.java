@@ -50,33 +50,29 @@ public class FileManager {
 		messages.addDefault("Messages.NotEnoughCoins", "{PetsPrefix}Du hast nicht genügend Coins. Ein Pet kostet &c{PetPrice} &7Coins.");
 
 		// PetNames
-		messages.addDefault("PetNames.Bat", "Fledermaus");                        // 1
-		messages.addDefault("PetNames.Blaze", "Lohe");                            // 2
-		messages.addDefault("PetNames.CaveSpider", "Höhlenspinne");                // 3
-		messages.addDefault("PetNames.Chicken", "Huhn");                        // 4
-		messages.addDefault("PetNames.Cow", "Kuh");                                // 5
-		messages.addDefault("PetNames.Creeper", "Creeper");                        // 6
-		messages.addDefault("PetNames.Enderman", "Enderman");                    // 7
-		messages.addDefault("PetNames.Horse", "Pferd");                            // 8
-		messages.addDefault("PetNames.IronGolem", "Eisengolem");                // 9
-		messages.addDefault("PetNames.MagmaCube", "Magmawürfel");                // 10
-		messages.addDefault("PetNames.MushroomCow", "Pilzkuh");                    // 11
-		messages.addDefault("PetNames.Ocelot", "Ozelot");                        // 12
-
-		// hier weiter machen
-		messages.addDefault("PetNames.Pig", "Schwein");                            // 13
-		messages.addDefault("PetNames.ZombiePigman", "Zombie Pigman");            // 14
-		messages.addDefault("PetNames.Rabbit", "Hase");                            // 15
-		messages.addDefault("PetNames.Sheep", "Schaf");                            // 16
-		messages.addDefault("PetNames.Skeleton", "Selett");                        // 17
-		messages.addDefault("PetNames.Slime", "Schliem");                        // 18
-		messages.addDefault("PetNames.Spider", "Spinne");                        // 19
-		messages.addDefault("PetNames.Villager", "Dorfbewohner");                // 20
-		messages.addDefault("PetNames.Witch", "Hexe");                            // 21
-		messages.addDefault("PetNames.WitherSkeleton", "Witherskelett");        // 22
-		messages.addDefault("PetNames.Wolf", "Wolf");                            // 23
-		messages.addDefault("PetNames.Zombie", "Zombie");                        // 24
-		messages.addDefault("PetNames.ZombieVillager", "Dorfbewohnerzombie");    // 25
+		messages.addDefault("PetNames.Bat", "Fledermaus");
+		messages.addDefault("PetNames.Blaze", "Lohe");
+		messages.addDefault("PetNames.CaveSpider", "Höhlenspinne");
+		messages.addDefault("PetNames.Chicken", "Huhn");
+		messages.addDefault("PetNames.Cow", "Kuh");
+		messages.addDefault("PetNames.Creeper", "Creeper");
+		messages.addDefault("PetNames.Enderman", "Enderman");
+		messages.addDefault("PetNames.Horse", "Pferd");
+		messages.addDefault("PetNames.IronGolem", "Eisengolem");
+		messages.addDefault("PetNames.MagmaCube", "Magmawürfel");
+		messages.addDefault("PetNames.MushroomCow", "Pilzkuh");
+		messages.addDefault("PetNames.Ocelot", "Ozelot");
+		messages.addDefault("PetNames.Pig", "Schwein");
+		messages.addDefault("PetNames.Rabbit", "Hase");
+		messages.addDefault("PetNames.Sheep", "Schaf");
+		messages.addDefault("PetNames.Skeleton", "Skelett");
+		messages.addDefault("PetNames.Slime", "Schliem");
+		messages.addDefault("PetNames.Spider", "Spinne");
+		messages.addDefault("PetNames.Villager", "Dorfbewohner");
+		messages.addDefault("PetNames.Witch", "Hexe");
+		messages.addDefault("PetNames.Wolf", "Wolf");
+		messages.addDefault("PetNames.Zombie", "Zombie");
+		messages.addDefault("PetNames.PigZombie", "Schweinezombie");
 		messages.options().copyDefaults(true);
 		SaveUtils.saveFile(messagesF, messages);
 
@@ -102,40 +98,70 @@ public class FileManager {
 //		options.addDefault("Options.Ride", "&cReiten");
 		options.addDefault("Options.Baby", "&cBaby");
 		options.addDefault("Options.Size", "&cGrösse");
-		options.addDefault("Options.Tamed", "&cGezähmt");
+		options.addDefault("Options.Color", "&cFarbe");
 		options.addDefault("Options.HorseType", "&cTyp");
+		options.addDefault("Options.HorseColor", "&cFarbe");
+		options.addDefault("Options.HorseStyle", "&cStil");
 		options.addDefault("Options.CatType", "&cTyp");
 		options.addDefault("Options.Sitting", "&cSitzen");
 		options.addDefault("Options.CollarColor", "&cHalsband Farbe");
-		options.addDefault("Names.Size.Small", "&7Klein");
-		options.addDefault("Names.Size.Medium", "&7Mittel");
-		options.addDefault("Names.Size.Big", "&7Gross");
-		options.addDefault("Names.HorseType.DONKEY", "&7Esel");
-		options.addDefault("Names.HorseType.HORSE", "&7Pferd");
-		options.addDefault("Names.HorseType.MULE", "&7Maultier");
-		options.addDefault("Names.HorseType.SKELETON_HORSE", "&7Skelettpferd");
-		options.addDefault("Names.HorseType.UNDEAD_HORSE", "&7Zombiepferd");
-		options.addDefault("Names.CatType.BLACK_CAT", "&7Schwarz");
-		options.addDefault("Names.CatType.RED_CAT", "&7Rot");
-		options.addDefault("Names.CatType.SIAMESE_CAT", "&7Siamkatze");
-		options.addDefault("Names.CatType.WILD_OCELOT", "&7Ozelot");
-		options.addDefault("Names.Color.WHITE", "&fWeiss");
-		options.addDefault("Names.Color.ORANGE", "&6Orange");
-		options.addDefault("Names.Color.MAGENTA", "&5Magenta");
-		options.addDefault("Names.Color.LIGHT_BLUE", "&bHellblau");
-		options.addDefault("Names.Color.YELLOW", "&eGelb");
-		options.addDefault("Names.Color.LIME", "&aLimette");
-		options.addDefault("Names.Color.PINK", "&dPink");
-		options.addDefault("Names.Color.GRAY", "&8Grau");
-		options.addDefault("Names.Color.SILVER", "&7Silber");
-		options.addDefault("Names.Color.CYAN", "&bCyan");
-		options.addDefault("Names.Color.PURPLE", "&5Violett");
-		options.addDefault("Names.Color.BROWN", "&6Braun");
-		options.addDefault("Names.Color.GREEN", "&2Grün");
-		options.addDefault("Names.Color.RED", "&4Rot");
-		options.addDefault("Names.Color.BLACK", "&0Schwarz");
-//		options.addDefault("Names.HorseColor.", ""); // TODO HorseColor
-//		options.addDefault("Names.HorseStyle.", ""); // TODO HorseStyle
+		options.addDefault("Options.SkeletonType", "&cTyp");
+		options.addDefault("Options.Profession", "&cArbeit");
+		options.addDefault("Options.ZombieVillager", "&cDorfbewohnerzombie");
+		options.addDefault("Size.Small", "&7Klein");
+		options.addDefault("Size.Medium", "&7Mittel");
+		options.addDefault("Size.Big", "&7Gross");
+		options.addDefault("HorseType.DONKEY", "&7Esel");
+		options.addDefault("HorseType.HORSE", "&7Pferd");
+		options.addDefault("HorseType.MULE", "&7Maultier");
+		options.addDefault("HorseType.SKELETON_HORSE", "&7Skelettpferd");
+		options.addDefault("HorseType.UNDEAD_HORSE", "&7Zombiepferd");
+		options.addDefault("CatType.BLACK_CAT", "&7Schwarz");
+		options.addDefault("CatType.RED_CAT", "&7Rot");
+		options.addDefault("CatType.SIAMESE_CAT", "&7Siamkatze");
+		options.addDefault("CatType.WILD_OCELOT", "&7Ozelot");
+		options.addDefault("Color.WHITE", "&fWeiss");
+		options.addDefault("Color.ORANGE", "&6Orange");
+		options.addDefault("Color.MAGENTA", "&5Magenta");
+		options.addDefault("Color.LIGHT_BLUE", "&bHellblau");
+		options.addDefault("Color.YELLOW", "&eGelb");
+		options.addDefault("Color.LIME", "&aLimette");
+		options.addDefault("Color.PINK", "&dPink");
+		options.addDefault("Color.GRAY", "&8Grau");
+		options.addDefault("Color.SILVER", "&7Silber");
+		options.addDefault("Color.CYAN", "&bCyan");
+		options.addDefault("Color.PURPLE", "&5Violett");
+		options.addDefault("Color.BLUE", "&1Blau");
+		options.addDefault("Color.BROWN", "&6Braun");
+		options.addDefault("Color.GREEN", "&2Grün");
+		options.addDefault("Color.RED", "&4Rot");
+		options.addDefault("Color.BLACK", "&0Schwarz");
+		options.addDefault("HorseColor.WHITE", "&fWeiss");
+		options.addDefault("HorseColor.CREAMY", "&6Cremig");
+		options.addDefault("HorseColor.CHESTNUT", "&6Kastanie");
+		options.addDefault("HorseColor.BROWN", "&6Braun");
+		options.addDefault("HorseColor.BLACK", "&0Schwarz");
+		options.addDefault("HorseColor.GRAY", "&8Grau");
+		options.addDefault("HorseColor.DARK_BROWN", "&6Dunkelbraun");
+		options.addDefault("HorseStyle.NONE", "&7Kein Style");
+		options.addDefault("HorseStyle.WHITE", "&7Weisse Streifen");
+		options.addDefault("HorseStyle.WHITEFIELD", "&7Weisslich");
+		options.addDefault("HorseStyle.WHITE_DOTS", "&7Weisse Punkte");
+		options.addDefault("HorseStyle.BLACK_DOTS", "&7Schwarze Punkte");
+		options.addDefault("SkeletonType.NORMAL", "&7Normal");
+		options.addDefault("SkeletonType.WITHER", "&7Wither");
+		options.addDefault("Profession.FARMER", "&7Farmer");
+		options.addDefault("Profession.LIBRARIAN", "&7Bibliothekar");
+		options.addDefault("Profession.PRIEST", "&7Priester");
+		options.addDefault("Profession.BLACKSMITH", "&7Schmied");
+		options.addDefault("Profession.BUTCHER", "&7Metzger");
+		options.addDefault("RabbitType.BROWN", "&6Braun");
+		options.addDefault("RabbitType.WHITE", "&fWeiss");
+		options.addDefault("RabbitType.BLACK", "&0Schwarz");
+		options.addDefault("RabbitType.BLACK_AND_WHITE", "&7Schwarz und Weiss");
+		options.addDefault("RabbitType.GOLD", "&6Gold");
+		options.addDefault("RabbitType.SALT_AND_PEPPER", "&7Salz und Pfeffer");
+		options.addDefault("RabbitType.THE_KILLER_BUNNY", "&4The Killer Bunny");
 		options.addDefault("True", "&aAn");
 		options.addDefault("False", "&4Aus");
 		options.options().copyDefaults(true);

@@ -7,6 +7,6 @@ import net.virushd.pets.pet.Pet;
 public class IronGolem extends Pet {
 
 	public IronGolem() {
-		super(9, EntityType.HORSE, FileManager.messages.getString("PetNames.IronGolem"));
+		super(EntityType.IRON_GOLEM, FileManager.messages.getString("PetNames.IronGolem"));
 	}
 }

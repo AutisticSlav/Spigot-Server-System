@@ -16,7 +16,7 @@ import net.virushd.pets.pet.Pet;
 public class Chicken extends Pet {
 
 	public Chicken() {
-		super(4, EntityType.CHICKEN, FileManager.messages.getString("PetNames.Chicken"));
+		super(EntityType.CHICKEN, FileManager.messages.getString("PetNames.Chicken"));
 		
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
 			

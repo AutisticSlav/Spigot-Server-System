@@ -29,48 +29,23 @@ public class BlockBreakEvent implements Listener {
 					Block block = e.getBlock();
 					switch (block.getType()) {
 						case DIAMOND_ORE:
-							Coins.add(p.getUniqueId(), 50);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));
-							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-							break;
-						case COAL_ORE:
 							Coins.add(p.getUniqueId(), 5);
 							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
 							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 							break;
 						case EMERALD_ORE:
-							Coins.add(p.getUniqueId(), 50);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 50));
+							Coins.add(p.getUniqueId(), 5);
+							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
 							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 							break;
 						case GOLD_ORE:
-							Coins.add(p.getUniqueId(), 20);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 20));
-							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-							break;
-						case GLOWING_REDSTONE_ORE:
-							Coins.add(p.getUniqueId(), 5);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
-							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-							break;
-						case IRON_ORE:
-							Coins.add(p.getUniqueId(), 10);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 10));
+							Coins.add(p.getUniqueId(), 1);
+							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 1));
 							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 							break;
 						case LAPIS_ORE:
-							Coins.add(p.getUniqueId(), 20);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 20));
-							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-							break;
-						case QUARTZ_ORE:
-							Coins.add(p.getUniqueId(), 5);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
-							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
-							break;
-						case REDSTONE_ORE:
-							Coins.add(p.getUniqueId(), 5);
-							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 5));
+							Coins.add(p.getUniqueId(), 2);
+							p.sendMessage(PlaceHolder.withPlayer(FileManager.messages.getString("Messages.CoinsEarned"), p).replace("{Amount}", "" + 2));
 							p.playSound(p.getLocation(), Sound.LEVEL_UP, 1, 1);
 							break;
 						default:

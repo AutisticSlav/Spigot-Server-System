@@ -8,15 +8,15 @@ import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Rabbit.Type;
+import org.bukkit.entity.Villager.Profession;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Rabbit extends Pet {
+public class Villager extends Pet {
 
-	public Rabbit() {
-		super(EntityType.RABBIT, FileManager.messages.getString("PetNames.Rabbit"));
+	public Villager() {
+		super(EntityType.VILLAGER, FileManager.messages.getString("PetNames.Villager"));
 
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
 
@@ -35,14 +35,14 @@ public class Rabbit extends Pet {
 		}, Material.EGG));
 
 		ArrayList<Object> types = new ArrayList<>();
-		for (Type type : Type.values()) {
-			types.add("RabbitType." + type.toString());
+		for (Profession type : Profession.values()) {
+			types.add("Profession." + type.toString());
 		}
-		addOption(new Option("RabbitType", types, new Option.Action() {
+		addOption(new Option("Profession", types, new Option.Action() {
 
 			@Override
 			public void run(Player p, Object theCase, Entity ent) {
-				((org.bukkit.entity.Rabbit) ent).setRabbitType(Type.valueOf(theCase.toString().replaceFirst("RabbitType.", "")));
+				((org.bukkit.entity.Villager) ent).setProfession(Profession.valueOf(theCase.toString().replaceFirst("Profession.", "")));
 			}
 		}, Material.BOOK));
 	}

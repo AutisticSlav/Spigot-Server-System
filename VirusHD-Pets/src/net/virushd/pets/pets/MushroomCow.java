@@ -16,7 +16,7 @@ import net.virushd.pets.pet.Pet;
 public class MushroomCow extends Pet {
 
 	public MushroomCow() {
-		super(11, EntityType.MUSHROOM_COW, FileManager.messages.getString("PetNames.MushroomCow"));
+		super(EntityType.MUSHROOM_COW, FileManager.messages.getString("PetNames.MushroomCow"));
 		
 		addOption(new Option("Baby", new ArrayList<>(Arrays.asList(false, true)), new Option.Action() {
 			

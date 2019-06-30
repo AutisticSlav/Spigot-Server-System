@@ -22,8 +22,16 @@ public class PetManager {
 		pets.add(new MagmaCube());
 		pets.add(new MushroomCow());
 		pets.add(new Ocelot());
-
-		// id:19
+		pets.add(new Pig());
+		pets.add(new PigZombie());
+		pets.add(new Rabbit());
+		pets.add(new Sheep());
+		pets.add(new Skeleton());
+		pets.add(new Slime());
 		pets.add(new Spider());
+		pets.add(new Villager());
+		pets.add(new Witch());
+		pets.add(new Wolf());
+		pets.add(new Zombie());
 	}
 }

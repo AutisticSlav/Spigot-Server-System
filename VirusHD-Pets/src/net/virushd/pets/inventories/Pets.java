@@ -55,7 +55,7 @@ public class Pets {
 
 					// sell
 					p.closeInventory();
-					p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
+					if (!isHide) p.playEffect(PetUtils.getPet(p).getLocation(), Effect.MOBSPAWNER_FLAMES, null);
 					PetUtils.sellPet(p);
 					p.sendMessage(Sell);
 					p.playSound(p.getLocation(), Sound.BLAZE_HIT, 1, 1);
@@ -163,7 +163,7 @@ public class Pets {
 					hasPet.setSlot(slot, option.getItem(), new ItemListener() {
 						@Override
 						public void onItemClick(Player p) {
-							option.nextSet(p, PetUtils.getPet(p));
+							option.nextCase(p, PetUtils.getPet(p));
 							open(p);
 						}
 					});

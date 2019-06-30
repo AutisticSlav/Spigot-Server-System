@@ -99,7 +99,7 @@ public class Plot {
 
 						region.setOwners(owners);
 
-						if (Utils.locationDifference(positions1.get(p), positions2.get(p)) > FileManager.config.getInt("MaxPlotSize") && !p.hasPermission("virushd.citybuild.ignoreplotsize")) {
+						if (Utils.locationArea(positions1.get(p), positions2.get(p)) > FileManager.config.getInt("MaxPlotSize") && !p.hasPermission("virushd.citybuild.ignoreplotsize")) {
 							p.sendMessage(PlotTooBig);
 						} else if (CityBuildMain.getWorldGuard().getRegionManager(CityBuildWorld).getApplicableRegions(region).size() != 0) {
 							p.sendMessage(PlotCollides);
